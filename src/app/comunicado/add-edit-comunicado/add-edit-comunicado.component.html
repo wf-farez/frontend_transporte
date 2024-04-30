@@ -1,0 +1,42 @@
+
+<p-dialog
+  header="{{ modalType }} comunicado"
+  [(visible)]="displayAddEditModal"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  (onHide)="closeModal()"
+>
+
+  <form [formGroup]="comunicadoForm" class="comunicado-form">
+    <div class="field">
+      <label class="block" for="descripcion">Ingrese Descripcion</label>
+      <input type="text" pInputText id="descripcion" formControlName="descripcion" />
+      <small
+        class="p-error block"
+        *ngIf="
+          comunicadoForm.controls['descripcion'].invalid &&
+          comunicadoForm.controls['descripcion'].dirty
+        "
+        >Field is required</small
+      >
+    </div>
+
+  </form>
+
+<ng-template pTemplate="footer">
+        <p-button
+          (click)="closeModal()"
+          label="Cancel"
+          styleClass="p-button-text"
+        ></p-button>
+        <p-button
+          (click)="addEditComunicado()"
+          label="{{ modalType }}"
+          [disabled]="comunicadoForm.invalid"
+        ></p-button>
+</ng-template>
+
+ 
+</p-dialog>

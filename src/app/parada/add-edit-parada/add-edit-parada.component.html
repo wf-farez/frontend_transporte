@@ -1,0 +1,91 @@
+
+<p-dialog
+  header="{{ modalType }} parada"
+  [(visible)]="displayAddEditModal"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  (onHide)="closeModal()"
+>
+
+  <form [formGroup]="paradaForm" class="parada-form">
+    <div class="field">
+      <label class="block" for="nombreParada">Nombre Parada</label>
+      <input type="text" pInputText id="nombreParada" formControlName="nombreParada" />
+      <small
+        class="p-error block"
+        *ngIf="
+          paradaForm.controls['nombreParada'].invalid &&
+          paradaForm.controls['nombreParada'].dirty
+        "
+        >Field is required</small
+      >
+    </div>
+
+   
+      <div class="field">
+        <label class="block" for="direccion">Direccion</label>
+        <input type="text" pInputText id="direccion" formControlName="direccion" />
+        <small
+          class="p-error block"
+          *ngIf="
+            paradaForm.controls['direccion'].invalid &&
+            paradaForm.controls['direccion'].dirty
+          "
+          >Field is required</small
+        >
+      </div>
+  
+
+  <div class="field">
+    <label class="block" for="latitud">Latitud</label>
+    <p-inputNumber
+      id="price"
+      formControlName="latitud"
+      class="block"
+    ></p-inputNumber>
+    <small
+      class="p-error block"
+      *ngIf="
+        paradaForm.controls['latitud'].invalid &&
+        paradaForm.controls['latitud'].dirty
+      "
+      >Field is required</small
+    >
+  </div>
+
+  <div class="field">
+    <label class="block" for="longitud">Longitud</label>
+    <p-inputNumber
+      id="price"
+      formControlName="longitud"
+      class="block"
+    ></p-inputNumber>
+    <small
+      class="p-error block"
+      *ngIf="
+        paradaForm.controls['longitud'].invalid &&
+        paradaForm.controls['longitud'].dirty
+      "
+      >Field is required</small
+    >
+  </div>
+
+  </form>
+
+<ng-template pTemplate="footer">
+        <p-button
+          (click)="closeModal()"
+          label="Cancel"
+          styleClass="p-button-text"
+        ></p-button>
+        <p-button
+          (click)="addEditParada()"
+          label="{{ modalType }}"
+          [disabled]="paradaForm.invalid"
+        ></p-button>
+</ng-template>
+
+ 
+</p-dialog>

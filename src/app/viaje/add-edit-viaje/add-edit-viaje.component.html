@@ -1,0 +1,145 @@
+
+<p-dialog
+  header="{{ modalType }} Viaje"
+  [(visible)]="displayAddEditModal"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  (onHide)="closeModal()"
+>
+
+<form [formGroup]="viajeForm" class="viaje-form">
+  <div class="field">
+    <label class="block" for="codigoViaje">Código Viaje</label>
+    <input type="text" pInputText id="codigoViaje" formControlName="codigoViaje" />
+    <small
+      class="p-error block"
+      *ngIf="
+        viajeForm.controls['codigoViaje'].invalid &&
+        viajeForm.controls['codigoViaje'].dirty
+      "
+      >Campo requerido</small
+    >
+  </div>
+
+  <div class="field">
+    <label class="block" for="fecha">Fecha</label>
+    <input type="text" pInputText id="fecha" formControlName="fecha" />
+    <small
+      class="p-error block"
+      *ngIf="
+        viajeForm.controls['fecha'].invalid &&
+        viajeForm.controls['fecha'].dirty
+      "
+      >Campo requerido</small
+    >
+  </div>
+
+  <div class="field">
+    <label class="block" for="horaInicio">Hora de Inicio</label>
+    <input type="text" pInputText id="horaInicio" formControlName="horaInicio" />
+    <small
+      class="p-error block"
+      *ngIf="
+        viajeForm.controls['horaInicio'].invalid &&
+        viajeForm.controls['horaInicio'].dirty
+      "
+      >Campo requerido</small
+    >
+  </div>
+
+  <div class="field">
+    <label class="block" for="horaFin">Hora de Fin</label>
+    <input type="text" pInputText id="horaFin" formControlName="horaFin" />
+    <small
+      class="p-error block"
+      *ngIf="
+        viajeForm.controls['horaFin'].invalid &&
+        viajeForm.controls['horaFin'].dirty
+      "
+      >Campo requerido</small
+    >
+  </div>
+
+
+
+  <div class="field">
+    <label class="block" for="precioNormal">Precio Normal</label>
+    <p-inputNumber
+      id="price"
+      formControlName="precioNormal"
+      class="block"
+    ></p-inputNumber>
+    <small
+      class="p-error block"
+      *ngIf="
+        viajeForm.controls['precioNormal'].invalid &&
+        viajeForm.controls['precioNormal'].dirty
+      "
+      >Field is required</small
+    >
+  </div>
+
+
+  <div class="field">
+    <label class="block" for="precioDiferenciado">Precio Diferenciado</label>
+    <p-inputNumber
+      id="price"
+      formControlName="precioDiferenciado"
+      class="block"
+    ></p-inputNumber>
+    <small
+      class="p-error block"
+      *ngIf="
+        viajeForm.controls['precioDiferenciado'].invalid &&
+        viajeForm.controls['precioDiferenciado'].dirty
+      "
+      >Field is required</small
+    >
+  </div>
+
+
+  <div class="field">
+    <label class="block" for="idConductor">ID Conductor</label>
+    <input type="text" pInputText id="idConductor" formControlName="idConductor" />
+    <small
+      class="p-error block"
+      *ngIf="
+        viajeForm.controls['idConductor'].invalid &&
+        viajeForm.controls['idConductor'].dirty
+      "
+      >Campo requerido</small
+    >
+  </div>
+
+  <div class="field">
+    <label class="block" for="idAyudante">ID Ayudante</label>
+    <input type="text" pInputText id="idAyudante" formControlName="idAyudante" />
+    <small
+      class="p-error block"
+      *ngIf="
+        viajeForm.controls['idAyudante'].invalid &&
+        viajeForm.controls['idAyudante'].dirty
+      "
+      >Campo requerido</small
+    >
+  </div>
+</form>
+
+
+<ng-template pTemplate="footer">
+        <p-button
+          (click)="closeModal()"
+          label="Cancel"
+          styleClass="p-button-text"
+        ></p-button>
+        <p-button
+          (click)="addEditViaje()"
+          label="{{ modalType }}"
+          [disabled]="viajeForm.invalid"
+        ></p-button>
+</ng-template>
+
+ 
+</p-dialog>

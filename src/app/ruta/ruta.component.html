@@ -1,0 +1,82 @@
+<p-card header="rutas">
+
+    <p-card header="Gestion de ruta">
+
+        <div class="flex justify-content-between">
+            <div class="flex justify-content-between">
+            <select [(ngModel)]="selectedFilter">
+                <option value="nombreCompania">Nombre de compania</option>
+                <option value="nombreRuta">Nombre de Ruta</option>
+                <option value="origenRuta">Origen de Ruta</option>
+                <option value="destinoRuta">Destino de Ruta</option>
+            </select>
+
+         
+            <input type="text" pInputText placeholder="Search " (input)="filterBy($event)" />
+          
+        </div>
+        <div class="flex justify-content-between">
+            <p-button label="Agregar ruta" (click)="showAddModal()"></p-button>
+        </div>
+
+    </div>
+
+
+</p-card>
+
+ <p-table [value]="rutas" >  
+    <ng-template pTemplate="header">
+      <tr>
+        <th>IDRUTA</th>
+        <th>COMPANIA</th>
+        <th>RUTA</th>
+        <th>ORIGEN</th>
+        <th>DESTINO</th>
+      </tr>
+
+    </ng-template>
+    <ng-template pTemplate="body" let-ruta >
+      <tr >
+        <td>{{ ruta.idRuta }}</td>
+        <td>{{ ruta.nombreCompania}}</td>
+        <td>{{ ruta.nombreRuta}}</td>
+        <td>{{ ruta.origenRuta }}</td>
+        <td>{{ ruta.destinoRuta}}</td>
+
+      <td>
+
+        <button
+          pButton
+          icon="pi pi-pencil"
+          class="p-button-rounded p-button-success mr-2"
+          (click)="showEditModal(ruta)"
+        ></button>
+
+        <button
+          pButton
+          icon="pi pi-trash"
+          class="p-button-rounded p-button-warning"
+          (click)="deleteruta(ruta)"
+        ></button>
+
+      </td>
+    </tr>
+
+    </ng-template>
+
+  </p-table>
+
+<app-add-edit-ruta
+
+[displayAddEditModal]="displayAddEditModal"
+[selectedRuta]="selectedRuta"
+(clickClose)="hideAddModal($event)"
+(clickAddEdit)="saveorUpdaterutaList($event)"
+
+></app-add-edit-ruta>
+
+<p-confirmDialog header="Delete"></p-confirmDialog>
+
+<p-toast position="bottom-right"></p-toast>  
+
+</p-card>

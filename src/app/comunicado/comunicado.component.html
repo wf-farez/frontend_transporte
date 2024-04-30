@@ -1,0 +1,75 @@
+<p-card header="comunicados">
+
+    <p-card header="Gestion de comunicados">
+
+        <div class="flex justify-content-between">
+            <div class="flex justify-content-between">
+            <select [(ngModel)]="selectedFilter">
+                <option value="descrpcion">Descripcion</option>
+                <option value="fecha">Fecha</option>
+      
+            </select>
+
+            <input type="text" pInputText placeholder="Search " (input)="filterBy($event)" />
+          
+        </div>
+        <div class="flex justify-content-between">
+            <p-button label="Agregar comunicado" (click)="showAddModal()"></p-button>
+        </div>
+
+    </div>
+
+
+</p-card>
+
+ <p-table [value]="comunicados" >  
+    <ng-template pTemplate="header">
+      <tr>
+        <th>idComunicado</th>
+        <th>descripcion</th>
+        <th>fecha</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-comunicado >
+      <tr >
+        <td>{{ comunicado.idComunicado }}</td>
+        <td>{{ comunicado.descripcion}}</td>
+        <td>{{ comunicado.fecha }}</td>
+
+      <td>
+
+        <button
+          pButton
+          icon="pi pi-pencil"
+          class="p-button-rounded p-button-success mr-2"
+          (click)="showEditModal(comunicado)"
+        ></button>
+
+        <button
+          pButton
+          icon="pi pi-trash"
+          class="p-button-rounded p-button-warning"
+          (click)="deleteComunicado(comunicado)"
+        ></button>
+
+      </td>
+    </tr>
+
+    </ng-template>
+
+  </p-table>
+
+<app-add-edit-comunicado
+
+[displayAddEditModal]="displayAddEditModal"
+[selectedComunicado]="selectedComunicado"
+(clickClose)="hideAddModal($event)"
+(clickAddEdit)="saveorUpdateComunicadoList($event)"
+
+></app-add-edit-comunicado>
+
+<p-confirmDialog header="Delete"></p-confirmDialog>
+
+<p-toast position="bottom-right"></p-toast>  
+
+</p-card>

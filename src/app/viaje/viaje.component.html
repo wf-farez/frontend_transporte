@@ -1,0 +1,88 @@
+<p-card header="viajes">
+
+    <p-card header="Gestion de viajes">
+
+        <div class="flex justify-content-between">
+            <div class="flex justify-content-between">
+            <select [(ngModel)]="selectedFilter">
+                <option value="codigoViaje">Codigo de viaje</option>
+                <option value="fecha">Fecha</option>
+
+            </select>
+
+            <input type="text" pInputText placeholder="Search " (input)="filterBy($event)" />
+          
+        </div>
+        <div class="flex justify-content-between">
+            <p-button label="Agregar viaje" (click)="showAddModal()"></p-button>
+        </div>
+
+    </div>
+
+
+</p-card>
+
+ <p-table [value]="viajes" >  
+    <ng-template pTemplate="header">
+      <tr>
+        <th>idViaje</th>
+        <th>codigoViaje</th>
+        <th>fecha</th>
+        <th>horaInicio</th>
+        <th>horaFin</th>
+        <th>precioNormal</th>
+        <th>precioDiferenciado</th>
+        <th>idConductor</th>
+        <th>idAyudante</th>
+      </tr>
+
+    </ng-template>
+    <ng-template pTemplate="body" let-viaje >
+      <tr >
+        <td>{{ viaje.idViaje }}</td>
+        <td>{{ viaje.codigoViaje }}</td>
+        <td>{{ viaje.fecha }}</td>
+        <td>{{ viaje.horaInicio }}</td>
+        <td>{{ viaje.horaFin }}</td>
+        <td>{{ viaje.precioNormal }}</td>
+        <td>{{ viaje.precioDiferenciado }}</td>
+        <td>{{ viaje.idConductor }}</td>
+        <td>{{ viaje.idAyudante }}</td>
+
+      <td>
+
+        <button
+          pButton
+          icon="pi pi-pencil"
+          class="p-button-rounded p-button-success mr-2"
+          (click)="showEditModal(viaje)"
+        ></button>
+
+        <button
+          pButton
+          icon="pi pi-trash"
+          class="p-button-rounded p-button-warning"
+          (click)="deleteViaje(viaje)"
+        ></button>
+
+      </td>
+    </tr>
+
+    </ng-template>
+
+  </p-table>
+
+<app-add-edit-viaje
+
+[displayAddEditModal]="displayAddEditModal"
+[selectedViaje]="selectedViaje"
+(clickClose)="hideAddModal($event)"
+(clickAddEdit)="saveorUpdateViajeList($event)"
+
+></app-add-edit-viaje>
+
+<p-confirmDialog header="Delete"></p-confirmDialog>
+
+<p-toast position="bottom-right"></p-toast>  
+
+</p-card>
