@@ -13,14 +13,13 @@ import { EmpleadoService } from '../service/empleado.service';
 export class EmpleadoComponent implements OnInit, OnDestroy {
 
   empleados: Empleado[] = [];
-  filteredEmpleadoes: Empleado[] = [];
+  filteredEmpleados: Empleado[] = [];
   searchTerm: string = '';
 
   displayAddEditModal = false;
   selectedEmpleado: any = null;
   selectedEstado: string = '';
   subscriptions: Subscription[] = [];
-  pdtSubscription: Subscription = new Subscription();
 
 
   selectedFilter: string = '';
@@ -39,7 +38,8 @@ export class EmpleadoComponent implements OnInit, OnDestroy {
     this.empleadoService.getEmpleados().subscribe(
       response => {
         this.empleados = response;
-        this.filteredEmpleadoes = [...this.empleados]; // Copia las empleados al array filtrado inicialmente
+        this.filteredEmpleados
+     = [...this.empleados]; // Copia las empleados al array filtrado inicialmente
       }
     )
   }
@@ -56,17 +56,20 @@ export class EmpleadoComponent implements OnInit, OnDestroy {
 
   saveEmpleadoToList(newData: any) {
     this.empleados.unshift(newData);
-    this.filteredEmpleadoes.unshift(newData); // Agrega la nueva Empleado también al array filtrado
+    this.filteredEmpleados
+.unshift(newData); // Agrega la nueva Empleado también al array filtrado
   }
 
   saveorUpdateEmpleadoList(newData: any) {
     const index = this.empleados.findIndex(data => data.idEmpleado === newData.idEmpleado);
     if (index !== -1) {
       this.empleados[index] = newData;
-      this.filteredEmpleadoes = [...this.empleados]; // Actualiza el array filtrado con las empleados actualizadas
+      this.filteredEmpleados
+   = [...this.empleados]; // Actualiza el array filtrado con las empleados actualizadas
     } else {
       this.empleados.unshift(newData);
-      this.filteredEmpleadoes.unshift(newData); // Agrega la nueva Empleado también al array filtrado
+      this.filteredEmpleados
+  .unshift(newData); // Agrega la nueva Empleado también al array filtrado
     }
 
     this.getEmpleadosList();
@@ -84,7 +87,9 @@ export class EmpleadoComponent implements OnInit, OnDestroy {
         this.empleadoService.eliminarEmpleado(Empleado.idEmpleado).subscribe(
           response => {
             this.empleados = this.empleados.filter(data => data.idEmpleado !== Empleado.idEmpleado);
-            this.filteredEmpleadoes = this.filteredEmpleadoes.filter(data => data.idEmpleado !== Empleado.idEmpleado);
+            this.filteredEmpleados
+         = this.filteredEmpleados
+        .filter(data => data.idEmpleado !== Empleado.idEmpleado);
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'eliminard Successfully' });
           },
           error => {

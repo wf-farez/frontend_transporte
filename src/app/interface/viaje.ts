@@ -9,5 +9,6 @@ export interface Viaje {
     precioNormal: number,
     precioDiferenciado:number,
     idConductor: number,
-    idAyudante:number
+    idAyudante:number,
+    idUnidad: number
 }

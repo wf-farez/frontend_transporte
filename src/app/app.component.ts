@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Unidad } from './interface/unidad';
-import { UnidadService } from './service/unidad.service';
+
+// interface SidenavToggle{
+//   screenWidth:number;
+//   collapsed:boolean;
+// }
 
 @Component({
   selector: 'app-root',
@@ -8,33 +11,16 @@ import { UnidadService } from './service/unidad.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
- 
-  // unidades: Unidad[] = [];
-  // displayAddEditModal = false;
-  // selectedUnidad: any = null;
 
-  // constructor(private unidadService: UnidadService) { }
+  // title = 'administrador-frontend';
 
-  // ngOnInit(): void {
-  //   this.getUnidadList();
+  // isSideNavCollapsed=false;
+  // screenWidth=0;
+  
+  // onToggleSideNav(data:SidenavToggle):void{
+  //   this.screenWidth=data.screenWidth;
+  //   this.isSideNavCollapsed=data.collapsed;
   // }
-
-  // getUnidadList() {
-  //   this.unidadService.getUnidades().subscribe(
-  //     response => {
-  //       this.unidades = response;
-  //     }
-  //   )
-  // }
-
-  // showAddModal() {
-  //   this.displayAddEditModal = true;
-  //   this.selectedUnidad = null;
-  // }
-
-  // hideAddModal(isClosed: boolean) {
-  //   this.displayAddEditModal = !isClosed;
-  // }
-
+  
  
 }

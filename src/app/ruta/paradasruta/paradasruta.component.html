@@ -1,0 +1,198 @@
+
+<p-dialog
+  header="{{ modalType }} Paradas"
+  [(visible)]="displayAsignarModal"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ 'width': '85vw', 'height': '100vh' }"
+  (onHide)="closeModal()"
+>
+<p-card header="Informacion de Ruta">
+
+    Ruta: {{ selectedRuta?.nombreRuta }}
+
+</p-card>
+
+<p-card header="Gestion de Paradas">
+
+  <p-card header="Crear">
+
+    <form [formGroup]="paradaForm" class="parada-form">
+      <div class="flex-container">
+        <!-- Nombre de Parada -->
+        <div class="field">
+          <label class="block" for="nombreParada">Nombre de Parada</label>
+          <input type="text" pInputText id="nombreParada" formControlName="nombreParada" />
+          <small
+            class="p-error block"
+            *ngIf="paradaForm.controls['nombreParada'].invalid && paradaForm.controls['nombreParada'].dirty"
+          >
+            Field is required
+          </small>
+        </div>
+    
+        <!-- Dirección -->
+        <div class="field">
+          <label class="block" for="direccion">Dirección</label>
+          <input type="text" pInputText id="direccion" formControlName="direccion" />
+          <small
+            class="p-error block"
+            *ngIf="paradaForm.controls['direccion'].invalid && paradaForm.controls['direccion'].dirty"
+          >
+            Field is required
+          </small>
+        </div>
+      </div>
+    
+      <div class="flex-container">
+        <!-- Latitud -->
+        <div class="field">
+          <label class="block" for="latitud">Latitud</label>
+          <input type="text" pInputText id="latitud" formControlName="latitud" />
+          <small
+            class="p-error block"
+            *ngIf="paradaForm.controls['latitud'].invalid && paradaForm.controls['latitud'].dirty"
+          >
+            Field is required
+          </small>
+        </div>
+    
+        <!-- Longitud -->
+        <div class="field">
+          <label class="block" for="longitud">Longitud</label>
+          <input type="text" pInputText id="longitud" formControlName="longitud" />
+          <small
+            class="p-error block"
+            *ngIf="paradaForm.controls['longitud'].invalid && paradaForm.controls['longitud'].dirty"
+          >
+            Field is required
+          </small>
+        </div>
+      </div>
+    </form>
+    
+
+  <p-button
+          (click)="asignarParadaCreada()"
+          label="{{ modalType }}"
+          [disabled]="paradaForm.invalid"
+        ></p-button> 
+
+</p-card>
+
+
+  <p-card header="Seleccionar ">
+
+      <p-card >
+        <div class="flex justify-content-between">
+            <div class="flex justify-content-between">
+            <select [(ngModel)]="selectedFilter">
+                <option value="nombreParada">nombreParada</option>
+                <option value="direccion">direccion</option>
+                <option value="latitud">latitud</option>
+                <option value="longitud">longitud</option> 
+              </select>
+              <input type="text" pInputText placeholder="Search " (input)="filterBy($event)" />
+            </div>
+        </div>
+      </p-card>
+
+<p-table [value]="paradas" >  
+  <ng-template pTemplate="header">
+    <tr>
+      <th>IDPARADA</th>
+      <th>NOMBRE DE PARADA</th>
+      <th>DIRECCION</th>
+      <th>LATITUD</th>
+      <th>LONGITUD</th>
+      
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-parada >
+    <tr >
+      <td>{{ parada.idParada }}</td>
+      <td>{{ parada.nombreParada}}</td>
+      <td>{{ parada.direccion }}</td>
+      <td>{{ parada.latitud}}</td>
+      <td>{{ parada.longitud }}</td>
+    <td>
+
+      <p-button
+          (click)="asignarParadaSeleccionada(parada)"
+          label="{{ modalType }}"
+        ></p-button>
+
+    </td>
+  </tr>
+  </ng-template>
+
+</p-table>
+
+</p-card>
+
+
+
+
+  <p-card header="Paradas de ruta ">
+
+    <p-table [value]="paradasruta" >  
+      <ng-template pTemplate="header">
+        <tr>
+          <th>IDRUTA</th>
+          <th>NOMBRERUTA</th>
+          <th>IDPARADA</th>
+          <th>NOMBRE DE PARADA</th>
+          <th>DIRECCION</th>
+          <th>LATITUD</th>
+          <th>LONGITUD</th>
+          
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-paradaruta let-i="rowIndex">
+        <tr >
+          <td>{{ paradaruta.idRuta }}</td>
+          <td>{{ paradaruta.nombreRuta }}</td>
+          <td>{{ paradaruta.idParada }}</td>
+          <td>{{ paradaruta.nombreParada}}</td>
+          <td>{{ paradaruta.direccion }}</td>
+          <td>{{ paradaruta.latitud}}</td>
+          <td>{{ paradaruta.longitud }}</td>
+        <td>
+          
+            <!-- Botones para subir y bajar la fila -->
+<!-- Botón para subir la fila -->
+<p-button (click)="subirFila(i)"  icon="pi pi-angle-up" ></p-button>
+<!-- Botón para bajar la fila -->
+<p-button (click)="bajarFila(i)"  icon="pi pi-angle-down" ></p-button>
+<!-- Botón para eliminar la fila -->
+<p-button (click)="eliminarParada(i)" label="Eliminar" styleClass="p-button-danger"></p-button>
+
+        </td>
+      </tr>
+      </ng-template>
+    
+    </p-table>
+
+  </p-card> 
+
+
+</p-card>
+
+  <ng-template pTemplate="footer">
+          <p-button
+            (click)="closeModal()"
+            label="Cancel"
+            styleClass="p-button-text"
+          ></p-button>
+<!--           
+          <p-button
+            (click)="asignarParada()"
+            label="{{ modalType }}"
+
+          ></p-button> -->
+
+  </ng-template>
+
+ 
+</p-dialog>

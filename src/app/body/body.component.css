@@ -1,0 +1,23 @@
+.body {
+    width: calc(100% - 5rem); /* Ancho con margen del menú lateral */
+    height: 100vh; /* Altura completa de la ventana */
+    margin-left: 5rem; /* Margen izquierdo para dejar espacio al menú */
+    z-index: 0; /* Índice de apilamiento */
+    position: relative; /* Posición relativa */
+    top: 0; /* Posicionamiento superior */
+    transition: all .5s ease; /* Transición */
+    background: #f4f7fa; /* Color de fondo */
+    padding: 3rem; /* Espaciado interior */
+}
+
+/* Estilos cuando el menú está colapsado */
+.body.body-trimmed {
+    width: calc(100% - 16.5625rem); /* Ancho con margen reducido por menú colapsado */
+    margin-left: 16.5625rem; /* Margen izquierdo aumentado */
+}
+
+/* Estilos para pantallas medianas */
+.body.body-md-screen {
+    width: calc(100% - 5rem); /* Ancho con margen del menú lateral */
+    margin-left: 5rem; /* Margen izquierdo normal */
+}

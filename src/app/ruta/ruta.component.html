@@ -1,6 +1,6 @@
-<p-card header="rutas">
+<p-card header="Gestion de Rutas">
 
-    <p-card header="Gestion de ruta">
+    <p-card >
 
         <div class="flex justify-content-between">
             <div class="flex justify-content-between">
@@ -32,6 +32,8 @@
         <th>RUTA</th>
         <th>ORIGEN</th>
         <th>DESTINO</th>
+        <th>OPCIONES</th>
+        <th>PARADAS</th>
       </tr>
 
     </ng-template>
@@ -60,6 +62,15 @@
         ></button>
 
       </td>
+
+      <td>
+        <button
+          pButton
+          icon="pi pi-plus"
+          class="p-button-rounded p-button-access mr-2"
+          (click)="showAsignarModal(ruta)"
+        ></button>
+      </td>
     </tr>
 
     </ng-template>
@@ -67,13 +78,20 @@
   </p-table>
 
 <app-add-edit-ruta
-
 [displayAddEditModal]="displayAddEditModal"
 [selectedRuta]="selectedRuta"
 (clickClose)="hideAddModal($event)"
 (clickAddEdit)="saveorUpdaterutaList($event)"
-
 ></app-add-edit-ruta>
+
+<app-paradasruta
+
+  [displayAsignarModal]="displayAsignarModal"
+  [selectedRuta]="selectedRuta"
+  (clickClose)="hideAsignarModal($event)"
+  ></app-paradasruta>
+
+  <!-- (clickAsignar)="saveorUpdaterutaList2($event)" -->
 
 <p-confirmDialog header="Delete"></p-confirmDialog>
 

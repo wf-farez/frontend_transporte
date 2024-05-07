@@ -1,0 +1,42 @@
+ <p-card header="Login">
+    <form [formGroup]="loginForm" class="login-form">
+        <div class="field">
+          <label class="block" for="usuario">usuario:root</label>
+          <input type="text" pInputText id="usuario" formControlName="usuario" />
+          <small
+            class="p-error block"
+            *ngIf="
+              loginForm.controls['usuario'].invalid &&
+              loginForm.controls['usuario'].dirty
+            "
+            >Field is required</small
+          >
+        </div>
+
+        <div class="field">
+          <label class="block" for="contraseña">contraseña:root</label>
+          <input type="text" pInputText id="contraseña" formControlName="contraseña" />
+          <small
+            class="p-error block"
+            *ngIf="
+              loginForm.controls['contraseña'].invalid &&
+              loginForm.controls['contraseña'].dirty
+            "
+            >Field is required</small
+          >
+        </div>
+        
+    
+
+    
+      </form>
+    
+    <ng-template pTemplate="footer">
+        <div class="flex justify-content-between">
+            <p-button label="Ingresar" (click)="ingresar()"></p-button>
+        </div>
+    </ng-template>
+      
+</p-card> 
+
+

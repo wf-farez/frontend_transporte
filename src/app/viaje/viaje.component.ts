@@ -27,7 +27,7 @@ export class ViajeComponent implements OnInit, OnDestroy {
   filterValue: string = '';
 
   constructor(
-    private ViajeService: ViajeService,
+    private viajeService: ViajeService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService) { }
 
@@ -36,7 +36,7 @@ export class ViajeComponent implements OnInit, OnDestroy {
   }
 
   getViajesList() {
-    this.ViajeService.getViajes().subscribe(
+    this.viajeService.getViajes().subscribe(
       response => {
         this.viajes = response;
         this.filteredViajes = [...this.viajes]; // Copia las Viajes al array filtrado inicialmente
@@ -80,7 +80,7 @@ export class ViajeComponent implements OnInit, OnDestroy {
     this.confirmationService.confirm({
       message: 'Are you sure that you want to delete this Viaje?',
       accept: () => {
-        this.ViajeService.deleteViaje(viaje.idViaje).subscribe(
+        this.viajeService.deleteViaje(viaje.idViaje).subscribe(
           response => {
             this.viajes = this.viajes.filter(data => data.idViaje !== viaje.idViaje);
             this.filteredViajes = this.filteredViajes.filter(data => data.idViaje !== viaje.idViaje);

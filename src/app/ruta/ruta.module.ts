@@ -12,10 +12,12 @@ import { FormsModule } from '@angular/forms'; // Importa FormsModule desde '@ang
 import { CardModule } from 'primeng/card';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { AddEditRutaModule } from './add-edit-ruta/add-edit-ruta.module';
+import { ParadasrutaModule } from './paradasruta/paradasruta.module';
 
 @NgModule({
   declarations: [
-    RutaComponent
+    RutaComponent,
+    
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import { AddEditRutaModule } from './add-edit-ruta/add-edit-ruta.module';
     ConfirmDialogModule,
     FormsModule, 
     CardModule,
-    TreeSelectModule
+    TreeSelectModule,
+    ParadasrutaModule
 
   ], 
   exports: [

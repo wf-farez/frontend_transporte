@@ -4,6 +4,7 @@ import { Unidad } from '../interface/unidad';
 import { UnidadService } from '../service/unidad.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-unidad',
@@ -12,6 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class UnidadComponent implements OnInit, OnDestroy {
 
+ 
   unidades: Unidad[] = [];
   filteredUnidades: Unidad[] = [];
   searchTerm: string = '';
@@ -27,6 +29,7 @@ export class UnidadComponent implements OnInit, OnDestroy {
   filterValue: string = '';
 
   constructor(
+    private router: Router,
     private unidadService: UnidadService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService) { }

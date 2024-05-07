@@ -1,28 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DialogModule } from 'primeng/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { ToastModule } from 'primeng/toast';
-
 import { DropdownModule } from 'primeng/dropdown';
-import { AddEditViajeComponent } from './add-edit-viaje.component';
-import { CalendarModule } from 'primeng/calendar';
-import { TableModule } from 'primeng/table';
-import { MessageService } from 'primeng/api';
-import { ConfirmationService } from 'primeng/api';
+import { ParadasrutaComponent } from './paradasruta.component';
 import { CardModule } from 'primeng/card';
-import { HttpClientModule } from '@angular/common/http';
-import { TreeSelectModule } from 'primeng/treeselect';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
+import { ConfirmationService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
-    AddEditViajeComponent
+    ParadasrutaComponent
   ],
   imports: [
     CommonModule,
@@ -34,24 +29,13 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     InputNumberModule,
     InputTextareaModule,
     DropdownModule,
-    CalendarModule,
-    TableModule,
-    FormsModule,
     CardModule,
-    HttpClientModule,
-    TreeSelectModule,
-    ToastModule,
-    ConfirmDialogModule,
- 
-  
-  
-  ],
-  exports:
-  [
-    AddEditViajeComponent
+    TableModule,
+    FormsModule
+  ]
+  , exports:[
+    ParadasrutaComponent
   ],
   providers: [MessageService,ConfirmationService]
-
 })
-
-export class AddEditViajeModule { }
+export class ParadasrutaModule { }

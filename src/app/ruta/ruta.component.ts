@@ -17,14 +17,18 @@ export class RutaComponent implements OnInit, OnDestroy {
   searchTerm: string = '';
 
   displayAddEditModal = false;
+
   selectedRuta: any = null;
   selectedEstado: string = '';
   subscriptions: Subscription[] = [];
   pdtSubscription: Subscription = new Subscription();
 
-
   selectedFilter: string = '';
   filterValue: string = '';
+
+//asignar paradas
+  displayAsignarModal=false;
+  
 
   constructor(
     private rutaService: RutaService,
@@ -48,10 +52,15 @@ export class RutaComponent implements OnInit, OnDestroy {
     this.displayAddEditModal = true;
     this.selectedRuta = null;
   }
+  showEditModal(ruta: Ruta) {
+    this.displayAddEditModal = true;
+    this.selectedRuta = ruta;
+  }
 
   hideAddModal(isClosed: boolean) {
     this.displayAddEditModal = !isClosed;
   }
+
   // saverutaToList
 
   saveRutaToList(newData: any) {
@@ -71,10 +80,6 @@ export class RutaComponent implements OnInit, OnDestroy {
     this.getRutasList();
   }
 
-  showEditModal(ruta: Ruta) {
-    this.displayAddEditModal = true;
-    this.selectedRuta = ruta;
-  }
 
   deleteruta(ruta: Ruta) {
     this.confirmationService.confirm({
@@ -122,6 +127,25 @@ if (value) {
 
 
 }
+
+
+
+//Asignar rutas
+showAsignarModal(ruta: Ruta) {
+  this.displayAsignarModal = true;
+  this.selectedRuta = ruta;
+}
+
+hideAsignarModal(isClosed: boolean) {
+  this.displayAsignarModal = !isClosed;
+}
+
+
+saveorUpdaterutaList2(newData: any) {
+  console.log("salida")
+}
+
+
 
 
 

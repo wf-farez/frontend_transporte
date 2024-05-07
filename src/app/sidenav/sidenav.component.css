@@ -1,0 +1,164 @@
+/* Estilos generales del menú lateral */
+.sidenav {
+    background: #263238; /* Color de fondo */
+    transition: all .5s ease; /* Transición */
+    position: fixed; /* Posición fija */
+    z-index: 1; /* Z-index */
+    top: 0; /* Alineación superior */
+    width: 5rem; /* Ancho */
+    height: 100vh; /* Altura */
+    box-shadow: 0.063rem 0 1.25rem #7190ca; /* Sombra */
+}
+
+/* Estilos del contenedor del logo */
+.sidenav .logo-container {
+    display: flex;
+    align-items: center;
+    padding: 0.938rem;
+    width: 100%;
+}
+
+/* Estilos del logo */
+.sidenav .logo {
+    background: #fff;
+    text-align: center;
+    width: 3rem;
+    min-width: 3rem;
+    border-radius: 0.313rem;
+    padding: 0.313rem;
+    font-size: 24px;
+    font-weight: 900;
+    cursor: pointer;
+    border: none;
+}
+
+/* Estilos del texto del logo */
+.sidenav .logo-text {
+    margin-left: 1.5rem;
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffff;
+}
+
+/* Estilos del botón de cerrar */
+.sidenav .btn-close {
+    margin-left: auto;
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: transparent;
+    border: none;
+}
+
+/* Estilos cuando el menú está colapsado */
+.sidenav.sidenav-collapsed {
+    width: 16.5625rem;
+}
+
+/* Estilos de la navegación del menú */
+.sidenav .sidenav-nav { 
+    list-style: none;
+    padding: 0.938rem; 
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* Estilos de los elementos de navegación */
+.sidenav .sidenav-nav .sidenav-nav-item { 
+    width: 100%;
+    margin-bottom: 0.625rem;
+}
+
+/* Estilos de los enlaces de navegación */
+.sidenav .sidenav-nav .sidenav-nav-item .sidenav-nav-link { 
+    display: flex; 
+    align-items: center; 
+    height: 3rem;
+    color: #f3f3f3;
+    text-decoration: none; 
+    border-radius: 0.625rem;
+    transition: all .3s ease;
+}
+
+/* Estilos de los subniveles del menú */
+.sidenav .sublevel-nav {
+    list-style: none; 
+    margin-left: 10px;
+}
+
+/* Estilos de visibilidad del contenedor de desplazamiento */
+.scrollwrap {
+    overflow-y: auto;
+    visibility: hidden;
+    height: calc(100% - 3.65rem);
+}
+
+/* Estilos de visibilidad cuando se hace hover o focus en el menú */
+.scrollwrap,
+.sidenav .sidenav-nav:hover,
+.sidenav .sidenav-nav:focus {
+    visibility: visible;
+}
+
+/* Transición del contenedor de desplazamiento demorada */
+.scrollwrap_delayed {
+    transition: visibility 0.5s 0.2s;
+}
+
+/* Transición del contenedor de desplazamiento demorada al hacer hover */
+.scrollwrap_delayed:hover {
+    transition: visibility 0.2s 0.2s;
+}
+
+/* Estilos de la barra de desplazamiento */
+.scrollwrap::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Estilos de la pista de la barra de desplazamiento */
+.scrollwrap::-webkit-scrollbar-track { 
+    background: transparent;
+}
+
+/* Estilos del pulgar de la barra de desplazamiento */
+.scrollwrap::-webkit-scrollbar-thumb {
+    background-color: #556268;
+    border-radius: 20px;
+}
+
+/* Estilos adicionales de la barra de desplazamiento */
+.scrollwrap {
+    scrollbar-width: thin;
+    background-color: #556268 transparent;
+}
+
+/* Estilos para el estado activo */
+.active {
+    background-color: #fff;
+    color: #000;
+}
+
+/* Estilos del icono de colapso del menú */
+.menu-collapse-icon { 
+    font-size: 25px; 
+    width: 2rem; 
+    min-width: 2rem;
+    margin: auto 0.5rem auto auto;
+    text-align: center;
+    color: #f3f3f3;
+}
+
+/* Estilos adicionales de los enlaces de navegación */
+.sidenav .sidenav-nav .sidenav-nav-item:hover .sidenav-nav-link {
+    background-color: #ffff;
+    color: #000;
+}
+
+/* Estilos adicionales de los enlaces de los subniveles */
+.sidenav .sublevel-nav .sublevel-nav-item:hover .sublevel-nav-link {
+    color: #f3f3f3;
+}
