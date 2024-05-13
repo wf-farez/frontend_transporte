@@ -4,5 +4,4 @@ export interface Parada {
     direccion: String,
     latitud: number,
     longitud: number
-    
 }

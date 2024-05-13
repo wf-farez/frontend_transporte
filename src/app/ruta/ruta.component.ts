@@ -136,6 +136,11 @@ showAsignarModal(ruta: Ruta) {
   this.selectedRuta = ruta;
 }
 
+showEditParadasModal(ruta: Ruta) {
+  this.displayAsignarModal = true;
+  this.selectedRuta = ruta;
+}
+
 hideAsignarModal(isClosed: boolean) {
   this.displayAsignarModal = !isClosed;
 }
@@ -144,9 +149,6 @@ hideAsignarModal(isClosed: boolean) {
 saveorUpdaterutaList2(newData: any) {
   console.log("salida")
 }
-
-
-
 
 
 

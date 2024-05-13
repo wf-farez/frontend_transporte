@@ -30,6 +30,12 @@ export class AddEditViajeComponent implements OnInit {
     private messageService: MessageService,
     private confirmationService: ConfirmationService
     ) { }
+
+
+    conductorV:Empleado | any;
+    ayudanteV:Empleado | any;
+    unidadV:Unidad | any;
+   
   
   viajeForm = this.fb.group({
     idViaje: [""],
@@ -39,11 +45,14 @@ export class AddEditViajeComponent implements OnInit {
     horaFin: ["", Validators.required],
     precioNormal: [0, Validators.required],
     precioDiferenciado: [0, Validators.required],
-    idConductor: ["", Validators.required],
-    idAyudante: ["", Validators.required],
-    idUnidad: ["", Validators.required]
+    conductor: [null],
+    ayudante: [null],
+    unidad: [null]
   });
   
+
+
+
   opcionesEstado = [
     { label: 'Inactivo', value: true },
     { label: 'Activo', value: false }
@@ -57,7 +66,11 @@ export class AddEditViajeComponent implements OnInit {
   empleados: Empleado[] = [];
   filteredEmpleados: Empleado[] = [];
   searchTerm: string = '';
-  selectedEmpleado: any = null;
+
+  selectedEmpleadoC: any = null;
+  selectedEmpleadoA: any = null;
+  selectedUnidad: any = null;
+
   selectedEstado: string = '';
   subscriptions: Subscription[] = [];
   selectedFilter: string = '';
@@ -67,7 +80,6 @@ export class AddEditViajeComponent implements OnInit {
   unidades: Unidad[] = [];
   filteredUnidades: Unidad[] = [];
   searchTermU: string = '';
-  selectedUnidad: any = null;
   selectedFilterU: string = '';
   filterValueU: string = '';
   
@@ -116,8 +128,9 @@ ngOnChanges(): void {
         horaFin: null,
         precioNormal: this.selectedViaje.precioNormal,
         precioDiferenciado: this.selectedViaje.precioDiferenciado,
-        idConductor: this.selectedViaje.idConductor,
-        idAyudante: this.selectedViaje.idAyudante
+        conductor: this.selectedViaje.conductor,
+        ayudante: this.selectedViaje.ayudante,
+        unidad: this.selectedViaje.unidad
       });
     } else {
       this.viajeForm.reset();
@@ -134,6 +147,9 @@ closeModal() {
 
 addEditViaje() {
     if (this.modalType === 'Add') {
+
+     // Asigna los valores seleccionados al formulario
+
       const { idViaje, ...newViaje } = this.viajeForm.value;
   
       const fechaFormateada = this.formatDate(newViaje.fecha);
@@ -270,9 +286,115 @@ filterByU(event: any) {
 
 
 
-seleccionarConductor(){
+seleccionarConductor(empleado: any){
+
+  try {
+    this.selectedEmpleadoC = empleado;
+
+    if (!this.selectedEmpleadoC) {
+      throw new Error('No se ha seleccionado ninguna fila.');
+    }
+
+    console.log('Objeto empleado', this.selectedEmpleadoC);
+
+    // Agrega condcutor  seleccionada a la objeto conductor      
+    
+    this.conductorV = {
+      idEmpleado: empleado.idEmpleado, 
+      cedula: empleado?.cedula, 
+      nombre: empleado.nombre, 
+      apellido: empleado.apellido,
+      direccion: empleado.direccion,
+      tipo: 'Conductor',
+      codigoAcceso: empleado.codigoAcceso,
+    };
+
+     // Asignar los valores guardados en conductorV, ayudanteV y unidadV al formulario
+     this.viajeForm.patchValue({
+      conductor:this.conductorV
+    });
+
+    // Opcionalmente, puedes enviar un mensaje de éxito
+    this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Conductor asignada correctamente.' });
+
+  } catch (error) {
+    console.error('Error:', error);
+  }
         }
-seleccionarUnidad(){
+
+
+
+seleccionarAyudante(empleado: any){
+  try {
+    this.selectedEmpleadoA = empleado;
+
+    if (!this.selectedEmpleadoA) {
+      throw new Error('No se ha seleccionado ninguna fila.');
+    }
+
+    console.log('Objeto empleado', this.selectedEmpleadoA);
+
+    // Agrega condcutor  seleccionada a la objeto conductor      
+    
+    this.ayudanteV= {
+      idEmpleado: this.selectedEmpleadoA.idEmpleado, 
+      cedula: this.selectedEmpleadoA?.cedula, 
+      nombre: this.selectedEmpleadoA.nombre, 
+      apellido: this.selectedEmpleadoA.apellido,
+      direccion: this.selectedEmpleadoA.direccion,
+      tipo: 'Ayudante',
+      codigoAcceso: this.selectedEmpleadoA.codigoAcceso,
+  
+    }
+
+    // Asignar los valores guardados en conductorV, ayudanteV y unidadV al formulario
+    this.viajeForm.patchValue({
+      ayudante:this.ayudanteV
+    });
+    // Opcionalmente, puedes enviar un mensaje de éxito
+    this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Ayudante asignada correctamente.' });
+
+  } catch (error) {
+    console.error('Error:', error);
+  }
+
         }
+
+
+seleccionarUnidad(unidad: any){
+  try {
+    this.selectedUnidad = unidad;
+
+    if (!this.selectedUnidad) {
+      throw new Error('No se ha seleccionado ninguna fila.');
+    }
+
+    console.log('Objeto unidad', this.selectedUnidad);
+
+    // Agrega condcutor  seleccionada a la objeto conductor      
+    
+    this.unidadV = {
+      idUnidad: this.selectedUnidad.idUnidad, 
+      codigoUnidad: this.selectedUnidad.codigoUnidad, 
+      placa: this.selectedUnidad.placa, 
+      cantidadAsientos: this.selectedUnidad.cantidadAsientos,
+      estado: this.selectedUnidad.estado,
+    };
+
+    this.viajeForm.patchValue({
+      unidad:this.unidadV
+    });
+
+    // Opcionalmente, puedes enviar un mensaje de éxito
+    this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Unidad asignada correctamente.' });
+
+  } catch (error) {
+    console.error('Error:', error);
+  }
+  
+        }
+
+
+
 }
 

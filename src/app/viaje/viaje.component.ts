@@ -71,9 +71,9 @@ export class ViajeComponent implements OnInit, OnDestroy {
     this.getViajesList();
   }
 
-  showEditModal(Viaje: Viaje) {
+  showEditModal(viaje: Viaje) {
     this.displayAddEditModal = true;
-    this.selectedViaje = Viaje;
+    this.selectedViaje = viaje;
   }
 
   deleteViaje(viaje: Viaje) {

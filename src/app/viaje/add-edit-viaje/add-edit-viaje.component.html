@@ -153,15 +153,10 @@
               <option value="apellido">Apellidos</option>
               <option value="tipo">Tipo</option>
           </select>
-          <input type="text" pInputText placeholder="Search " (input)="filterBy($event)" />
-
-          
+          <input type="text" pInputText placeholder="Search " (input)="filterBy($event)" />  
       </div>
-
       <div class="field">
-
-          <label class="block"for="idConductor" >Conductor Seleccionado:</label>
-        
+        <label class="block" for="idConductor">Conductor Seleccionado Cedula: {{ selectedEmpleadoC?.cedula }}</label>
       </div>
 
   </div>
@@ -182,11 +177,11 @@
       <td>{{ empleado.cedula}}</td>
       <td>{{ empleado.nombre }}</td>
       <td>{{ empleado.apellido }}</td>
-      <!-- <td>{{ empleado.tipo}}</td> -->
+      <td>{{ empleado.tipo}}</td> 
     <td>
       <p-button
-          (click)="seleccionarConductor()"
-          label="{{ modalType }}"
+          (click)="seleccionarConductor(empleado)"
+          label="Seleccionar"
         ></p-button>
     </td>
   </tr>
@@ -212,9 +207,10 @@
   </div>
 
   <div class="field">
-    <label class="block" for="idAyudante">Ayudante Seleccionado</label>
-  
+    <label class="block" for="idAyudante">Ayudante Seleccionado Cedula: {{ selectedEmpleadoA?.cedula }}</label>
   </div>
+
+
 
 </div>
 
@@ -234,11 +230,11 @@
   <td>{{ empleado.cedula}}</td>
   <td>{{ empleado.nombre }}</td>
   <td>{{ empleado.apellido }}</td>
-  <!-- <td>{{ empleado.tipo}}</td> -->
+   <td>{{ empleado.tipo}}</td> 
 <td>
   <p-button
-      (click)="seleccionarConductor()"
-      label="{{ modalType }}"
+      (click)="seleccionarAyudante(empleado)"
+      label="Seleccionar"
     ></p-button>
 </td>
 </tr>
@@ -265,9 +261,9 @@
       </div>
 
       <div class="field">
-        <label class="block" for="idUnidad">Unidad Seleccionada</label>
-        
+        <label class="block" for="idUnidad">Unidad Seleccionada Placa: {{ selectedUnidad?.placa }}</label>
       </div>
+
 
   </div>
 
@@ -291,8 +287,8 @@
       <td>{{ unidad.estado}}</td>
       <td>
         <p-button
-            (click)="seleccionarUnidad()"
-            label="{{ modalType }}"
+            (click)="seleccionarUnidad(unidad)"
+            label="Seleccionar"
           ></p-button>
       </td>
   </tr>

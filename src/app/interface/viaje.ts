@@ -1,4 +1,5 @@
 import { Empleado } from "./empleado";
+import { Unidad } from "./unidad";
 
 export interface Viaje {
     idViaje: number,
@@ -8,7 +9,13 @@ export interface Viaje {
     horaFin: String,
     precioNormal: number,
     precioDiferenciado:number,
-    idConductor: number,
-    idAyudante:number,
-    idUnidad: number
+    conductor: Empleado,
+    ayudante:Empleado,
+    unidad: Unidad
 }
+
+
+
+
+
+

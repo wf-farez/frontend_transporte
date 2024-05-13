@@ -38,9 +38,11 @@ export class ParadaService {
       postData.idParada= selectedPdt.idParada;
       return this.httpClient.put('http://localhost:8080/api/paradas', postData);
     }
+  }
 
 
-    
+  addParada(postData: any) {
+    return this.httpClient.post('http://localhost:8080/api/paradas', postData);
   }
 
 

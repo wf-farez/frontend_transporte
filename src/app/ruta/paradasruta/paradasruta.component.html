@@ -72,8 +72,7 @@
       </div>
     </form>
     
-
-  <p-button
+        <p-button
           (click)="asignarParadaCreada()"
           label="{{ modalType }}"
           [disabled]="paradaForm.invalid"
@@ -98,7 +97,7 @@
         </div>
       </p-card>
 
-<p-table [value]="paradas" >  
+<p-table [value]="paradas" [paginator]="true" [rows]="4" paginatorPosition="bottom">  
   <ng-template pTemplate="header">
     <tr>
       <th>IDPARADA</th>
@@ -131,12 +130,9 @@
 
 </p-card>
 
-
-
-
   <p-card header="Paradas de ruta ">
 
-    <p-table [value]="paradasruta" >  
+    <p-table [value]="paradasrutamostrar" >  
       <ng-template pTemplate="header">
         <tr>
           <th>IDRUTA</th>
@@ -146,6 +142,7 @@
           <th>DIRECCION</th>
           <th>LATITUD</th>
           <th>LONGITUD</th>
+          <th>ORDEN</th>
           
         </tr>
       </ng-template>
@@ -158,6 +155,7 @@
           <td>{{ paradaruta.direccion }}</td>
           <td>{{ paradaruta.latitud}}</td>
           <td>{{ paradaruta.longitud }}</td>
+          <td>{{ paradaruta.orden}}</td>
         <td>
           
             <!-- Botones para subir y bajar la fila -->
@@ -185,12 +183,11 @@
             label="Cancel"
             styleClass="p-button-text"
           ></p-button>
-<!--           
+          
           <p-button
-            (click)="asignarParada()"
+            (click)="guardarParadasRuta()"
             label="{{ modalType }}"
-
-          ></p-button> -->
+          ></p-button> 
 
   </ng-template>
 

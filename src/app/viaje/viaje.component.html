@@ -32,8 +32,9 @@
         <th>horaFin</th>
         <th>precioNormal</th>
         <th>precioDiferenciado</th>
-        <th>idConductor</th>
-        <th>idAyudante</th>
+        <th>UnidadPlaca</th>
+        <th>Conductor</th>  
+        <th>Ayudante</th>  
       </tr>
 
     </ng-template>
@@ -46,9 +47,9 @@
         <td>{{ viaje.horaFin }}</td>
         <td>{{ viaje.precioNormal }}</td>
         <td>{{ viaje.precioDiferenciado }}</td>
-        <td>{{ viaje.idConductor }}</td>
-        <td>{{ viaje.idAyudante }}</td>
-
+        <td>{{ viaje.unidad?.placa }}</td>
+        <td>{{ viaje.conductor?.nombre +' ' +viaje.conductor?.apellido}}</td> 
+        <td>{{ viaje.ayudante?.nombre +' '+ viaje.ayudante?.apellido}}</td> 
       <td>
 
         <button
