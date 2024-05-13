@@ -1,4 +1,5 @@
 import { Empleado } from "./empleado";
+import { Ruta } from "./ruta";
 import { Unidad } from "./unidad";
 
 export interface Viaje {
@@ -11,7 +12,8 @@ export interface Viaje {
     precioDiferenciado:number,
     conductor: Empleado,
     ayudante:Empleado,
-    unidad: Unidad
+    unidad: Unidad,
+    ruta: Ruta
 }
 
 

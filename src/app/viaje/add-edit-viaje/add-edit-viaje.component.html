@@ -9,6 +9,130 @@
   (onHide)="closeModal()"
 >
 
+<!-- <p> Seleccione Ruta </p>
+
+<p-card >
+
+  <div class="flex justify-content-between">
+      <div class="flex justify-content-between">
+      <select [(ngModel)]="selectedFilter">
+          <option value="nombreCompania">Nombre de compania</option>
+          <option value="nombreRuta">Nombre de Ruta</option>
+          <option value="origenRuta">Origen de Ruta</option>
+          <option value="destinoRuta">Destino de Ruta</option>
+      </select>
+
+   
+      <input type="text" pInputText placeholder="Search " (input)="filterBy($event)" />
+    
+  </div>
+
+</div>
+
+
+</p-card>
+
+<p-table [value]="rutas" >  
+<ng-template pTemplate="header">
+<tr>
+  <th>IDRUTA</th>
+  <th>COMPANIA</th>
+  <th>RUTA</th>
+  <th>ORIGEN</th>
+  <th>DESTINO</th>
+  <th>OPCIONES</th>
+  <th>PARADAS</th>
+</tr>
+
+</ng-template>
+<ng-template pTemplate="body" let-ruta >
+<tr >
+  <td>{{ ruta.idRuta }}</td>
+  <td>{{ ruta.nombreCompania}}</td>
+  <td>{{ ruta.nombreRuta}}</td>
+  <td>{{ ruta.origenRuta }}</td>
+  <td>{{ ruta.destinoRuta}}</td>
+<td>
+      <p-button
+          (click)="seleccionarConductor(empleado)"
+          label="Seleccionar"
+        ></p-button>
+        <td>
+          <p-button
+              (click)="seleccionarConductor(empleado)"
+              label="Seleccionar"
+            ></p-button>
+        </td>
+      </tr>
+    
+      </ng-template>
+    
+    </p-table>
+    
+    </p-card> -->
+
+
+
+
+    
+
+<p> Seleccione Ruta </p>
+<p-card>
+      <div class="flex justify-content-between">
+          <div class="flex justify-content-between">
+
+            <select [(ngModel)]="selectedFilter">
+              <option value="nombreCompania">Nombre de compania</option>
+              <option value="nombreRuta">Nombre de Ruta</option>
+              <option value="origenRuta">Origen de Ruta</option>
+              <option value="destinoRuta">Destino de Ruta</option>
+          </select>
+
+          <input type="text" pInputText placeholder="SearchR " (input)="filterByR($event)" />  
+      </div>
+
+      <div class="field">
+        <!-- <label class="block" for="idRuta">Ruta Seleccionada nombre: {{ selectedEmpleadoC?.cedula }}</label> -->
+      </div>
+
+  </div>
+
+  <p-table [value]="rutas" >  
+    <ng-template pTemplate="header">
+    <tr>
+      <th>IDRUTA</th>
+      <th>COMPANIA</th>
+      <th>RUTA</th>
+      <th>ORIGEN</th>
+      <th>DESTINO</th>
+      <th>OPCIONES</th>
+      <th>PARADAS</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-ruta >
+  <tr >
+    <td>{{ ruta.idRuta }}</td>
+    <td>{{ ruta.nombreCompania}}</td>
+    <td>{{ ruta.nombreRuta}}</td>
+    <td>{{ ruta.origenRuta }}</td>
+    <td>{{ ruta.destinoRuta}}</td>
+  <td>
+      <p-button
+          (click)="seleccionarRuta(ruta)"
+          label="Seleccionar"
+        ></p-button>
+    </td>
+  </tr>
+
+  </ng-template>
+
+</p-table>
+
+</p-card>
+
+
+
+
 <form [formGroup]="viajeForm" class="viaje-form">
   <div class="field">
     <label class="block" for="codigoViaje">Código Viaje</label>
@@ -141,6 +265,8 @@
 
 
 </form>
+
+
 
 <p> Seleccione Conductor </p>
 <p-card>

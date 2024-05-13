@@ -8,6 +8,8 @@ import { EmpleadoService } from '../../service/empleado.service';
 import { Empleado } from '../../interface/empleado';
 import { Unidad } from '../../interface/unidad';
 import { UnidadService } from '../../service/unidad.service';
+import { Ruta } from '../../interface/ruta';
+import { RutaService } from '../../service/ruta.service';
 
 @Component({
   selector: 'app-add-edit-viaje',
@@ -25,6 +27,7 @@ export class AddEditViajeComponent implements OnInit {
   constructor(
     private unidadService: UnidadService,
     private empleadoService: EmpleadoService,
+    private rutaService: RutaService,
     private fb: FormBuilder, 
     private viajeService: ViajeService,
     private messageService: MessageService,
@@ -35,7 +38,7 @@ export class AddEditViajeComponent implements OnInit {
     conductorV:Empleado | any;
     ayudanteV:Empleado | any;
     unidadV:Unidad | any;
-   
+    rutaV:Ruta| any;
   
   viajeForm = this.fb.group({
     idViaje: [""],
@@ -47,7 +50,8 @@ export class AddEditViajeComponent implements OnInit {
     precioDiferenciado: [0, Validators.required],
     conductor: [null],
     ayudante: [null],
-    unidad: [null]
+    unidad: [null],
+    ruta: [null]
   });
   
 
@@ -70,6 +74,7 @@ export class AddEditViajeComponent implements OnInit {
   selectedEmpleadoC: any = null;
   selectedEmpleadoA: any = null;
   selectedUnidad: any = null;
+  selectedRuta: any = null;
 
   selectedEstado: string = '';
   subscriptions: Subscription[] = [];
@@ -83,10 +88,16 @@ export class AddEditViajeComponent implements OnInit {
   selectedFilterU: string = '';
   filterValueU: string = '';
   
+
+    //rutas
+    rutas: Ruta[] = [];
+    filteredRutas: Ruta[] = [];
+    searchTermR: string = '';
   
   ngOnInit(): void {
       this.getEmpleadosList();
       this.getUnidadesList();
+      this.getRutasList();
     }
   
     getUnidadesList() {
@@ -107,6 +118,14 @@ export class AddEditViajeComponent implements OnInit {
       )
     }
  
+    getRutasList() {
+      this.rutaService.getRutas().subscribe(
+        response => {
+          this.rutas = response;
+          this.filteredRutas = [...this.rutas]; // Copia las empleados al array filtrado inicialmente
+        }
+      )
+    }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
@@ -285,6 +304,27 @@ filterByU(event: any) {
         }
 
 
+filterByR(event: any) {
+          const value = event?.target?.value;
+          if (value) {
+            if (this.selectedFilter === 'nombreCompania') {
+              this.rutas = this.rutas.filter(ruta => ruta.nombreCompania.toLowerCase().includes(value.toLowerCase()));
+            } else if (this.selectedFilter === 'nombreRuta') {
+              this.rutas = this.rutas.filter(ruta => ruta.nombreRuta.toLowerCase().includes(value.toLowerCase()));
+            } else if (this.selectedFilter === 'origenRuta') {
+              this.rutas = this.rutas.filter(ruta => ruta.origenRuta.toLowerCase().includes(value.toLowerCase()));
+            } else if (this.selectedFilter === 'destinoRuta') {
+              this.rutas = this.rutas.filter(ruta => ruta.destinoRuta.toLowerCase().includes(value.toLowerCase()));
+            }
+          }else {
+                // Si no se ha ingresado nada en el input, muestra todas las rutas nuevamente
+                this.getRutasList();
+              }
+          
+          
+          }
+          
+
 
 seleccionarConductor(empleado: any){
 
@@ -394,6 +434,41 @@ seleccionarUnidad(unidad: any){
   
         }
 
+
+
+
+        
+seleccionarRuta(ruta: any){
+  try {
+    this.selectedRuta= ruta;
+
+    if (!this.selectedRuta) {
+      throw new Error('No se ha seleccionado ninguna fila.');
+    }
+
+    console.log('Objeto unidad', this.selectedRuta);
+
+    // Agrega condcutor  seleccionada a la objeto conductor      
+    
+    this.rutaV = {
+      idRuta: this.selectedRuta.idRuta, 
+      nombreCompania: this.selectedRuta.nombreCompania, 
+      nombreRuta: this.selectedRuta.nombreRuta, 
+      origenRuta: this.selectedRuta.origenRuta,
+      destinoRuta: this.selectedRuta.destinoRuta,
+    };
+    this.viajeForm.patchValue({
+      ruta:this.rutaV
+    });
+
+    // Opcionalmente, puedes enviar un mensaje de éxito
+    this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Ruta asignada correctamente.' });
+
+  } catch (error) {
+    console.error('Error:', error);
+  }
+  
+        }
 
 
 }

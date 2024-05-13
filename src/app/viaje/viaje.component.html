@@ -35,6 +35,7 @@
         <th>UnidadPlaca</th>
         <th>Conductor</th>  
         <th>Ayudante</th>  
+        <th>Ruta</th> 
       </tr>
 
     </ng-template>
@@ -50,6 +51,7 @@
         <td>{{ viaje.unidad?.placa }}</td>
         <td>{{ viaje.conductor?.nombre +' ' +viaje.conductor?.apellido}}</td> 
         <td>{{ viaje.ayudante?.nombre +' '+ viaje.ayudante?.apellido}}</td> 
+        <td>{{ viaje.ruta?.nombreRuta }}</td> 
       <td>
 
         <button
