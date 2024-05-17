@@ -1,7 +1,12 @@
- <p-card header="Login">
+ 
+ <div class="card-container">
+  <div class="card-wrapper">
+    
+    <p-card >
+      <h2 class="header-text">Login</h2>
     <form [formGroup]="loginForm" class="login-form">
         <div class="field">
-          <label class="block" for="usuario">usuario:root</label>
+          <label class="block" for="usuario">Usuario:(root)</label>
           <input type="text" pInputText id="usuario" formControlName="usuario" />
           <small
             class="p-error block"
@@ -14,7 +19,7 @@
         </div>
 
         <div class="field">
-          <label class="block" for="contraseña">contraseña:root</label>
+          <label class="block" for="contraseña">Contraseña:(root)</label>
           <input type="text" pInputText id="contraseña" formControlName="contraseña" />
           <small
             class="p-error block"
@@ -25,14 +30,11 @@
             >Field is required</small
           >
         </div>
-        
-    
-
-    
+      
       </form>
     
     <ng-template pTemplate="footer">
-        <div class="flex justify-content-between">
+        <div class="flex justify-content-center">
             <p-button label="Ingresar" (click)="ingresar()"></p-button>
         </div>
     </ng-template>
@@ -40,3 +42,6 @@
 </p-card> 
 
 
+</div>
+
+</div>
