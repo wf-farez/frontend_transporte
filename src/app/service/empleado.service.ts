@@ -19,31 +19,18 @@ export class EmpleadoService {
   ) { }
 
 
-  public getEmpleados(): Observable<Empleado[]>{
+  public obtenerEmpleados(): Observable<Empleado[]>{
     
     return this.httpClient.get<Empleado[]>(this.API_SERVER);
   }
-
-  // saveUnidad(postData: any) {
-  //   return this.httpClient.post("http://localhost:8080/api/unidades", postData);
-  // }
-
-  addEditEmpleado(postData: any, selectedPdt: any) {
+  registrarEmpleado(postData: any, selectedPdt: any) {
     if (!selectedPdt) {
       return this.httpClient.post('http://localhost:8080/api/empleados', postData);
     } else {
-
-      //return this.httpClient.put(`http://localhost:8080/api/unidades/${selectedPdt.id_unidad}`, postData);
-
       postData.idEmpleado = selectedPdt.idEmpleado;
       return this.httpClient.put('http://localhost:8080/api/empleados', postData);
     }
-
-
-    
   }
-
-
   eliminarEmpleado(idEmpleado: number) {
     return this.httpClient.delete(`http://localhost:8080/api/empleados/${idEmpleado}`);
   }

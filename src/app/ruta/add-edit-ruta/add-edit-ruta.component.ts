@@ -55,11 +55,11 @@ export class AddEditRutaComponent implements OnInit {
     this.clickClose.emit(true);
   }
 
-  addEditRuta() {
+  registrarRuta() {
     if (this.modalType === 'Add') {
       // Si es una nueva Ruta, eliminamos el campo idRuta del formulario
       const { idRuta, ...newRuta } = this.rutaForm.value;
-      this.RutaService.addEditRuta(newRuta, this.selectedRuta).subscribe(
+      this.RutaService.registrarRuta(newRuta, this.selectedRuta).subscribe(
         response => {
           this.clickAddEdit.emit(response);
           this.closeModal();
@@ -72,7 +72,7 @@ export class AddEditRutaComponent implements OnInit {
       );
     } else if (this.modalType === 'Edit') {
       // Si es una Ruta existente, enviamos el formulario completo
-      this.RutaService.addEditRuta(this.rutaForm.value, this.selectedRuta).subscribe(
+      this.RutaService.registrarRuta(this.rutaForm.value, this.selectedRuta).subscribe(
         response => {
           this.clickAddEdit.emit(response);
           this.closeModal();

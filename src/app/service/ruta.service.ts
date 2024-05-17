@@ -19,31 +19,21 @@ export class RutaService {
   ) { }
 
 
-  public getRutas(): Observable<Ruta[]>{
+  public obtenerRutas(): Observable<Ruta[]>{
     return this.httpClient.get<Ruta[]>(this.API_SERVER);
   }
 
-  // saveruta(postData: any) {
-  //   return this.httpClient.post("http://localhost:8080/api/rutas", postData);
-  // }
-
-  addEditRuta(postData: any, selectedPdt: any) {
+  registrarRuta(postData: any, selectedPdt: any) {
     if (!selectedPdt) {
       return this.httpClient.post('http://localhost:8080/api/rutas', postData);
     } else {
-
-      //return this.httpClient.put(`http://localhost:8080/api/rutas/${selectedPdt.id_ruta}`, postData);
-
       postData.id_ruta = selectedPdt.id_ruta;
       return this.httpClient.put('http://localhost:8080/api/rutas', postData);
     }
-
-
-    
   }
 
 
-  deleteRuta(idRuta: number) {
+  eliminarRuta(idRuta: number) {
     return this.httpClient.delete(`http://localhost:8080/api/rutas/${idRuta}`);
   }
 }

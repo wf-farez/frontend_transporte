@@ -35,11 +35,11 @@ export class UnidadComponent implements OnInit, OnDestroy {
     private messageService: MessageService) { }
 
   ngOnInit(): void {
-    this.getUnidadesList();
+    this.obtenerUnidadesList();
   }
 
-  getUnidadesList() {
-    this.unidadService.getUnidades().subscribe(
+  obtenerUnidadesList() {
+    this.unidadService.obtenerUnidades().subscribe(
       response => {
         this.unidades = response;
         this.filteredUnidades = [...this.unidades]; // Copia las unidades al array filtrado inicialmente
@@ -71,7 +71,7 @@ export class UnidadComponent implements OnInit, OnDestroy {
       this.filteredUnidades.unshift(newData); // Agrega la nueva unidad también al array filtrado
     }
 
-    this.getUnidadesList();
+    this.obtenerUnidadesList();
   }
 
   showEditModal(unidad: Unidad) {
@@ -79,15 +79,15 @@ export class UnidadComponent implements OnInit, OnDestroy {
     this.selectedUnidad = unidad;
   }
 
-  deleteUnidad(unidad: Unidad) {
+  eliminarUnidad(unidad: Unidad) {
     this.confirmationService.confirm({
-      message: 'Are you sure that you want to delete this unidad?',
+      message: 'Are you sure that you want to eliminar this unidad?',
       accept: () => {
-        this.unidadService.deleteUnidad(unidad.idUnidad).subscribe(
+        this.unidadService.eliminarUnidad(unidad.idUnidad).subscribe(
           response => {
             this.unidades = this.unidades.filter(data => data.idUnidad !== unidad.idUnidad);
             this.filteredUnidades = this.filteredUnidades.filter(data => data.idUnidad !== unidad.idUnidad);
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Deleted Successfully' });
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'eliminard Successfully' });
           },
           error => {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: error });
@@ -120,7 +120,7 @@ if (value) {
   }
 }else {
       // Si no se ha ingresado nada en el input, muestra todas las unidades nuevamente
-      this.getUnidadesList();
+      this.obtenerUnidadesList();
     }
 
 

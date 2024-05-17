@@ -31,11 +31,11 @@ export class EmpleadoComponent implements OnInit, OnDestroy {
     private messageService: MessageService) { }
 
   ngOnInit(): void {
-    this.getEmpleadosList();
+    this.obtenerEmpleadosList();
   }
 
-  getEmpleadosList() {
-    this.empleadoService.getEmpleados().subscribe(
+  obtenerEmpleadosList() {
+    this.empleadoService.obtenerEmpleados().subscribe(
       response => {
         this.empleados = response;
         this.filteredEmpleados
@@ -72,7 +72,7 @@ export class EmpleadoComponent implements OnInit, OnDestroy {
   .unshift(newData); // Agrega la nueva Empleado también al array filtrado
     }
 
-    this.getEmpleadosList();
+    this.obtenerEmpleadosList();
   }
 
   showEditModal(Empleado: Empleado) {
@@ -108,7 +108,7 @@ export class EmpleadoComponent implements OnInit, OnDestroy {
 
 
 filterBy(event: any) {
-const value = event?.target?.value;
+const value = event?.tarobtener?.value;
 if (value) {
   if (this.selectedFilter === 'cedula') {
     this.empleados = this.empleados.filter(Empleado => Empleado.cedula.toLowerCase().includes(value.toLowerCase()));
@@ -125,14 +125,10 @@ if (value) {
   }
 }else {
       // Si no se ha ingresado nada en el input, muestra todas las empleados nuevamente
-      this.getEmpleadosList();
+      this.obtenerEmpleadosList();
     }
 
 
 }
-
-
-
-
 }
 

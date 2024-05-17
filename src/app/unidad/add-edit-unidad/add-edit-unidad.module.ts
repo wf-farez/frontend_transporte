@@ -9,8 +9,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ToastModule } from 'primeng/toast';
 
-import { AddEditUnidadComponent } from './add-edit-unidad.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { AddEditUnidadComponent } from './add-edit-unidad.component';
 
 
 @NgModule({

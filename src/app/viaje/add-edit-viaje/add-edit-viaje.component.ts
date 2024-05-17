@@ -93,13 +93,13 @@ export class AddEditViajeComponent implements OnInit {
     searchTermR: string = '';
   
   ngOnInit(): void {
-      this.getEmpleadosList();
-      this.getUnidadesList();
-      this.getRutasList();
+      this.obtenerEmpleadosList();
+      this.obtenerUnidadesList();
+      this.obtenerRutasList();
     }
   
-    getUnidadesList() {
-      this.unidadService.getUnidades().subscribe(
+    obtenerUnidadesList() {
+      this.unidadService.obtenerUnidades().subscribe(
         response => {
           this.unidades = response;
           this.filteredUnidades = [...this.unidades]; // Copia las unidades al array filtrado inicialmente
@@ -107,8 +107,8 @@ export class AddEditViajeComponent implements OnInit {
       )
     }
 
-  getEmpleadosList() {
-      this.empleadoService.getEmpleados().subscribe(
+    obtenerEmpleadosList() {
+      this.empleadoService.obtenerEmpleados().subscribe(
         response => {
           this.empleados = response;
           this.filteredEmpleados = [...this.empleados]; // Copia las empleados al array filtrado inicialmente
@@ -116,8 +116,8 @@ export class AddEditViajeComponent implements OnInit {
       )
     }
  
-    getRutasList() {
-      this.rutaService.getRutas().subscribe(
+    obtenerRutasList() {
+      this.rutaService.obtenerRutas().subscribe(
         response => {
           this.rutas = response;
           this.filteredRutas = [...this.rutas]; // Copia las empleados al array filtrado inicialmente
@@ -169,7 +169,7 @@ closeModal() {
   }
 
 
-addEditViaje() {
+registrarViaje() {
     if (this.modalType === 'Add') {
 
      // Asigna los valores seleccionados al formulario
@@ -284,7 +284,7 @@ filterBy(event: any) {
       }
     }else {
           // Si no se ha ingresado nada en el input, muestra todas las empleados nuevamente
-          this.getEmpleadosList();
+          this.obtenerEmpleadosList();
         }
     
     
@@ -308,7 +308,7 @@ filterByU(event: any) {
         }
       }else {
             // Si no se ha ingresado nada en el input, muestra todas las unidades nuevamente
-            this.getUnidadesList();
+            this.obtenerUnidadesList();
           }
       
         }
@@ -328,7 +328,7 @@ filterByR(event: any) {
             }
           }else {
                 // Si no se ha ingresado nada en el input, muestra todas las rutas nuevamente
-                this.getRutasList();
+                this.obtenerRutasList();
               }
           
           
@@ -477,8 +477,5 @@ seleccionarRuta(ruta: any){
   } catch (error) {
     console.error('Error:', error);
   }
-  
         }
-
-
 }

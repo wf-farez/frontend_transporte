@@ -66,11 +66,11 @@ export class AddEditEmpleadoComponent implements OnInit {
     this.clickClose.emit(true);
   }
 
-  addEditEmpleado() {
+  registrarEmpleado() {
     if (this.modalType === 'Add') {
       // Si es una nueva empleado, eliminamos el campo idEmpleado del formulario
       const { idEmpleado, ...newempleado } = this.empleadoForm.value;
-      this.empleadoService.addEditEmpleado(newempleado, this.selectedEmpleado).subscribe(
+      this.empleadoService.registrarEmpleado(newempleado, this.selectedEmpleado).subscribe(
         response => {
           this.clickAddEdit.emit(response);
           this.closeModal();
@@ -83,7 +83,7 @@ export class AddEditEmpleadoComponent implements OnInit {
       );
     } else if (this.modalType === 'Edit') {
       // Si es una empleado existente, enviamos el formulario completo
-      this.empleadoService.addEditEmpleado(this.empleadoForm.value, this.selectedEmpleado).subscribe(
+      this.empleadoService.registrarEmpleado(this.empleadoForm.value, this.selectedEmpleado).subscribe(
         response => {
           this.clickAddEdit.emit(response);
           this.closeModal();

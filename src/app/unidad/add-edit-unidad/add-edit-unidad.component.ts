@@ -14,7 +14,7 @@ export class AddEditUnidadComponent implements OnInit {
   @Input() displayAddEditModal: boolean = true;
   @Input() selectedUnidad: any = null;
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() clickAddEdit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() clickregistrar: EventEmitter<any> = new EventEmitter<any>();
   modalType = "Add";
   
   unidadForm = this.fb.group({
@@ -55,13 +55,13 @@ export class AddEditUnidadComponent implements OnInit {
     this.clickClose.emit(true);
   }
 
-  addEditUnidad() {
+  registrarUnidad() {
     if (this.modalType === 'Add') {
       // Si es una nueva unidad, eliminamos el campo id_unidad del formulario
       const { idUnidad, ...newUnidad } = this.unidadForm.value;
-      this.unidadService.addEditUnidad(newUnidad, this.selectedUnidad).subscribe(
+      this.unidadService.registrarUnidad(newUnidad, this.selectedUnidad).subscribe(
         response => {
-          this.clickAddEdit.emit(response);
+          this.clickregistrar.emit(response);
           this.closeModal();
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Unidad added' });
         },
@@ -72,9 +72,9 @@ export class AddEditUnidadComponent implements OnInit {
       );
     } else if (this.modalType === 'Edit') {
       // Si es una unidad existente, enviamos el formulario completo
-      this.unidadService.addEditUnidad(this.unidadForm.value, this.selectedUnidad).subscribe(
+      this.unidadService.registrarUnidad(this.unidadForm.value, this.selectedUnidad).subscribe(
         response => {
-          this.clickAddEdit.emit(response);
+          this.clickregistrar.emit(response);
           this.closeModal();
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Unidad updated' });
         },

@@ -36,11 +36,11 @@ export class RutaComponent implements OnInit, OnDestroy {
     private messageService: MessageService) { }
 
   ngOnInit(): void {
-    this.getRutasList();
+    this.obtenerRutasList();
   }
 
-  getRutasList() {
-    this.rutaService.getRutas().subscribe(
+  obtenerRutasList() {
+    this.rutaService.obtenerRutas().subscribe(
       response => {
         this.rutas = response;
         this.filteredRutas = [...this.rutas]; // Copia las rutas al array filtrado inicialmente
@@ -77,19 +77,19 @@ export class RutaComponent implements OnInit, OnDestroy {
       this.rutas.unshift(newData);
       this.filteredRutas.unshift(newData); // Agrega la nueva ruta también al array filtrado
     }
-    this.getRutasList();
+    this.obtenerRutasList();
   }
 
 
-  deleteruta(ruta: Ruta) {
+  eliminarRuta(ruta: Ruta) {
     this.confirmationService.confirm({
-      message: 'Are you sure that you want to delete this ruta?',
+      message: 'Are you sure that you want to eliminar this ruta?',
       accept: () => {
-        this.rutaService.deleteRuta(ruta.idRuta).subscribe(
+        this.rutaService.eliminarRuta(ruta.idRuta).subscribe(
           response => {
             this.rutas = this.rutas.filter(data => data.idRuta !== ruta.idRuta);
             this.filteredRutas = this.filteredRutas.filter(data => data.idRuta !== ruta.idRuta);
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Deleted Successfully' });
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'eliminard Successfully' });
           },
           error => {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: error });
@@ -122,7 +122,7 @@ if (value) {
   }
 }else {
       // Si no se ha ingresado nada en el input, muestra todas las rutas nuevamente
-      this.getRutasList();
+      this.obtenerRutasList();
     }
 
 
