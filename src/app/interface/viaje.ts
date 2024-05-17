@@ -5,15 +5,16 @@ import { Unidad } from "./unidad";
 export interface Viaje {
     idViaje: number,
     codigoViaje: String,
-    fecha: String,
-    horaInicio: String,
-    horaFin: String,
+    fecha: Date,
+    horaInicio: Date,
+    horaFin: Date,
     precioNormal: number,
     precioDiferenciado:number,
     conductor: Empleado,
     ayudante:Empleado,
     unidad: Unidad,
-    ruta: Ruta
+    ruta: Ruta,
+    estado:boolean
 }
 
 

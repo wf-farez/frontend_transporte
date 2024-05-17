@@ -1,7 +1,6 @@
-<p-card header="Gestion de viajes">
+<h2>Gestion de viajes</h2>
 
-    <p-card >
-
+   
         <div class="flex justify-content-between">
             <div class="flex justify-content-between">
             <select [(ngModel)]="selectedFilter">
@@ -20,13 +19,18 @@
     </div>
 
 
-</p-card>
 
- <p-table [value]="viajes" >  
+
+ <p-table [value]="viajes" 
+ styleClass="custom-table p-datatable-gridlines"
+
+ >  
     <ng-template pTemplate="header">
+
       <tr>
-        <th>idViaje</th>
+        <!-- <th>idViaje</th> -->
         <th>codigoViaje</th>
+        <th>Ruta</th> 
         <th>fecha</th>
         <th>horaInicio</th>
         <th>horaFin</th>
@@ -35,23 +39,28 @@
         <th>UnidadPlaca</th>
         <th>Conductor</th>  
         <th>Ayudante</th>  
-        <th>Ruta</th> 
+         <th>Estado</th> 
+        
       </tr>
 
     </ng-template>
     <ng-template pTemplate="body" let-viaje >
       <tr >
-        <td>{{ viaje.idViaje }}</td>
+        <!-- <td>{{ viaje.idViaje }}</td> -->
         <td>{{ viaje.codigoViaje }}</td>
-        <td>{{ viaje.fecha }}</td>
+        <td>{{ viaje.ruta?.nombreRuta }}</td> 
+        <!-- <td>{{ viaje.fecha }}</td>
         <td>{{ viaje.horaInicio }}</td>
-        <td>{{ viaje.horaFin }}</td>
+        <td>{{ viaje.horaFin }}</td> -->
+        <td>{{ viaje.fecha | date: 'dd/MM/yyyy' }}</td> <!-- Muestra solo la fecha -->
+        <td>{{ viaje.horaInicio | date: 'HH:mm:ss' }}</td> <!-- Muestra solo la hora de inicio -->
+        <td>{{ viaje.horaFin | date: 'HH:mm:ss' }}</td> 
         <td>{{ viaje.precioNormal }}</td>
         <td>{{ viaje.precioDiferenciado }}</td>
         <td>{{ viaje.unidad?.placa }}</td>
         <td>{{ viaje.conductor?.nombre +' ' +viaje.conductor?.apellido}}</td> 
         <td>{{ viaje.ayudante?.nombre +' '+ viaje.ayudante?.apellido}}</td> 
-        <td>{{ viaje.ruta?.nombreRuta }}</td> 
+        <td>{{ viaje.estado }}</td>
       <td>
 
         <button
@@ -88,4 +97,3 @@
 
 <p-toast position="bottom-right"></p-toast>  
 
-</p-card>

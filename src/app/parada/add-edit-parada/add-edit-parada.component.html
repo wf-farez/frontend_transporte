@@ -37,8 +37,34 @@
         >
       </div>
   
+      <div class="field">
+        <label class="block" for="latitud">Latitud</label>
+        <input type="text" pInputText id="latitud" formControlName="latitud" />
+        <small
+          class="p-error block"
+          *ngIf="
+            paradaForm.controls['latitud'].invalid &&
+            paradaForm.controls['latitud'].dirty
+          "
+          >Field is required</small
+        >
+      </div>
 
-  <div class="field">
+      <div class="field">
+        <label class="block" for="longitud">Longitud</label>
+        <input type="text" pInputText id="longitud" formControlName="longitud" />
+        <small
+          class="p-error block"
+          *ngIf="
+            paradaForm.controls['longitud'].invalid &&
+            paradaForm.controls['longitud'].dirty
+          "
+          >Field is required</small
+        >
+      </div>
+
+
+  <!-- <div class="field">
     <label class="block" for="latitud">Latitud</label>
     <p-inputNumber
       id="price"
@@ -53,9 +79,9 @@
       "
       >Field is required</small
     >
-  </div>
+  </div> -->
 
-  <div class="field">
+  <!-- <div class="field">
     <label class="block" for="longitud">Longitud</label>
     <p-inputNumber
       id="price"
@@ -70,7 +96,7 @@
       "
       >Field is required</small
     >
-  </div>
+  </div> -->
 
   </form>
 

@@ -1,6 +1,5 @@
-<p-card header="Gestion de Empleados">
+<h2>Gestion de Empleados</h2>
 
-    <p-card >
 
         <div class="flex justify-content-between">
           
@@ -16,6 +15,7 @@
             <input type="text" pInputText placeholder="Search " (input)="filterBy($event)" />
           
         </div>
+        
         <div class="flex justify-content-between">
             <p-button label="Agregar empleado" (click)="showAddModal()"></p-button>
         </div>
@@ -23,9 +23,9 @@
     </div>
 
 
-</p-card>
-
- <p-table [value]="empleados" >  
+ <p-table [value]="empleados"
+ styleClass="custom-table"
+  >  
     <ng-template pTemplate="header">
       <tr>
         <th>IDEMPLEADO</th>
@@ -82,4 +82,3 @@
 
 <p-toast position="bottom-right"></p-toast>  
 
-</p-card>

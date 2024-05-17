@@ -1,0 +1,8 @@
+.flex-container {
+    display: flex;
+  }
+  
+  /* Opcional: Espacio entre los elementos */
+  .field {
+    margin-right: 5px; /* Ajusta el valor según lo necesites */
+  }

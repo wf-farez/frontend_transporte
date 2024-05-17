@@ -1,83 +1,15 @@
-
 <p-dialog
   header="{{ modalType }} Viaje"
   [(visible)]="displayAddEditModal"
   [modal]="true"
-  [style]="{ 'width': '85vw', 'height': '100vh' }"
+  [style]="{ 'width': '60vw', 'height': '100vh' }"
   [draggable]="false"
   [resizable]="false"
   (onHide)="closeModal()"
 >
 
-<!-- <p> Seleccione Ruta </p>
-
-<p-card >
-
-  <div class="flex justify-content-between">
-      <div class="flex justify-content-between">
-      <select [(ngModel)]="selectedFilter">
-          <option value="nombreCompania">Nombre de compania</option>
-          <option value="nombreRuta">Nombre de Ruta</option>
-          <option value="origenRuta">Origen de Ruta</option>
-          <option value="destinoRuta">Destino de Ruta</option>
-      </select>
-
-   
-      <input type="text" pInputText placeholder="Search " (input)="filterBy($event)" />
-    
-  </div>
-
-</div>
-
-
-</p-card>
-
-<p-table [value]="rutas" >  
-<ng-template pTemplate="header">
-<tr>
-  <th>IDRUTA</th>
-  <th>COMPANIA</th>
-  <th>RUTA</th>
-  <th>ORIGEN</th>
-  <th>DESTINO</th>
-  <th>OPCIONES</th>
-  <th>PARADAS</th>
-</tr>
-
-</ng-template>
-<ng-template pTemplate="body" let-ruta >
-<tr >
-  <td>{{ ruta.idRuta }}</td>
-  <td>{{ ruta.nombreCompania}}</td>
-  <td>{{ ruta.nombreRuta}}</td>
-  <td>{{ ruta.origenRuta }}</td>
-  <td>{{ ruta.destinoRuta}}</td>
-<td>
-      <p-button
-          (click)="seleccionarConductor(empleado)"
-          label="Seleccionar"
-        ></p-button>
-        <td>
-          <p-button
-              (click)="seleccionarConductor(empleado)"
-              label="Seleccionar"
-            ></p-button>
-        </td>
-      </tr>
-    
-      </ng-template>
-    
-    </p-table>
-    
-    </p-card> -->
-
-
-
-
-    
-
 <p> Seleccione Ruta </p>
-<p-card>
+
       <div class="flex justify-content-between">
           <div class="flex justify-content-between">
 
@@ -86,6 +18,7 @@
               <option value="nombreRuta">Nombre de Ruta</option>
               <option value="origenRuta">Origen de Ruta</option>
               <option value="destinoRuta">Destino de Ruta</option>
+
           </select>
 
           <input type="text" pInputText placeholder="SearchR " (input)="filterByR($event)" />  
@@ -97,29 +30,31 @@
 
   </div>
 
-  <p-table [value]="rutas" >  
+  <p-table [value]="rutas" 
+  styleClass="custom-table p-datatable-gridlines"
+  >  
     <ng-template pTemplate="header">
     <tr>
-      <th>IDRUTA</th>
-      <th>COMPANIA</th>
+      <!-- <th>IDRUTA</th> -->
+      <!-- <th>COMPANIA</th> -->
       <th>RUTA</th>
       <th>ORIGEN</th>
       <th>DESTINO</th>
-      <th>OPCIONES</th>
-      <th>PARADAS</th>
+      <!-- <th>OPCIONES</th> -->
+      <!-- <th>PARADAS</th> -->
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-ruta >
   <tr >
-    <td>{{ ruta.idRuta }}</td>
-    <td>{{ ruta.nombreCompania}}</td>
+    <!-- <td>{{ ruta.idRuta }}</td> -->
+    <!-- <td>{{ ruta.nombreCompania}}</td> -->
     <td>{{ ruta.nombreRuta}}</td>
     <td>{{ ruta.origenRuta }}</td>
     <td>{{ ruta.destinoRuta}}</td>
   <td>
       <p-button
           (click)="seleccionarRuta(ruta)"
-          label="Seleccionar"
+          icon="pi pi-check"
         ></p-button>
     </td>
   </tr>
@@ -128,12 +63,10 @@
 
 </p-table>
 
-</p-card>
 
 
 
-
-<form [formGroup]="viajeForm" class="viaje-form">
+<form [formGroup]="viajeForm" class="viaje-form"  style=" margin-top: 90px"  >
   <div class="field">
     <label class="block" for="codigoViaje">Código Viaje</label>
     <input type="text" pInputText id="codigoViaje" formControlName="codigoViaje" />
@@ -149,26 +82,36 @@
 
 
 <div class="flex-container">
-<div class="field">
-  <label class="block" for="fecha">Fecha</label>
-
-  <p-calendar formControlName="fecha" 
-  [iconDisplay]="'input'" 
-  [showIcon]="true" 
-  inputId="icondisplay" ></p-calendar>
-
-  <small class="p-error block" 
-  *ngIf="viajeForm.controls['fecha'].invalid 
-  && viajeForm.controls['fecha'].dirty">
-    Campo requerido
-  </small>
-</div>
 
   <div class="field">
+
+    <label class="block" for="fecha">Fecha</label>
+    <div  class="card flex justify-content-center ">
+
+      <p-calendar formControlName="fecha" 
+      [iconDisplay]="'input'" 
+      [showIcon]="true" 
+      inputId="icondisplay"
+      ></p-calendar>
+
+     <small class="p-error block" 
+      *ngIf="viajeForm.controls['fecha'].invalid 
+      && viajeForm.controls['fecha'].dirty">
+        Campo requerido
+      </small> 
+
+    </div>
+
+  </div>
+ 
+
+
+
+  <div class="field">
+
     <label class="block" for="horaInicio">Hora de Inicio</label>
     <p-calendar formControlName="horaInicio"
     inputId="calendar-timeonly" 
-    [(ngModel)]="time1"
     [timeOnly]="true" ></p-calendar>
 
     <small
@@ -185,7 +128,6 @@
     <label class="block" for="horaFin">Hora de Fin</label>
     <p-calendar formControlName="horaFin"
     inputId="calendar-timeonly" 
-    [(ngModel)]="time2"
     [timeOnly]="true" ></p-calendar>
   
     <small
@@ -237,39 +179,12 @@
 
 </div>
 
-  <!-- <div class="field">
-    <label class="block" for="idConductor">Conductor</label>
-    <input type="text" pInputText id="idConductor" formControlName="idConductor" />
-    <small
-      class="p-error block"
-      *ngIf="
-        viajeForm.controls['idConductor'].invalid &&
-        viajeForm.controls['idConductor'].dirty
-      "
-      >Campo requerido</small
-    >
-  </div> -->
-
-  <!-- <div class="field">
-    <label class="block" for="idAyudante">Ayudante</label>
-    <input type="text" pInputText id="idAyudante" formControlName="idAyudante" />
-    <small
-      class="p-error block"
-      *ngIf="
-        viajeForm.controls['idAyudante'].invalid &&
-        viajeForm.controls['idAyudante'].dirty
-      "
-      >Campo requerido</small
-    >
-  </div> -->
-
-
 </form>
 
 
 
-<p> Seleccione Conductor </p>
-<p-card>
+<p style=" margin-top: 50px"  > Seleccione Conductor </p>
+
       <div class="flex justify-content-between">
           <div class="flex justify-content-between">
 
@@ -287,10 +202,12 @@
 
   </div>
 
-<p-table [value]="empleados" >  
+<p-table [value]="empleados" 
+ styleClass="custom-table p-datatable-gridlines"
+ >  
   <ng-template pTemplate="header">
     <tr>
-      <th>IDEMPLEADO</th>
+      <!-- <th>IDEMPLEADO</th> -->
       <th>CEDULA</th>
       <th>NOMBRES</th>
       <th>APELLIDOS</th>
@@ -299,7 +216,7 @@
   </ng-template>
   <ng-template pTemplate="body" let-empleado >
     <tr >
-      <td>{{ empleado.idEmpleado }}</td>
+      <!-- <td>{{ empleado.idEmpleado }}</td> -->
       <td>{{ empleado.cedula}}</td>
       <td>{{ empleado.nombre }}</td>
       <td>{{ empleado.apellido }}</td>
@@ -307,7 +224,7 @@
     <td>
       <p-button
           (click)="seleccionarConductor(empleado)"
-          label="Seleccionar"
+          icon="pi pi-check"
         ></p-button>
     </td>
   </tr>
@@ -316,10 +233,12 @@
 
 </p-table>
 
-</p-card>
 
-<p> Seleccione Ayudante </p>
-<p-card>
+
+
+<p style=" margin-top: 90px"  > Seleccione Ayudante </p>
+
+
   <div class="flex justify-content-between">
       <div class="flex justify-content-between">
 
@@ -340,10 +259,15 @@
 
 </div>
 
-<p-table [value]="empleados" >  
+
+
+<p-table [value]="empleados"
+styleClass="custom-table p-datatable-gridlines"
+
+>  
 <ng-template pTemplate="header">
 <tr>
-  <th>IDEMPLEADO</th>
+  <!-- <th>IDEMPLEADO</th> -->
   <th>CEDULA</th>
   <th>NOMBRES</th>
   <th>APELLIDOS</th>
@@ -352,7 +276,7 @@
 </ng-template>
 <ng-template pTemplate="body" let-empleado >
 <tr >
-  <td>{{ empleado.idEmpleado }}</td>
+  <!-- <td>{{ empleado.idEmpleado }}</td> -->
   <td>{{ empleado.cedula}}</td>
   <td>{{ empleado.nombre }}</td>
   <td>{{ empleado.apellido }}</td>
@@ -360,7 +284,7 @@
 <td>
   <p-button
       (click)="seleccionarAyudante(empleado)"
-      label="Seleccionar"
+      icon="pi pi-check"
     ></p-button>
 </td>
 </tr>
@@ -369,10 +293,10 @@
 
 </p-table>
 
-</p-card>
 
-<p> Seleccione Unidad </p>
-<p-card >
+
+<p style=" margin-top: 90px"  > Seleccione Unidad </p>
+
       <div class="flex justify-content-between">
           <div class="flex justify-content-between">
           <select [(ngModel)]="selectedFilterU">
@@ -389,14 +313,14 @@
       <div class="field">
         <label class="block" for="idUnidad">Unidad Seleccionada Placa: {{ selectedUnidad?.placa }}</label>
       </div>
-
-
   </div>
 
-<p-table [value]="unidades" >  
+<p-table [value]="unidades" 
+styleClass="custom-table p-datatable-gridlines"
+>  
   <ng-template pTemplate="header">
     <tr>
-      <th>ID_UNIDAD</th>
+      <!-- <th>ID_UNIDAD</th> -->
       <th>CODIGO_UNIDAD</th>
       <th>PLACA</th>
       <th>CANTIDAD ASIENTOS</th>
@@ -406,7 +330,7 @@
   </ng-template>
   <ng-template pTemplate="body" let-unidad >
     <tr >
-      <td>{{ unidad.idUnidad }}</td>
+      <!-- <td>{{ unidad.idUnidad }}</td> -->
       <td>{{ unidad.codigoUnidad}}</td>
       <td>{{ unidad.placa }}</td>
       <td>{{ unidad.cantidadAsientos }}</td>
@@ -414,28 +338,30 @@
       <td>
         <p-button
             (click)="seleccionarUnidad(unidad)"
-            label="Seleccionar"
+           
+            icon="pi pi-check"
           ></p-button>
       </td>
   </tr>
 
   </ng-template>
 </p-table>
-</p-card> 
-
 
 <ng-template pTemplate="footer">
+
         <p-button
           (click)="closeModal()"
           label="Cancel"
           styleClass="p-button-text"
         ></p-button>
+        
         <p-button
           (click)="addEditViaje()"
           label="{{ modalType }}"
           [disabled]="viajeForm.invalid"
         ></p-button>
+
 </ng-template>
 
  
-</p-dialog>
+</p-dialog> 

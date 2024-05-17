@@ -16,6 +16,7 @@ import { EventoModule } from './evento/evento.module';
 import { LoginModule } from './login/login.module';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ParadaRutaModule } from './paradaruta/paradaruta.module';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     RutaModule,
     ViajeModule,
     ComunicadoModule,
-    EventoModule
+    EventoModule,
+    ParadaRutaModule
   ],
   providers: [provideClientHydration()],
   bootstrap: [AppComponent]

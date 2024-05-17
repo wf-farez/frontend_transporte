@@ -1,28 +1,28 @@
-<p-card header="Gestion de Eventos">
+<h2>Gestion de Eventos</h2>
 
-  <p-card >
+
     <div class="flex justify-content-between">
       <div class="flex justify-content-between">
 
-          <select [(ngModel)]="selectedFilter">
-
+          <select [(ngModel)]="selectedFilter" style="width: 150px; height: 45px; font-size: 16px;">
             <option value="descripcion">Descripcion</option>
             <option value="tipoEvento">Tipo de Evento</option>
             <option value="fecha">Fecha</option>
-
-    
           </select>
 
-          <input type="text" pInputText placeholder="Search " (input)="filterBy($event)" />
-          
+          <div class="flex justify-content-between">
+            <input type="text" pInputText placeholder="Search" (input)="filterBy($event)" style="width: 300px; height: 45px; font-size: 16px;" />
+          </div>
       </div>
-      
+
   </div>
 
 
-</p-card>
 
-<p-table [value]="eventos" >  
+
+<p-table [value]="eventos" 
+styleClass="custom-table"
+>  
   <ng-template pTemplate="header">
     <tr>
         <th>idEvento</th>
@@ -47,7 +47,6 @@
   </ng-template>
 
 </p-table>
-</p-card>
 
 
 

@@ -22,13 +22,10 @@ export class AddEditUnidadComponent implements OnInit {
     codigoUnidad: ["", Validators.required],
     placa: ["",Validators.required],
     cantidadAsientos: [0, Validators.required],
-    estado: [false, Validators.required]
+    estado: [false]
   });
 
-  opcionesEstado = [
-    { label: 'Inactivo', value: true },
-    { label: 'Activo', value: false }
-  ];
+
   
   constructor(private fb: FormBuilder, private unidadService: UnidadService,
     private messageService: MessageService) { }

@@ -1,6 +1,7 @@
-<p-card header="Gestion de Rutas">
 
-    <p-card >
+<h2>Gestion de Rutas</h2>
+
+
 
         <div class="flex justify-content-between">
             <div class="flex justify-content-between">
@@ -22,9 +23,11 @@
     </div>
 
 
-</p-card>
 
- <p-table [value]="rutas" >  
+
+ <p-table [value]="rutas" 
+ styleClass="custom-table"
+ >  
     <ng-template pTemplate="header">
       <tr>
         <th>IDRUTA</th>
@@ -103,4 +106,3 @@
 
 <p-toast position="bottom-right"></p-toast>  
 
-</p-card>

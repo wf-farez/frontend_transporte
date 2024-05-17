@@ -9,6 +9,7 @@ import { ComunicadoComponent } from './comunicado/comunicado.component';
 import { EventoComponent } from './evento/evento.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
+import { ParadaRutaComponent } from './paradaruta/paradaruta.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -24,7 +25,9 @@ const routes: Routes = [
       { path: 'rutas', component: RutaComponent },
       { path: 'viajes', component: ViajeComponent },
       { path: 'comunicados', component: ComunicadoComponent },
-      { path: 'eventos', component: EventoComponent }
+      { path: 'eventos', component: EventoComponent },
+      { path: 'paradasruta', component: ParadaRutaComponent }
+
     ]
   },
   { path: '**', redirectTo: 'login' } 

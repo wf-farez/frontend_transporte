@@ -21,8 +21,8 @@ export class AddEditParadaComponent implements OnInit {
     idParada: [""],
     nombreParada: ["", Validators.required],
     direccion: ["",Validators.required],
-    latitud: [0, Validators.required],
-    longitud: [0, Validators.required]
+    latitud: ["", Validators.required],
+    longitud: ["", Validators.required]
     
   });
 

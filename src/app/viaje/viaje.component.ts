@@ -107,7 +107,7 @@ if (value) {
   if (this.selectedFilter === 'codigoViaje') {
     this.viajes = this.viajes.filter(viaje => viaje.codigoViaje.toLowerCase().includes(value.toLowerCase()));
   } else if (this.selectedFilter === 'fecha') {
-    this.viajes = this.viajes.filter(Viaje => Viaje.fecha.toLowerCase().includes(value.toLowerCase()));
+    // this.viajes = this.viajes.filter(Viaje => Viaje.fecha.toLowerCase().includes(value.toLowerCase()));
   } 
 }else {
       // Si no se ha ingresado nada en el input, muestra todas las Viajes nuevamente

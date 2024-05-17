@@ -14,8 +14,8 @@
 .sidenav .logo-container {
     display: flex;
     align-items: center;
-    padding: 0.938rem;
-    width: 100%;
+    padding: 0.90rem;
+    width: 90%;
 }
 
 /* Estilos del logo */

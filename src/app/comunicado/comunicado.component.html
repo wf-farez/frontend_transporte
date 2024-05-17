@@ -1,7 +1,4 @@
-<p-card header="Gestion de comunicados">
-
-    <p-card >
-
+<h2>Gestion de comunicados</h2>
         <div class="flex justify-content-between">
             <div class="flex justify-content-between">
             <select [(ngModel)]="selectedFilter">
@@ -20,9 +17,11 @@
     </div>
 
 
-</p-card>
 
- <p-table [value]="comunicados" >  
+
+ <p-table [value]="comunicados" 
+ styleClass="custom-table"
+ >  
     <ng-template pTemplate="header">
       <tr>
         <th>idComunicado</th>
@@ -72,4 +71,3 @@
 
 <p-toast position="bottom-right"></p-toast>  
 
-</p-card>

@@ -40,31 +40,29 @@ export class AddEditViajeComponent implements OnInit {
     unidadV:Unidad | any;
     rutaV:Ruta| any;
   
-  viajeForm = this.fb.group({
-    idViaje: [""],
-    codigoViaje: ["", Validators.required],
-    fecha: ["", Validators.required],
-    horaInicio: ["", Validators.required],
-    horaFin: ["", Validators.required],
-    precioNormal: [0, Validators.required],
-    precioDiferenciado: [0, Validators.required],
-    conductor: [null],
-    ayudante: [null],
-    unidad: [null],
-    ruta: [null]
-  });
+    viajeForm = this.fb.group({
+      idViaje: [""],
+      codigoViaje: ["", Validators.required],
+      fecha: [new Date(), Validators.required], // Cambiar el tipo de "fecha" de null a Date
+      horaInicio: [new Date(), Validators.required], // Mantener el tipo de "horaInicio" como Date
+      horaFin: [new Date(), Validators.required], // Mantener el tipo de "horaFin" como Date
+      precioNormal: [0, Validators.required],
+      precioDiferenciado: [0, Validators.required],
+      conductor: [null],
+      ayudante: [null],
+      unidad: [null],
+      ruta: [null],
+      estado:false
+    });
   
 
 
 
-  opcionesEstado = [
-    { label: 'Inactivo', value: true },
-    { label: 'Activo', value: false }
-  ];
-  
-  time1: Date | null = null;
-  time2: Date | null = null;
+ 
 
+  horaInicio: Date | null = null;
+  horaFin: Date | null = null;
+  fecha: Date | null = null;
   
   //empleados
   empleados: Empleado[] = [];
@@ -133,30 +131,37 @@ export class AddEditViajeComponent implements OnInit {
 
 
 ngOnChanges(): void {
+
     if (this.selectedViaje) {
       this.modalType = 'Edit';
  
-      this.viajeForm.patchValue({
+      console.log(this.selectedViaje.fecha,
+        this.selectedViaje.horaInicio,
+        this.selectedViaje.horaFin,)
 
-        idViaje: this.selectedViaje.idViaje,
-        codigoViaje: this.selectedViaje.codigoViaje,
-        fecha: this.selectedViaje.fecha,
-        // horaInicio: this.selectedViaje.horaInicio,
-        // horaFin: this.selectedViaje.horaFin,
-        horaInicio: null,
-        horaFin: null,
-        precioNormal: this.selectedViaje.precioNormal,
-        precioDiferenciado: this.selectedViaje.precioDiferenciado,
-        conductor: this.selectedViaje.conductor,
-        ayudante: this.selectedViaje.ayudante,
-        unidad: this.selectedViaje.unidad
-      });
+        this.viajeForm.patchValue({
+            idViaje: this.selectedViaje.idViaje,
+            codigoViaje: this.selectedViaje.codigoViaje,
+            fecha: new Date(this.selectedViaje.fecha),
+            horaInicio: new Date(this.selectedViaje.horaInicio),
+            horaFin: new Date(this.selectedViaje.horaFin),
+            precioNormal: this.selectedViaje.precioNormal,
+            precioDiferenciado: this.selectedViaje.precioDiferenciado,
+            conductor: this.selectedViaje.conductor,
+            ayudante: this.selectedViaje.ayudante,
+            unidad: this.selectedViaje.unidad,
+            ruta: this.selectedViaje.ruta,
+            estado:this.selectedViaje.estado
+        });
+    
     } else {
       this.viajeForm.reset();
       this.modalType = 'Add';
     }
   }
   
+
+
 
 closeModal() {
     this.viajeForm.reset();
@@ -171,12 +176,15 @@ addEditViaje() {
 
       const { idViaje, ...newViaje } = this.viajeForm.value;
   
-      const fechaFormateada = this.formatDate(newViaje.fecha);
-      const horaInicioFormateada = this.formatTime(newViaje.horaInicio);
-      const horaFinFormateada = this.formatTime(newViaje.horaFin);
+      // const fechaFormateada = this.formatDate(newViaje.fecha);
+      // const horaInicioFormateada = this.formatTime(newViaje.horaInicio);
+      // const horaFinFormateada = this.formatTime(newViaje.horaFin);
   
-      this.viajeService.addEditViaje({ ...newViaje, fecha: fechaFormateada, horaInicio: horaInicioFormateada, horaFin: horaFinFormateada }, this.selectedViaje).subscribe(
-        response => {
+      // this.viajeService.addEditViaje({ ...newViaje, fecha: fechaFormateada, horaInicio: horaInicioFormateada, horaFin: horaFinFormateada }, this.selectedViaje).subscribe(
+        
+      this.viajeService.addEditViaje(newViaje , this.selectedViaje).subscribe(
+          
+          response => {
           this.clickAddEdit.emit(response);
           this.closeModal();
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Viaje added' });
@@ -189,12 +197,14 @@ addEditViaje() {
     } else if (this.modalType === 'Edit') {
       const { idViaje, ...editedViaje } = this.viajeForm.value;
   
-      const fechaFormateada = this.formatDate(editedViaje.fecha);
-      const horaInicioFormateada = this.formatTime(editedViaje.horaInicio);
-      const horaFinFormateada = this.formatTime(editedViaje.horaFin);
+      // const fechaFormateada = this.formatDate(editedViaje.fecha);
+      // const horaInicioFormateada = this.formatTime(editedViaje.horaInicio);
+      // const horaFinFormateada = this.formatTime(editedViaje.horaFin);
   
-      this.viajeService.addEditViaje({ ...editedViaje, fecha: fechaFormateada, horaInicio: horaInicioFormateada, horaFin: horaFinFormateada }, this.selectedViaje).subscribe(
-        response => {
+      // this.viajeService.addEditViaje({ ...editedViaje, fecha: fechaFormateada, horaInicio: horaInicioFormateada, horaFin: horaFinFormateada }, this.selectedViaje).subscribe(
+        this.viajeService.addEditViaje(editedViaje , this.selectedViaje).subscribe(
+
+          response => {
           this.clickAddEdit.emit(response);
           this.closeModal();
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Viaje updated' });
@@ -208,51 +218,51 @@ addEditViaje() {
   }
   
 
-private formatDate(dateString: string | null | undefined): string {
-    // Verifica si la cadena de fecha existe
-    if (dateString) {
-      // Convierte la cadena de fecha a un objeto Date
-      const dateObject = new Date(dateString);
+// private formatDate(dateString: string | null | undefined): string {
+//     // Verifica si la cadena de fecha existe
+//     if (dateString) {
+//       // Convierte la cadena de fecha a un objeto Date
+//       const dateObject = new Date(dateString);
   
-      // Verifica si la conversión fue exitosa
-      if (!isNaN(dateObject.getTime())) {
-        // Obtén solo la parte de la fecha (sin la hora ni los caracteres adicionales)
-        return dateObject.toISOString().split('T')[0];
-      } else {
-        // Si la conversión falla, devuelve una cadena vacía o un valor predeterminado según lo necesites
-        return '';
-      }
-    } else {
-      // Si la cadena de fecha es null o undefined, devuelve una cadena vacía o un valor predeterminado según lo necesites
-      return '';
-    }
-  }
+//       // Verifica si la conversión fue exitosa
+//       if (!isNaN(dateObject.getTime())) {
+//         // Obtén solo la parte de la fecha (sin la hora ni los caracteres adicionales)
+//         return dateObject.toISOString().split('T')[0];
+//       } else {
+//         // Si la conversión falla, devuelve una cadena vacía o un valor predeterminado según lo necesites
+//         return '';
+//       }
+//     } else {
+//       // Si la cadena de fecha es null o undefined, devuelve una cadena vacía o un valor predeterminado según lo necesites
+//       return '';
+//     }
+//   }
   
 
-private formatTime(dateString: string | null | undefined): string {
-    // Verifica si la cadena de fecha existe
-    if (dateString) {
-      // Convierte la cadena de fecha a un objeto Date
-      const dateObject = new Date(dateString);
+// private formatTime(dateString: string | null | undefined): string {
+//     // Verifica si la cadena de fecha existe
+//     if (dateString) {
+//       // Convierte la cadena de fecha a un objeto Date
+//       const dateObject = new Date(dateString);
   
-      // Verifica si la conversión fue exitosa
-      if (!isNaN(dateObject.getTime())) {
-        // Obtiene las horas, minutos y segundos del objeto Date
-        const hours = dateObject.getHours().toString().padStart(2, '0');
-        const minutes = dateObject.getMinutes().toString().padStart(2, '0');
-        const seconds = dateObject.getSeconds().toString().padStart(2, '0');
+//       // Verifica si la conversión fue exitosa
+//       if (!isNaN(dateObject.getTime())) {
+//         // Obtiene las horas, minutos y segundos del objeto Date
+//         const hours = dateObject.getHours().toString().padStart(2, '0');
+//         const minutes = dateObject.getMinutes().toString().padStart(2, '0');
+//         const seconds = dateObject.getSeconds().toString().padStart(2, '0');
   
-        // Formatea la hora en formato HH:MM:SS
-        return `${hours}:${minutes}:${seconds}`;
-      } else {
-        // Si la conversión falla, devuelve una cadena vacía o un valor predeterminado según lo necesites
-        return '';
-      }
-    } else {
-      // Si la cadena de fecha es null o undefined, devuelve una cadena vacía o un valor predeterminado según lo necesites
-      return '';
-    }
-  }
+//         // Formatea la hora en formato HH:MM:SS
+//         return `${hours}:${minutes}:${seconds}`;
+//       } else {
+//         // Si la conversión falla, devuelve una cadena vacía o un valor predeterminado según lo necesites
+//         return '';
+//       }
+//     } else {
+//       // Si la cadena de fecha es null o undefined, devuelve una cadena vacía o un valor predeterminado según lo necesites
+//       return '';
+//     }
+//   }
   
 
 
@@ -472,4 +482,3 @@ seleccionarRuta(ruta: any){
 
 
 }
-

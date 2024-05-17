@@ -3,5 +3,5 @@ export interface Unidad {
     codigoUnidad: String,
     placa: String,
     cantidadAsientos: number,
-    estado: String
+    estado: boolean
 }

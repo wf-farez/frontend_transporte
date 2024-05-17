@@ -270,45 +270,50 @@ export class ParadasrutaComponent implements OnInit{
   modalType = "Asignar";
   
  
-
+//mostrar informacion de ruta
   rutaForm = this.fb.group({
     idRuta: [""],
     nombreCompania: ["", Validators.required],
   });
 
+//  para tabla de paradas de ruta
   paradasRuta: {
     ruta:Ruta;
     parada: Parada;
     orden: any;
   }[] = [];
 
+  //formulario para crear nueva parada
   paradaForm = this.fb.group({
     idParada: [""],
     nombreParada: ["", Validators.required],
     direccion: ["", Validators.required],
-    latitud: [0, Validators.required],
-    longitud: [0, Validators.required]
+    latitud: ["", Validators.required],
+    longitud: ["", Validators.required]
   });
 
+//lista para guardar paradas creadas
   paradascreadas: {
     nombreParada: any;
     direccion: any;
-    latitud: number;
-    longitud: number;
+    latitud: String;
+    longitud: String;
   }[] = [];
 
+//lista para mostrar paradasde ruta
 paradasrutamostrar: {
   idRuta: any;
   nombreRuta: any;
   idParada: any;
   nombreParada: any;
   direccion: any;
-  latitud: number;
-  longitud: number;
+  latitud: String;
+  longitud: String;
   orden: any;
 }[] = [];
 
-  idRutaEnviar: any;
+//obtiene ruta actual
+  idRutaEnviar:any ;
 
   constructor(private fb: FormBuilder, private rutaService: RutaService,
     private messageService: MessageService,  private paradaService: ParadaService,private paradaRutaService: ParadaRutaService,
@@ -316,12 +321,17 @@ paradasrutamostrar: {
     
    ) { }
     
+
     paradas: Parada[] = [];
+
     //paradascreadas: Parada[] = [];
+
     paradasDeRuta: ParadaRuta[] = [];
+
 
     filteredParadas: Parada[] = [];
     filteredParadasDeRuta: ParadaRuta[] = [];
+
     searchTerm: string = '';
     selectedParada: any = null;
     selectedlongitud: string = '';
@@ -330,21 +340,37 @@ paradasrutamostrar: {
     selectedFilter: string = '';
     filterValue: string = '';
 
-  ngOnInit(): void {
+  // ngOnInit(): void {
  
-      // this.idRutaEnviar=this.selectedRuta.currentValue.idRuta;
-      this.getParadasList();
-      // this.getParadasRutaList();
-      // console.log(this.idRutaEnviar)
-      // console.log(this.paradas)
-      // console.log(this.paradasDeRuta)
-      // console.log(this.paradasrutamostrar)
+  //     // this.idRutaEnviar=this.selectedRuta.currentValue.idRuta;
+  //     // this.getParadasList();
+  //     // console.log(this.idRutaEnviar)
+  //     //this.getParadasRutaList();
+      
+  //     // console.log(this.paradas)
+  //     // console.log(this.paradasDeRuta)
+  //     // console.log(this.paradasrutamostrar)
 
-    
+  // }
 
+  ngOnInit(): void {
+    if (this.displayAsignarModal) {
+      if (this.selectedRuta) {
+        this.modalType = 'Asignar';
+        this.rutaForm.patchValue({
+          idRuta: this.selectedRuta.idRuta,
+          nombreCompania: this.selectedRuta.nombreCompania,
+        });
+        this.idRutaEnviar = this.selectedRuta.idRuta;
+        this.getParadasList();
+        this.getParadasRutaList(); // Llamar aquí para asegurarse de que paradasDeRuta se actualice antes de acceder a ella
+      }
+    }
   }
 
+  //obtien todas la paradas disponibles
   getParadasList() {
+    console.log('ingresa1')
     this.paradaService.getParadas().subscribe(
       response => {
         this.paradas = response;
@@ -355,55 +381,84 @@ paradasrutamostrar: {
   }
 
   getParadasRutaList() {
-
     if (this.idRutaEnviar) {
       this.paradaRutaService.getParadasRutaByRutaId(this.idRutaEnviar).subscribe(
         response => {
-          this.paradasDeRuta = response;
-          //this.filteredParadasDeRuta = [...this.paradasDeRuta]; // Copia las paradas de ruta al array filtrado inicialmente
+          this.paradasDeRuta = response.sort((a, b) => a.orden - b.orden);
+          this.getasignar2(); // Llamar a la función de asignación después de que paradasDeRuta esté actualizado
+        },
+        error => {
+          console.error('Error al obtener paradas de la ruta:', error);
         }
       );
     }
   }
 
-getasignar(){
+
+  // //paradas de ruta
+  // getParadasRutaList() {
+  //   console.log('ingresa2')
+  //   if (this.idRutaEnviar) {
+  //     this.paradaRutaService.getParadasRutaByRutaId(this.idRutaEnviar).subscribe(
+  //       response => {
+  //         //this.paradasDeRuta = response;
+  //         this.paradasDeRuta = response.sort((a, b) => a.orden - b.orden);
+  //         //this.filteredParadasDeRuta = [...this.paradasDeRuta]; // Copia las paradas de ruta al array filtrado inicialmente
+  //       }
+  //     )
+  //   }
+
+  //   console.log(this.paradasDeRuta)
+
+  // }
+
+
+
+
+getasignar2(){
+  console.log("ingresaa344")
   this.paradasrutamostrar = this.paradasDeRuta.map(paradaRuta => ({
-    idRuta: paradaRuta.Ruta.idRuta,
-    nombreRuta: paradaRuta.Ruta.nombreRuta,
-    idParada: paradaRuta.Parada.idParada,
-    nombreParada: paradaRuta.Parada.nombreParada,
-    direccion: paradaRuta.Parada.direccion,
-    latitud: paradaRuta.Parada.latitud,
-    longitud: paradaRuta.Parada.longitud,
+    idRuta: paradaRuta.ruta.idRuta,
+    nombreRuta: paradaRuta.ruta.nombreRuta,
+    idParada: paradaRuta.parada.idParada,
+    nombreParada: paradaRuta.parada.nombreParada,
+    direccion: paradaRuta.parada.direccion,
+    latitud: paradaRuta.parada.latitud,
+    longitud: paradaRuta.parada.longitud,
     orden: paradaRuta.orden
   }));
+
 }
 
 closeModal() {
   this.rutaForm.reset();
-    this.clickClose.emit(true);
+  this.paradasDeRuta = []; 
+  this.paradasrutamostrar=[];
+  this.paradasRuta=[];
+  this.clickClose.emit(true);
+  
     }
 
+    ngOnDestroy(): void {
+      this.subscriptions.forEach(sub => sub.unsubscribe());
+    }
 
-ngOnChanges(): void {
-  if(this.selectedRuta) {
+    ngOnChanges(): void {
+      if (this.displayAsignarModal && this.selectedRuta) {
         this.modalType = 'Asignar';
         this.rutaForm.patchValue({
           idRuta: this.selectedRuta.idRuta,
           nombreCompania: this.selectedRuta.nombreCompania,
         });
-
-      //   this.idRutaEnviar=this.selectedRuta.idRuta;
-      //   this.getParadasList();
-      //   this.getParadasRutaList();
-      //   //this.getasignar();
-      //   console.log(this.idRutaEnviar)
-      //   console.log(this.paradas)
-      //   console.log(this.paradasDeRuta)
-      //   console.log(this.paradasrutamostrar)
-      } 
-      
+        this.idRutaEnviar = this.selectedRuta.idRuta;
+        this.getParadasList();
+        this.getParadasRutaList();
+      } else {
+        this.paradasDeRuta = []; // Limpiar paradasDeRuta si no hay ruta seleccionada
+        this.paradasrutamostrar = []; // Limpiar paradasrutamostrar si no hay ruta seleccionada
+      }
     }
+
 
 
 filterBy(event: any) {
@@ -413,33 +468,29 @@ if (value) {
     this.paradas = this.paradas.filter(parada => parada.nombreParada.toLowerCase().includes(value.toLowerCase()));
   } else if (this.selectedFilter === 'direccion') {
     this.paradas = this.paradas.filter(parada => parada.direccion.toLowerCase().includes(value.toLowerCase()));
-  } else if (this.selectedFilter === 'latitud') {
-    const floatValue = parseFloat(value); // Convertir el valor a número entero
-    this.paradas = this.paradas.filter(parada => parada.latitud.toString().includes(floatValue.toString()));
-  } else if (this.selectedFilter === 'longitud') {
-    const floatValue = parseFloat(value);
-    this.paradas = this.paradas.filter(parada => parada.longitud.toString().includes(floatValue.toString()));
+  } 
+  else if (this.selectedFilter === 'latitud') {
+    //const floatValue = parseFloat(value); // Convertir el valor a número entero
+    this.paradas = this.paradas.filter(parada => parada.latitud.toLowerCase().includes(value.toLowerCase()));
+  } 
+  else if (this.selectedFilter === 'longitud') {
+    //const floatValue = parseFloat(value);
+    this.paradas = this.paradas.filter(parada => parada.longitud.toLowerCase().includes(value.toLowerCase()));
   }
 }else {
       // Si no se ha ingresado nada en el input, muestra todas las paradas nuevamente
       this.getParadasList();
     }
-
-
 }
 
-
 asignarParadaSeleccionada(parada: any) {
-  
   try {
     this.selectedParada = parada;
 
     if (!this.selectedParada) {
       throw new Error('No se ha seleccionado ninguna fila.');
     }
-
     console.log('Objeto parada:', this.selectedParada);
-
     // Agrega la parada seleccionada a la tabla de paradas de la ruta
     const nuevaParadaRuta = {
       idRuta: this.selectedRuta.idRuta, // Asigna el valor correcto para idRuta
@@ -451,13 +502,10 @@ asignarParadaSeleccionada(parada: any) {
       longitud: this.selectedParada.longitud,
       orden: this.paradasrutamostrar.length + 1
     };
-
     // Agrega la nueva parada de ruta al arreglo de paradasruta
     this.paradasrutamostrar.push(nuevaParadaRuta);
-
     // Opcionalmente, puedes enviar un mensaje de éxito
     this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Parada asignada correctamente.' });
-
   } catch (error) {
     console.error('Error:', error);
   }
@@ -470,25 +518,21 @@ asignarParadaCreada(): void {
     console.error('No se ha seleccionado ninguna ruta.');
     return;
   }
-
    // Verifica si el formulario de parada es null
    if (!this.paradaForm) {
     console.error('El formulario de parada es null.');
     return;
   }
-
   // Obtén los valores del formulario de creación de paradas
   const nombreParada = this.paradaForm.get('nombreParada')?.value;
   const direccion = this.paradaForm.get('direccion')?.value;
   const latitud = this.paradaForm.get('latitud')?.value;
   const longitud = this.paradaForm.get('longitud')?.value;
-
   // Verifica si alguno de los valores del formulario es null o undefined
   if (nombreParada == null || direccion == null || latitud == null || longitud == null) {
     console.error('Alguno de los campos del formulario es null o undefined.');
     return;
   }
-
   // Agrega la nueva parada a la lista de paradas de rutas
   const nuevaParada = {
     idRuta: this.selectedRuta.idRuta,
@@ -513,6 +557,10 @@ eliminarParada(index: number): void {
   if (index >= 0 && index < this.paradasrutamostrar.length) {
     // Elimina la fila en el índice especificado
     this.paradasrutamostrar.splice(index, 1);
+     // Actualiza los valores de 'orden' basados en el índice actual de la lista
+     this.paradasrutamostrar.forEach((parada, newIndex) => {
+      parada.orden = newIndex + 1; // Sumamos 1 para que la primera parada tenga orden 1
+    });
     // Opcionalmente, puedes enviar un mensaje de éxito
     this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Parada eliminada correctamente.' });
   } else {
@@ -521,7 +569,11 @@ eliminarParada(index: number): void {
 }
 
 
+
+
+
 subirFila(index: number) {
+
   if (index > 0) {
     const filaActual = this.paradasrutamostrar[index];
     const filaAnterior = this.paradasrutamostrar[index - 1];
@@ -530,6 +582,7 @@ subirFila(index: number) {
   }
   this.actualizarOrdenParadasRuta()
 }
+
 
 bajarFila(index: number) {
   if (index < this.paradasrutamostrar.length - 1) {
@@ -542,12 +595,19 @@ bajarFila(index: number) {
  
 }
 
+
+
+
+
+
 actualizarOrdenParadasRuta() {
   // Actualizar el orden de las paradas de ruta después de subir o bajar la fila
   this.paradasrutamostrar.forEach((parada, index) => {
     parada.orden = index + 1; // Asignar el nuevo orden basado en el índice actual
   });
 }
+
+
 
 
 guardarParadasRuta() {
@@ -590,7 +650,6 @@ guardarParadasRuta() {
   
   );
 
-
   console.log(this.paradasRuta)
   this.addEditParadaRuta();
 
@@ -598,31 +657,55 @@ guardarParadasRuta() {
 
 }
 
-
-
 addEditParadaRuta() {
+  // Limpiar registros de paradas de ruta relacionados con la ruta actual
+  this.limpiarRegistrosParadasRuta().then(() => {
+    // Después de limpiar los registros, agregar los nuevos registros
+    this.agregarNuevosRegistrosParadasRuta();
+  }).catch(error => {
+    console.error('Error al limpiar registros de paradas de ruta:', error);
+  });
+}
 
-   // Iterar sobre la lista de paradasRuta
+limpiarRegistrosParadasRuta() {
+  return new Promise<void>((resolve, reject) => {
+    // Llamar al servicio para eliminar registros de paradas de ruta por ID de ruta
+    this.paradaRutaService.deleteParadaRutaByRutaId(this.idRutaEnviar).subscribe(
+      () => {
+        // Éxito al eliminar registros
+        console.log('Registros de paradas de ruta eliminados correctamente.');
+        resolve();
+      },
+      error => {
+        // Error al eliminar registros
+        console.error('Error al eliminar registros de paradas de ruta:', error);
+        reject(error);
+      }
+    );
+  });
+}
+
+agregarNuevosRegistrosParadasRuta() {
+  // Iterar sobre la lista de paradasRuta y guardar cada registro
   this.paradasRuta.forEach(paradaRuta => {
-    // Llamar al servicio para guardar la paradaRuta en la base de datos
     this.paradaRutaService.addParadaRuta(paradaRuta).subscribe(
       response => {
         // Manejar la respuesta si es necesario
         console.log('ParadaRuta guardada:', response);
-            // Opcionalmente, puedes enviar un mensaje de éxito
-    this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'ParadaRuta asignada correctamente.' });
-
+        // Opcionalmente, puedes enviar un mensaje de éxito
+        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'ParadaRuta asignada correctamente.' });
       },
       error => {
         // Manejar errores si ocurren
         console.error('Error al guardar ParadaRuta:', error);
-
       }
     );
   });
-  
- 
+  this.closeModal()
 }
+
+
+
 }
 
 

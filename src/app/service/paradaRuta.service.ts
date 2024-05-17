@@ -55,5 +55,11 @@ export class ParadaRutaService {
     return this.httpClient.delete(`http://localhost:8080/api/paradasruta/${idParadaRuta}`);
   }
 
+  
+
+  deleteParadaRutaByRutaId(idRuta: number): Observable<any> {
+    return this.httpClient.delete(`http://localhost:8080/api/paradasruta?idRuta=${idRuta}`);
+  }
+
 
 }

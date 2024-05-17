@@ -1,7 +1,4 @@
-<p-card header="Gestion de Unidades">
-
-    <p-card >
-
+<h2>Gestion de Unidades</h2>
         <div class="flex justify-content-between">
             <div class="flex justify-content-between">
             <select [(ngModel)]="selectedFilter">
@@ -10,27 +7,28 @@
                 <option value="cantidad_asientos">Cantidad de Asientos</option>
                 <option value="estado">Estado</option>
             </select>
-
             <input type="text" pInputText placeholder="Search " (input)="filterBy($event)" />
-          
         </div>
         <div class="flex justify-content-between">
             <p-button label="Agregar Unidad" (click)="showAddModal()"></p-button>
         </div>
-
     </div>
 
+ <p-table [value]="unidades" 
+ styleClass="custom-table"
+ [paginator]="true" 
+[rows]="4" 
+>  
 
-</p-card>
 
- <p-table [value]="unidades" >  
+
     <ng-template pTemplate="header">
       <tr>
         <th>ID_UNIDAD</th>
         <th>CODIGO_UNIDAD</th>
         <th>PLACA</th>
         <th>CANTIDAD ASIENTOS</th>
-        <th>ESTADO</th>
+        <!-- <th>ESTADO</th> -->
       </tr>
 
     </ng-template>
@@ -40,22 +38,24 @@
         <td>{{ unidad.codigoUnidad}}</td>
         <td>{{ unidad.placa }}</td>
         <td>{{ unidad.cantidadAsientos }}</td>
-        <td>{{ unidad.estado}}</td>
+        <!-- <td>{{ unidad.estado}}</td> -->
 
       <td>
 
         <button
           pButton
           icon="pi pi-pencil"
-          class="p-button-rounded p-button-success mr-2"
+          class="p-button-rounded p-button-success mr-2 small-button" 
           (click)="showEditModal(unidad)"
+       
         ></button>
 
         <button
           pButton
           icon="pi pi-trash"
-          class="p-button-rounded p-button-warning"
+          class="p-button-rounded p-button-warning small-button"
           (click)="deleteUnidad(unidad)"
+        
         ></button>
 
       </td>
@@ -78,4 +78,3 @@
 
 <p-toast position="bottom-right"></p-toast>  
 
-</p-card>

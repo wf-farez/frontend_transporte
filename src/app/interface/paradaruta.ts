@@ -3,7 +3,7 @@ import { Ruta } from "./ruta";
 
 export interface ParadaRuta {
     idParadaRuta: number,
-    Ruta: Ruta,
-    Parada: Parada,
+    ruta: Ruta,
+    parada: Parada,
     orden: number
 }
