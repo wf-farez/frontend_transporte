@@ -28,7 +28,9 @@
 
 
  <p-table [value]="paradas" 
- styleClass="custom-table"
+ styleClass="custom-table p-datatable-gridlines"
+ [paginator]="true" 
+ [rows]="4" 
  >  
     <ng-template pTemplate="header">
       <tr>

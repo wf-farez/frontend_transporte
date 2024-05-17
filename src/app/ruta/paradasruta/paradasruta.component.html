@@ -171,59 +171,6 @@ styleClass="custom-table"
     </p-table>
 
 
-<!-- 
-
-    <h3>Paradas de ruta recibida</h3>
- 
-    <p-table [value]="paradasDeRuta" 
-    paginatorPosition="bottom" 
-styleClass="custom-table"
->  
-      <ng-template pTemplate="header">
-        <tr>
-          <th>IDRUTA</th> 
-          <th>NOMBRERUTA</th>
-          <th>IDPARADA</th> 
-          <th>NOMBRE DE PARADA</th>
-          <th>DIRECCION</th>
-           <th>LATITUD</th>
-          <th>LONGITUD</th> 
-          <th>ORDEN</th>
-          
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-paradaderuta let-i="rowIndex">
-        <tr >
-          <td>{{ paradaderuta.ruta.idRuta }}</td> 
-          <td>{{ paradaderuta.ruta.nombreRuta }}</td>
-           <td>{{ paradaderuta.parada.idParada }}</td> 
-          <td>{{ paradaderuta.parada.nombreParada}}</td>
-          <td>{{ paradaderuta.parada.direccion }}</td>
-          <td>{{ paradaderuta.parada.latitud}}</td>
-          <td>{{ paradaderuta.parada.longitud }}</td> 
-          <td>{{ paradaderuta.orden}}</td>
-        <td>
-          
-           
-Botón para subir la fila 
-<p-button (click)="subirFila2(i)"  icon="pi pi-angle-up" ></p-button>
- Botón para bajar la fila 
-<p-button (click)="bajarFila2(i)"  icon="pi pi-angle-down" ></p-button>
- Botón para eliminar la fila 
-<p-button (click)="eliminarParada2(i)" icon="pi pi-times" severity="danger"></p-button>
-
-        </td>
-      </tr>
-      </ng-template>
-    
-    </p-table>
-
- -->
-
-
-
-
-
 
 
 
