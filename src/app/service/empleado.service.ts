@@ -23,7 +23,9 @@ export class EmpleadoService {
     
     return this.httpClient.get<Empleado[]>(this.API_SERVER);
   }
+
   registrarEmpleado(postData: any, selectedPdt: any) {
+    
     if (!selectedPdt) {
       return this.httpClient.post('http://localhost:8080/api/empleados', postData);
     } else {
@@ -31,7 +33,9 @@ export class EmpleadoService {
       return this.httpClient.put('http://localhost:8080/api/empleados', postData);
     }
   }
+
   eliminarEmpleado(idEmpleado: number) {
     return this.httpClient.delete(`http://localhost:8080/api/empleados/${idEmpleado}`);
   }
+
 }

@@ -10,12 +10,12 @@ import { EmpleadoModule } from './empleado/empleado.module';
 import { UnidadModule } from './unidad/unidad.module';
 import { ParadaModule } from './parada/parada.module';
 import { RutaModule } from './ruta/ruta.module';
-import { ViajeModule } from './viaje/viaje.module';
 import { ComunicadoModule } from './comunicado/comunicado.module';
 import { EventoModule } from './evento/evento.module';
 import { LoginModule } from './login/login.module';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ViajeModule } from './viaje/viaje.module';
 
 
 

@@ -19,32 +19,20 @@ export class ViajeService {
   ) { }
 
 
-  public getViajes(): Observable<Viaje[]>{
-    
+  public obtenerViajes(): Observable<Viaje[]>{
     return this.httpClient.get<Viaje[]>(this.API_SERVER);
   }
 
-  // saveviaje(postData: any) {
-  //   return this.httpClient.post("http://localhost:8080/api/viajees", postData);
-  // }
-
-  addEditViaje(postData: any, selectedPdt: any) {
+  registrarViaje(postData: any, selectedPdt: any) {
     if (!selectedPdt) {
       return this.httpClient.post('http://localhost:8080/api/viajes', postData);
     } else {
-
-      //return this.httpClient.put(`http://localhost:8080/api/viajees/${selectedPdt.id_viaje}`, postData);
-
       postData.idViaje = selectedPdt.idViaje;
       return this.httpClient.put('http://localhost:8080/api/viajes', postData);
     }
-
-
-    
   }
 
-
-  deleteViaje(idViaje: number) {
+  eliminarViaje(idViaje: number) {
     return this.httpClient.delete(`http://localhost:8080/api/viajes/${idViaje}`);
   }
 }

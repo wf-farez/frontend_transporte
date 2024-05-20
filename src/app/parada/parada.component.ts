@@ -4,6 +4,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { Parada } from '../interface/parada';
 import { ParadaService } from '../service/parada.service';
+import { SidenavComponent } from '../sidenav/sidenav.component';
 
 @Component({
   selector: 'app-parada',
@@ -20,28 +21,36 @@ export class ParadaComponent implements OnInit, OnDestroy {
   selectedParada: any = null;
   selectedlongitud: string = '';
   subscriptions: Subscription[] = [];
-  pdtSubscription: Subscription = new Subscription();
 
-  selectedFilter: string = '';
-  filterValue: string = '';
+
+  selectedFilter: string = 'nombreParada';
+
 
   constructor(
     private paradaService: ParadaService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    ) { }
 
   ngOnInit(): void {
-    this.getParadasList();
+    this.obtenerParadasList();
+    this.applyDefaultFilter();
   }
 
-  getParadasList() {
-    this.paradaService.getParadas().subscribe(
+    // Aplicar filtro por defecto
+    applyDefaultFilter() {
+      this.filterBy({ target: { value: '' } });
+    }
+  
+  obtenerParadasList() {
+    this.paradaService.obtenerParadas().subscribe(
       response => {
         this.paradas = response;
         this.filteredParadas = [...this.paradas]; // Copia las paradas al array filtrado inicialmente
       }
     )
   }
+
 
   showAddModal() {
     this.displayAddEditModal = true;
@@ -67,7 +76,7 @@ export class ParadaComponent implements OnInit, OnDestroy {
       this.paradas.unshift(newData);
       this.filteredParadas.unshift(newData); // Agrega la nueva parada también al array filtrado
     }
-    this.getParadasList();
+    this.obtenerParadasList();
   }
 
   showEditModal(parada: Parada) {
@@ -75,11 +84,11 @@ export class ParadaComponent implements OnInit, OnDestroy {
     this.selectedParada = parada;
   }
 
-  deleteParada(parada: Parada) {
+  eliminarParada(parada: Parada) {
     this.confirmationService.confirm({
       message: 'Are you sure that you want to delete this parada?',
       accept: () => {
-        this.paradaService.deleteParada(parada.idParada).subscribe(
+        this.paradaService.eliminarParada(parada.idParada).subscribe(
           response => {
             this.paradas = this.paradas.filter(data => data.idParada !== parada.idParada);
             this.filteredParadas = this.filteredParadas.filter(data => data.idParada !== parada.idParada);
@@ -100,6 +109,7 @@ export class ParadaComponent implements OnInit, OnDestroy {
   }
 
 
+
 filterBy(event: any) {
 const value = event?.target?.value;
 if (value) {
@@ -116,14 +126,11 @@ if (value) {
   }
 }else {
       // Si no se ha ingresado nada en el input, muestra todas las paradas nuevamente
-      this.getParadasList();
+      this.obtenerParadasList();
     }
 
 
 }
-
-
-
 
 }
 

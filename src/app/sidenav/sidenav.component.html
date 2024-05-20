@@ -1,29 +1,6 @@
-<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : ''">
-    <div class="logo-container">
-      <button class="logo" (click)="toggleCollapse()">C</button>
-      <div class="logo-text" *ngIf="collapsed">Cooperativa</div>
-      <button class="btn-close" *ngIf="collapsed" (click)="closeSidenav()">
-        <i class="fal fa-times close-icon"></i>
-      </button>
-    </div>
 
-    <div class="scrollwrap scrollwrap_delayed">
-      <ul class="sidenav-nav">
-        <li class="sidenav-nav-item" *ngFor="let data of navData">
-          <a class="sidenav-nav-link"
-             [routerLink]="data.routeLink"
-             routerLinkActive="active"
-             [routerLinkActiveOptions]="{exact: true}">
-            <i class="sidenav-link-icon" [class]="data.icon"></i>
-            <span class="sidenav-link-text" *ngIf="collapsed">{{ data.label }}</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
 
-<!-- 
-   <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : ''">
+  <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : ''">
     <div class="logo-container">
       <button class="logo" (click)="toggleCollapse()">C</button>
       <div class="logo-text" *ngIf="collapsed">Cooperativa</div>
@@ -37,12 +14,23 @@
         <li class="sidenav-nav-item" *ngFor="let data of navData">
           <a class="sidenav-nav-link"
              [routerLink]="data.routeLink"
-             routerLinkActive="active">
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{exact: true}">
             <i class="sidenav-link-icon" [class]="data.icon"></i>
             <span class="sidenav-link-text" *ngIf="collapsed">{{ data.label }}</span>
           </a>
         </li>
+
+
+        <!-- Enlace para cerrar sesión -->
+        <li class="sidenav-nav-item">
+          <a class="sidenav-nav-link" (click)="cerrarSesion()">
+            <i class="fal fa-sign-out-alt sidenav-link-icon"></i>
+            <span class="sidenav-link-text" *ngIf="collapsed">Cerrar sesión</span>
+          </a>
+        </li>
+
       </ul>
     </div>
   </div>
-   -->
+  

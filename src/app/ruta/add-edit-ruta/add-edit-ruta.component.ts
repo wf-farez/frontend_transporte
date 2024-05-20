@@ -15,7 +15,7 @@ export class AddEditRutaComponent implements OnInit {
   @Input() selectedRuta: any = null;
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() clickAddEdit: EventEmitter<any> = new EventEmitter<any>();
-  modalType = "Add";
+  modalType = "Crear";
   
   rutaForm = this.fb.group({
     idRuta: [""],
@@ -36,7 +36,7 @@ export class AddEditRutaComponent implements OnInit {
 
   ngOnChanges(): void {
     if (this.selectedRuta) {
-      this.modalType = 'Edit';
+      this.modalType = 'Editar';
       this.rutaForm.patchValue({
         idRuta: this.selectedRuta.idRuta,
         nombreCompania: this.selectedRuta.nombreCompania,
@@ -46,7 +46,7 @@ export class AddEditRutaComponent implements OnInit {
       });
     } else {
       this.rutaForm.reset();
-      this.modalType = 'Add';
+      this.modalType = 'Crear';
     }
   }
 
@@ -56,7 +56,7 @@ export class AddEditRutaComponent implements OnInit {
   }
 
   registrarRuta() {
-    if (this.modalType === 'Add') {
+    if (this.modalType === 'Crear') {
       // Si es una nueva Ruta, eliminamos el campo idRuta del formulario
       const { idRuta, ...newRuta } = this.rutaForm.value;
       this.RutaService.registrarRuta(newRuta, this.selectedRuta).subscribe(
@@ -70,7 +70,7 @@ export class AddEditRutaComponent implements OnInit {
           console.log('Error occurred');
         }
       );
-    } else if (this.modalType === 'Edit') {
+    } else if (this.modalType === 'Editar') {
       // Si es una Ruta existente, enviamos el formulario completo
       this.RutaService.registrarRuta(this.rutaForm.value, this.selectedRuta).subscribe(
         response => {

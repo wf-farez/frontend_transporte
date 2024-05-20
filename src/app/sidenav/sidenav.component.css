@@ -84,11 +84,6 @@
     transition: all .3s ease;
 }
 
-/* Estilos de los subniveles del menú */
-.sidenav .sublevel-nav {
-    list-style: none; 
-    margin-left: 10px;
-}
 
 /* Estilos de visibilidad del contenedor de desplazamiento */
 .scrollwrap {
@@ -158,7 +153,3 @@
     color: #000;
 }
 
-/* Estilos adicionales de los enlaces de los subniveles */
-.sidenav .sublevel-nav .sublevel-nav-item:hover .sublevel-nav-link {
-    color: #f3f3f3;
-}

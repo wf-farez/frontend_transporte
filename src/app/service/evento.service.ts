@@ -19,7 +19,7 @@ export class EventoService {
   ) { }
 
 
-  public getEventos(): Observable<Evento[]>{
+  public obtenerEventos(): Observable<Evento[]>{
     
     return this.httpClient.get<Evento[]>(this.API_SERVER);
   }

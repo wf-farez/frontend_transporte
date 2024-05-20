@@ -15,7 +15,7 @@ export class AddEditComunicadoComponent implements OnInit {
   @Input() selectedComunicado: any = null;
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() clickAddEdit: EventEmitter<any> = new EventEmitter<any>();
-  modalType = "Add";
+  modalType = "Crear";
   
   comunicadoForm = this.fb.group({
     idComunicado: [""],
@@ -31,7 +31,7 @@ export class AddEditComunicadoComponent implements OnInit {
 
   ngOnChanges(): void {
     if (this.selectedComunicado) {
-      this.modalType = 'Edit';
+      this.modalType = 'Editar';
       this.comunicadoForm.patchValue({
         idComunicado: this.selectedComunicado.idComunicado,
         descripcion: this.selectedComunicado.codigoComunicado,
@@ -39,7 +39,7 @@ export class AddEditComunicadoComponent implements OnInit {
       });
     } else {
       this.comunicadoForm.reset();
-      this.modalType = 'Add';
+      this.modalType = 'Crear';
     }
   }
 
@@ -48,13 +48,13 @@ export class AddEditComunicadoComponent implements OnInit {
     this.clickClose.emit(true);
   }
 
-  addEditComunicado() {
-    if (this.modalType === 'Add') {
+  registrarComunicado() {
+    if (this.modalType === 'Crear') {
       // Si es una nueva Comunicado, eliminamos el campo idComunicado del formulario
       const { idComunicado, ...newComunicado } = this.comunicadoForm.value;
       // Obtener la fecha actual y formatearla como una cadena
       newComunicado.fecha = new Date().toISOString();
-      this.ComunicadoService.addEditComunicado(newComunicado, this.selectedComunicado).subscribe(
+      this.ComunicadoService.registrarComunicado(newComunicado, this.selectedComunicado).subscribe(
         response => {
           this.clickAddEdit.emit(response);
           this.closeModal();
@@ -65,9 +65,9 @@ export class AddEditComunicadoComponent implements OnInit {
           console.log('Error occurred');
         }
       );
-    } else if (this.modalType === 'Edit') {
+    } else if (this.modalType === 'Editar') {
       // Si es una Comunicado existente, enviamos el formulario completo
-      this.ComunicadoService.addEditComunicado(this.comunicadoForm.value, this.selectedComunicado).subscribe(
+      this.ComunicadoService.registrarComunicado(this.comunicadoForm.value, this.selectedComunicado).subscribe(
         response => {
           this.clickAddEdit.emit(response);
           this.closeModal();

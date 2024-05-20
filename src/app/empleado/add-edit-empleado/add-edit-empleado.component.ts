@@ -15,7 +15,7 @@ export class AddEditEmpleadoComponent implements OnInit {
   @Input() selectedEmpleado: any = null;
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() clickAddEdit: EventEmitter<any> = new EventEmitter<any>();
-  modalType = "Add";
+  modalType = "Crear";
   
   empleadoForm = this.fb.group({
     idEmpleado: [""],
@@ -43,7 +43,7 @@ export class AddEditEmpleadoComponent implements OnInit {
 
   ngOnChanges(): void {
     if (this.selectedEmpleado) {
-      this.modalType = 'Edit';
+      this.modalType = 'Editar';
       this.empleadoForm.patchValue({
         idEmpleado: this.selectedEmpleado.idEmpleado,
         cedula: this.selectedEmpleado.cedula,
@@ -55,7 +55,7 @@ export class AddEditEmpleadoComponent implements OnInit {
       });
     } else {
       this.empleadoForm.reset();
-      this.modalType = 'Add';
+      this.modalType = 'Crear';
     }
   }
 
@@ -67,7 +67,7 @@ export class AddEditEmpleadoComponent implements OnInit {
   }
 
   registrarEmpleado() {
-    if (this.modalType === 'Add') {
+    if (this.modalType === 'Crear') {
       // Si es una nueva empleado, eliminamos el campo idEmpleado del formulario
       const { idEmpleado, ...newempleado } = this.empleadoForm.value;
       this.empleadoService.registrarEmpleado(newempleado, this.selectedEmpleado).subscribe(
@@ -81,7 +81,7 @@ export class AddEditEmpleadoComponent implements OnInit {
           console.log('Error occurred');
         }
       );
-    } else if (this.modalType === 'Edit') {
+    } else if (this.modalType === 'Editar') {
       // Si es una empleado existente, enviamos el formulario completo
       this.empleadoService.registrarEmpleado(this.empleadoForm.value, this.selectedEmpleado).subscribe(
         response => {

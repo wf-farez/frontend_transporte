@@ -15,17 +15,11 @@ export class RutaComponent implements OnInit, OnDestroy {
   rutas: Ruta[] = [];
   filteredRutas: Ruta[] = [];
   searchTerm: string = '';
-
+  //editar asignar
   displayAddEditModal = false;
-
   selectedRuta: any = null;
-  selectedEstado: string = '';
   subscriptions: Subscription[] = [];
-  pdtSubscription: Subscription = new Subscription();
-
-  selectedFilter: string = '';
-  filterValue: string = '';
-
+  selectedFilter: string = 'nombreRuta';
 //asignar paradas
   displayAsignarModal=false;
   
@@ -37,7 +31,14 @@ export class RutaComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.obtenerRutasList();
+    this.applyDefaultFilter()
   }
+
+     // Aplicar filtro por defecto
+     applyDefaultFilter() {
+      this.filterBy({ target: { value: '' } });
+    }
+  
 
   obtenerRutasList() {
     this.rutaService.obtenerRutas().subscribe(
@@ -130,13 +131,12 @@ if (value) {
 
 
 
-//Asignar rutas
-showAsignarModal(ruta: Ruta) {
+showEditParadasModal(ruta: Ruta) {
   this.displayAsignarModal = true;
   this.selectedRuta = ruta;
 }
-
-showEditParadasModal(ruta: Ruta) {
+//Asignar rutas
+showAsignarModal(ruta: Ruta) {
   this.displayAsignarModal = true;
   this.selectedRuta = ruta;
 }
@@ -144,13 +144,6 @@ showEditParadasModal(ruta: Ruta) {
 hideAsignarModal(isClosed: boolean) {
   this.displayAsignarModal = !isClosed;
 }
-
-
-saveorUpdaterutaList2(newData: any) {
-  console.log("salida")
-}
-
-
 
 }
 

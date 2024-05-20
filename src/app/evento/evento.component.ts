@@ -1,75 +1,4 @@
 
-// import { Component, OnInit, OnDestroy } from '@angular/core';
-// import { ConfirmationService, MessageService } from 'primeng/api';
-// import { Subscription } from 'rxjs';
-// import { Evento } from '../interface/evento';
-// import { EventoService } from '../service/evento.service';
-
-
-// @Component({
-//   selector: 'app-evento',
-//   templateUrl: './evento.component.html',
-//   styleUrls: ['./evento.component.css']
-// })
-// export class EventoComponent implements OnInit {
-
-//   eventos: Evento[] = [];
-//   filteredEventos: Evento[] = [];
-//   searchTerm: string = '';
-
-//   displayAddEditModal = false;
-//   selectedEvento: any = null;
-//   selectedEstado: string = '';
-//   subscriptions: Subscription[] = [];
-//   pdtSubscription: Subscription = new Subscription();
-
-
-//   selectedFilter: string = '';
-//   filterValue: string = '';
-
-//   constructor(
-//     private eventoService: EventoService,
-//    ) { }
-
-//   ngOnInit(): void {
-//     this.getEventosList();
-//   }
-
-//   getEventosList() {
-//     this.eventoService.getEventos().subscribe(
-//       response => {
-//         this.eventos = response;
-//         this.filteredEventos = [...this.eventos]; // Copia las Eventos al array filtrado inicialmente
-//       }
-//     )
-//   }
-
-
-
-
-// filterBy(value: String) {
-// // const value = event?.target?.value;
-// if (value) {
-//   if (this.selectedFilter === 'descripcion') {
-//     this.eventos = this.eventos.filter(Evento => Evento.descripcion.toLowerCase().includes(value.toLowerCase()));
-//   } else if (this.selectedFilter === 'tipoEvento') {
-//     this.eventos = this.eventos.filter(Evento => Evento.tipoEvento.toLowerCase().includes(value.toLowerCase()));
-//   }else if (this.selectedFilter === 'fecha') {
-//     this.eventos = this.eventos.filter(Evento => Evento.fecha.toLowerCase().includes(value.toLowerCase()));
-//   }
-// }else {
-//       // Si no se ha ingresado nada en el input, muestra todas las Eventos nuevamente
-//       this.getEventosList();
-//     }
-
-
-// }
-
-
-
-
-// }
-
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -95,7 +24,7 @@ export class EventoComponent implements OnInit {
   pdtSubscription: Subscription = new Subscription();
 
 
-  selectedFilter: string = '';
+  selectedFilter: string = 'tipoEvento';
   filterValue: string = '';
 
   constructor(
@@ -104,11 +33,18 @@ export class EventoComponent implements OnInit {
     private messageService: MessageService) { }
 
   ngOnInit(): void {
-    this.geteventosList();
+    this.obtenerEventosList();
+    this.applyDefaultFilter();
   }
 
-  geteventosList() {
-    this.eventoService.getEventos().subscribe(
+    // Aplicar filtro por defecto
+    applyDefaultFilter() {
+      this.filterBy({ target: { value: '' } });
+    }
+  
+
+  obtenerEventosList() {
+    this.eventoService.obtenerEventos().subscribe(
       response => {
         this.eventos = response;
         this.filteredEventos = [...this.eventos]; // Copia las eventos al array filtrado inicialmente
@@ -161,7 +97,7 @@ if (value) {
   
 }else {
       // Si no se ha ingresado nada en el input, muestra todas las eventos nuevamente
-      this.geteventosList();
+      this.obtenerEventosList();
     }
 
 

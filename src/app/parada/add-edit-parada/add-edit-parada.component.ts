@@ -15,7 +15,7 @@ export class AddEditParadaComponent implements OnInit {
   @Input() selectedParada: any = null;
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() clickAddEdit: EventEmitter<any> = new EventEmitter<any>();
-  modalType = "Add";
+  modalType = "Crear";
   
   paradaForm = this.fb.group({
     idParada: [""],
@@ -32,12 +32,13 @@ export class AddEditParadaComponent implements OnInit {
     private messageService: MessageService) { }
 
   ngOnInit(): void {
+
   
   }
 
   ngOnChanges(): void {
     if (this.selectedParada) {
-      this.modalType = 'Edit';
+      this.modalType = 'Editar';
       this.paradaForm.patchValue({
         idParada: this.selectedParada.idParada,
         nombreParada: this.selectedParada.nombreParada,
@@ -48,7 +49,7 @@ export class AddEditParadaComponent implements OnInit {
       });
     } else {
       this.paradaForm.reset();
-      this.modalType = 'Add';
+      this.modalType = 'Crear';
     }
   }
 
@@ -59,11 +60,11 @@ export class AddEditParadaComponent implements OnInit {
     this.clickClose.emit(true);
   }
 
-  addEditParada() {
-    if (this.modalType === 'Add') {
+  registrarParada() {
+    if (this.modalType === 'Crar') {
       // Si es una nueva parada, eliminamos el campo idParada del formulario
       const { idParada, ...newparada } = this.paradaForm.value;
-      this.paradaService.addEditParada(newparada, this.selectedParada).subscribe(
+      this.paradaService.registrarParada(newparada, this.selectedParada).subscribe(
         response => {
           this.clickAddEdit.emit(response);
           this.closeModal();
@@ -74,9 +75,9 @@ export class AddEditParadaComponent implements OnInit {
           console.log('Error occurred');
         }
       );
-    } else if (this.modalType === 'Edit') {
+    } else if (this.modalType === 'Editar') {
       // Si es una parada existente, enviamos el formulario completo
-      this.paradaService.addEditParada(this.paradaForm.value, this.selectedParada).subscribe(
+      this.paradaService.registrarParada(this.paradaForm.value, this.selectedParada).subscribe(
         response => {
           this.clickAddEdit.emit(response);
           this.closeModal();

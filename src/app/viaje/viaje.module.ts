@@ -11,9 +11,10 @@ import { ConfirmationService } from 'primeng/api';
 import { FormsModule } from '@angular/forms'; // Importa FormsModule desde '@angular/forms'
 import { CardModule } from 'primeng/card';
 import { TreeSelectModule } from 'primeng/treeselect';
-import { AddEditViajeModule } from './add-edit-viaje/add-edit-viaje.module';
+
 import { EmpleadoModule } from '../empleado/empleado.module';
 import { UnidadModule } from '../unidad/unidad.module';
+import { AddEditViajeModule } from './add-edit-viaje/add-edit-viaje.module';
 
 @NgModule({
   declarations: [

@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter, OnInit, HostListener, Inject, PLATFORM_ID } from '@angular/core';
 import { navbarData } from './nav_data';
 import { isPlatformBrowser } from '@angular/common';
+import { Router } from '@angular/router';
 
 interface SidenavToggle {
   screenWidth: number;
@@ -20,8 +21,7 @@ export class SidenavComponent implements OnInit{
   screenWidth = 0;
   navData = navbarData;
 
-
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object ,private router: Router) {}
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -47,8 +47,11 @@ export class SidenavComponent implements OnInit{
 
   closeSidenav(): void {
     this.collapsed = false;
-    //this.collapsed = !this.collapsed;
     this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });
+  }
+
+  cerrarSesion(){
+    this.router.navigate(['/login']);
   }
 
 }

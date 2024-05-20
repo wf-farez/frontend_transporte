@@ -20,11 +20,11 @@ export class ParadaRutaService {
   ) { }
 
 
-  public getParadasRuta(): Observable<ParadaRuta[]>{
+  public obtenerParadasRuta(): Observable<ParadaRuta[]>{
     return this.httpClient.get<ParadaRuta[]>(this.API_SERVER);
   }
 
-  public getParadasRutaByRutaId(idRuta: number): Observable<ParadaRuta[]> {
+  public obtenerParadasRutaByRutaId(idRuta: number): Observable<ParadaRuta[]> {
     const url = `${this.API_SERVER}?idRuta=${idRuta}`;
     console.log(url)
     return this.httpClient.get<ParadaRuta[]>(url);
@@ -34,7 +34,7 @@ export class ParadaRutaService {
   //   return this.httpClient.post("http://localhost:8080/api/unidades", postData);
   // }
 
-  addEditParadaRuta(postData: any, selectedPdt: any) {
+  registrarParadaRuta(postData: any, selectedPdt: any) {
     if (!selectedPdt) {
       return this.httpClient.post('http://localhost:8080/api/paradasruta', postData);
     } else {
@@ -51,13 +51,13 @@ export class ParadaRutaService {
 
 
 
-  deleteParadaRuta(idParadaRuta: number) {
+  eliminarParadaRuta(idParadaRuta: number) {
     return this.httpClient.delete(`http://localhost:8080/api/paradasruta/${idParadaRuta}`);
   }
 
   
 
-  deleteParadaRutaByRutaId(idRuta: number): Observable<any> {
+  eliminarParadaRutaByRutaId(idRuta: number): Observable<any> {
     return this.httpClient.delete(`http://localhost:8080/api/paradasruta?idRuta=${idRuta}`);
   }
 

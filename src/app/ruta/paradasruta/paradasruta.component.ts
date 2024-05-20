@@ -1,249 +1,3 @@
-// import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-// import { FormBuilder, Validators } from '@angular/forms';
-// import { ConfirmationService, MessageService } from 'primeng/api';
-// import { RutaService } from '../../service/ruta.service';
-// import { ParadaService } from '../../service/parada.service';
-// import { Parada } from '../../interface/parada';
-// import { Subscription } from 'rxjs';
-
-// @Component({
-//   selector: 'app-paradasruta',
-//   templateUrl: './paradasruta.component.html',
-//   styleUrl: './paradasruta.component.css'
-// })
-// export class ParadasrutaComponent implements OnInit{
-
-//   @Input() displayAsignarModal: boolean = true;
-//   @Input() selectedRuta: any = null;
-//   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
-//   @Output() clickAddEdit: EventEmitter<any> = new EventEmitter<any>();
-//   modalType = "Asignar";
-  
-//   rutaForm = this.fb.group({
-//     idRuta: [""],
-//     nombreCompania: ["", Validators.required],
-//   });
-
-//   paradaForm = this.fb.group({
-//     idParada: [""],
-//     nombreParada: ["", Validators.required],
-//     direccion: ["", Validators.required],
-//     latitud: ["", Validators.required],
-//     longitud: ["", Validators.required],
-//   });
-
-  
-// paradasruta: {
-//   idRuta: any;
-//   nombreRuta: any;
-//   idParada: any;
-//   nombreParada: any;
-//   direccion: any;
-//   latitud: any;
-//   longitud: any;
-//   orden: any;
-// }[] = [];
-
-//   constructor(private fb: FormBuilder, private rutaService: RutaService,
-//     private messageService: MessageService,  private paradaService: ParadaService,
-//     private confirmationService: ConfirmationService,
-//    ) { }
-    
-//     paradas: Parada[] = [];
-//     filteredParadas: Parada[] = [];
-//     searchTerm: string = '';
-  
-//     selectedParada: any = null;
-//     selectedlongitud: string = '';
-//     subscriptions: Subscription[] = [];
-   
-  
-//     selectedFilter: string = '';
-//     filterValue: string = '';
-
-//   ngOnInit(): void {
-//     this.getParadasList();
-//   }
-
-//   getParadasList() {
-//     this.paradaService.getParadas().subscribe(
-//       response => {
-//         this.paradas = response;
-//         this.filteredParadas = [...this.paradas]; // Copia las paradas al array filtrado inicialmente
-//       }
-//     )
-//   }
-
-
-
-// closeModal() {
-//   this.rutaForm.reset();
-//     this.clickClose.emit(true);
-//     }
-
-
-// ngOnChanges(): void {
-//   if (this.selectedRuta) {
-//         this.modalType = 'Asignar';
-//         this.rutaForm.patchValue({
-//           idRuta: this.selectedRuta.idRuta,
-//           nombreCompania: this.selectedRuta.nombreCompania,
-//         });
-//       } 
-//     }
-
-
-
-
-
-// filterBy(event: any) {
-// const value = event?.target?.value;
-// if (value) {
-//   if (this.selectedFilter === 'nombreParada') {
-//     this.paradas = this.paradas.filter(parada => parada.nombreParada.toLowerCase().includes(value.toLowerCase()));
-//   } else if (this.selectedFilter === 'direccion') {
-//     this.paradas = this.paradas.filter(parada => parada.direccion.toLowerCase().includes(value.toLowerCase()));
-//   } else if (this.selectedFilter === 'latitud') {
-//     const floatValue = parseFloat(value); // Convertir el valor a número entero
-//     this.paradas = this.paradas.filter(parada => parada.latitud.toString().includes(floatValue.toString()));
-//   } else if (this.selectedFilter === 'longitud') {
-//     const floatValue = parseFloat(value);
-//     this.paradas = this.paradas.filter(parada => parada.longitud.toString().includes(floatValue.toString()));
-//   }
-// }else {
-//       // Si no se ha ingresado nada en el input, muestra todas las paradas nuevamente
-//       this.getParadasList();
-//     }
-
-
-// }
-
-
-// asignarParadaSeleccionada(parada: any) {
-  
-//   try {
-//     this.selectedParada = parada;
-
-//     if (!this.selectedParada) {
-//       throw new Error('No se ha seleccionado ninguna fila.');
-//     }
-
-//     console.log('Objeto parada:', this.selectedParada);
-
-//     // Agrega la parada seleccionada a la tabla de paradas de la ruta
-//     const nuevaParadaRuta = {
-//       idRuta: 1, // Asigna el valor correcto para idRuta
-//       nombreRuta: this.selectedRuta?.nombreRuta, // Asigna el valor correcto para nombreRuta
-//       idParada: this.selectedParada.idParada, // Usa el id de la parada seleccionada
-//       nombreParada: this.selectedParada.nombreParada,
-//       direccion: this.selectedParada.direccion,
-//       latitud: this.selectedParada.latitud,
-//       longitud: this.selectedParada.longitud,
-//       orden: this.paradasruta.length + 1
-//     };
-
-//     // Agrega la nueva parada de ruta al arreglo de paradasruta
-//     this.paradasruta.push(nuevaParadaRuta);
-
-//     // Opcionalmente, puedes enviar un mensaje de éxito
-//     this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Parada asignada correctamente.' });
-
-//   } catch (error) {
-//     console.error('Error:', error);
-//   }
-// }
-
-
-// asignarParadaCreada(): void {
-//   // Verifica si hay una ruta seleccionada
-//   if (!this.selectedRuta) {
-//     console.error('No se ha seleccionado ninguna ruta.');
-//     return;
-//   }
-
-//    // Verifica si el formulario de parada es null
-//    if (!this.paradaForm) {
-//     console.error('El formulario de parada es null.');
-//     return;
-//   }
-
-//   // Obtén los valores del formulario de creación de paradas
-//   const nombreParada = this.paradaForm.get('nombreParada')?.value;
-//   const direccion = this.paradaForm.get('direccion')?.value;
-//   const latitud = this.paradaForm.get('latitud')?.value;
-//   const longitud = this.paradaForm.get('longitud')?.value;
-
-//   // Verifica si alguno de los valores del formulario es null o undefined
-//   if (nombreParada == null || direccion == null || latitud == null || longitud == null) {
-//     console.error('Alguno de los campos del formulario es null o undefined.');
-//     return;
-//   }
-
-//   // Agrega la nueva parada a la lista de paradas de rutas
-//   const nuevaParada = {
-//     idRuta: this.selectedRuta.idRuta,
-//     nombreRuta: this.selectedRuta.nombreRuta,
-//     idParada: null, // Esto puede ser null si no tienes un id asignado
-//     nombreParada: nombreParada,
-//     direccion: direccion,
-//     latitud: latitud,
-//     longitud: longitud,
-//     orden: this.paradasruta.length + 1
-//   };
-//   this.paradasruta.push(nuevaParada);
-//   // Limpia el formulario después de agregar la parada
-//   this.paradaForm.reset();
-// }
-
-
-// eliminarParada(index: number): void {
-//   // Verifica que el índice esté dentro del rango de la lista de paradasruta
-//   if (index >= 0 && index < this.paradasruta.length) {
-//     // Elimina la fila en el índice especificado
-//     this.paradasruta.splice(index, 1);
-//     // Opcionalmente, puedes enviar un mensaje de éxito
-//     this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Parada eliminada correctamente.' });
-//   } else {
-//     console.error('Índice fuera de rango.');
-//   }
-// }
-
-
-// subirFila(index: number) {
-//   if (index > 0) {
-//     const filaActual = this.paradasruta[index];
-//     const filaAnterior = this.paradasruta[index - 1];
-//     this.paradasruta[index - 1] = filaActual;
-//     this.paradasruta[index] = filaAnterior;
-//   }
-//   this.actualizarOrdenParadasRuta()
-// }
-
-// bajarFila(index: number) {
-//   if (index < this.paradasruta.length - 1) {
-//     const filaActual = this.paradasruta[index];
-//     const filaSiguiente = this.paradasruta[index + 1];
-//     this.paradasruta[index + 1] = filaActual;
-//     this.paradasruta[index] = filaSiguiente;
-//     this.actualizarOrdenParadasRuta()
-//   }
- 
-// }
-
-
-// actualizarOrdenParadasRuta() {
-//   // Actualizar el orden de las paradas de ruta después de subir o bajar la fila
-//   this.paradasruta.forEach((parada, index) => {
-//     parada.orden = index + 1; // Asignar el nuevo orden basado en el índice actual
-//   });
-// }
-
-// }
-
-
-
-
-
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -338,20 +92,8 @@ paradasrutamostrar: {
     subscriptions: Subscription[] = [];
 
     selectedFilter: string = '';
-    filterValue: string = '';
 
-  // ngOnInit(): void {
- 
-  //     // this.idRutaEnviar=this.selectedRuta.currentValue.idRuta;
-  //     // this.getParadasList();
-  //     // console.log(this.idRutaEnviar)
-  //     //this.getParadasRutaList();
-      
-  //     // console.log(this.paradas)
-  //     // console.log(this.paradasDeRuta)
-  //     // console.log(this.paradasrutamostrar)
 
-  // }
 
   ngOnInit(): void {
     if (this.displayAsignarModal) {
@@ -362,16 +104,16 @@ paradasrutamostrar: {
           nombreCompania: this.selectedRuta.nombreCompania,
         });
         this.idRutaEnviar = this.selectedRuta.idRuta;
-        this.getParadasList();
-        this.getParadasRutaList(); // Llamar aquí para asegurarse de que paradasDeRuta se actualice antes de acceder a ella
+        this.obtenerParadasList();
+        this.obtenerParadasRutaList(); // Llamar aquí para asegurarse de que paradasDeRuta se actualice antes de acceder a ella
       }
     }
   }
 
   //obtien todas la paradas disponibles
-  getParadasList() {
+  obtenerParadasList() {
     console.log('ingresa1')
-    this.paradaService.getParadas().subscribe(
+    this.paradaService.obtenerParadas().subscribe(
       response => {
         this.paradas = response;
         this.filteredParadas = [...this.paradas]; // Copia las paradas al array filtrado inicialmente
@@ -380,9 +122,9 @@ paradasrutamostrar: {
     
   }
 
-  getParadasRutaList() {
+  obtenerParadasRutaList() {
     if (this.idRutaEnviar) {
-      this.paradaRutaService.getParadasRutaByRutaId(this.idRutaEnviar).subscribe(
+      this.paradaRutaService.obtenerParadasRutaByRutaId(this.idRutaEnviar).subscribe(
         response => {
           this.paradasDeRuta = response.sort((a, b) => a.orden - b.orden);
           this.getasignar2(); // Llamar a la función de asignación después de que paradasDeRuta esté actualizado
@@ -393,26 +135,6 @@ paradasrutamostrar: {
       );
     }
   }
-
-
-  // //paradas de ruta
-  // getParadasRutaList() {
-  //   console.log('ingresa2')
-  //   if (this.idRutaEnviar) {
-  //     this.paradaRutaService.getParadasRutaByRutaId(this.idRutaEnviar).subscribe(
-  //       response => {
-  //         //this.paradasDeRuta = response;
-  //         this.paradasDeRuta = response.sort((a, b) => a.orden - b.orden);
-  //         //this.filteredParadasDeRuta = [...this.paradasDeRuta]; // Copia las paradas de ruta al array filtrado inicialmente
-  //       }
-  //     )
-  //   }
-
-  //   console.log(this.paradasDeRuta)
-
-  // }
-
-
 
 
 getasignar2(){
@@ -451,8 +173,8 @@ closeModal() {
           nombreCompania: this.selectedRuta.nombreCompania,
         });
         this.idRutaEnviar = this.selectedRuta.idRuta;
-        this.getParadasList();
-        this.getParadasRutaList();
+        this.obtenerParadasList();
+        this.obtenerParadasRutaList();
       } else {
         this.paradasDeRuta = []; // Limpiar paradasDeRuta si no hay ruta seleccionada
         this.paradasrutamostrar = []; // Limpiar paradasrutamostrar si no hay ruta seleccionada
@@ -479,7 +201,7 @@ if (value) {
   }
 }else {
       // Si no se ha ingresado nada en el input, muestra todas las paradas nuevamente
-      this.getParadasList();
+      this.obtenerParadasList();
     }
 }
 
@@ -596,10 +318,6 @@ bajarFila(index: number) {
 }
 
 
-
-
-
-
 actualizarOrdenParadasRuta() {
   // Actualizar el orden de las paradas de ruta después de subir o bajar la fila
   this.paradasrutamostrar.forEach((parada, index) => {
@@ -631,7 +349,7 @@ guardarParadasRuta() {
           longitud: parada.longitud
         };
 
-        this.paradaService.addParada(nuevaParada).subscribe(
+        this.paradaService.agregarParada(nuevaParada).subscribe(
           (respuesta: any) => {
             // Una vez que se guarda la parada, agregarla a paradasRuta con su orden
             this.paradasRuta.push({
@@ -651,16 +369,14 @@ guardarParadasRuta() {
   );
 
   console.log(this.paradasRuta)
-  this.addEditParadaRuta();
+  this.registrarParadaRuta();
 
   }
 
 }
 
-addEditParadaRuta() {
-  // Limpiar registros de paradas de ruta relacionados con la ruta actual
+registrarParadaRuta() {
   this.limpiarRegistrosParadasRuta().then(() => {
-    // Después de limpiar los registros, agregar los nuevos registros
     this.agregarNuevosRegistrosParadasRuta();
   }).catch(error => {
     console.error('Error al limpiar registros de paradas de ruta:', error);
@@ -668,9 +384,10 @@ addEditParadaRuta() {
 }
 
 limpiarRegistrosParadasRuta() {
+
   return new Promise<void>((resolve, reject) => {
     // Llamar al servicio para eliminar registros de paradas de ruta por ID de ruta
-    this.paradaRutaService.deleteParadaRutaByRutaId(this.idRutaEnviar).subscribe(
+    this.paradaRutaService.eliminarParadaRutaByRutaId(this.idRutaEnviar).subscribe(
       () => {
         // Éxito al eliminar registros
         console.log('Registros de paradas de ruta eliminados correctamente.');
@@ -703,8 +420,6 @@ agregarNuevosRegistrosParadasRuta() {
   });
   this.closeModal()
 }
-
-
 
 }
 

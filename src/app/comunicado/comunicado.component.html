@@ -2,7 +2,7 @@
         <div class="flex justify-content-between">
             <div class="flex justify-content-between">
             <select [(ngModel)]="selectedFilter">
-                <option value="descrpcion">Descripcion</option>
+                <option value="descripcion">Descripcion</option>
                 <option value="fecha">Fecha</option>
       
             </select>
@@ -26,14 +26,14 @@
  >  
     <ng-template pTemplate="header">
       <tr>
-        <th>idComunicado</th>
-        <th>descripcion</th>
-        <th>fecha</th>
+        <!-- <th>idComunicado</th> -->
+        <th>DESCRIPCION</th>
+        <th>FECHA</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-comunicado >
       <tr >
-        <td>{{ comunicado.idComunicado }}</td>
+        <!-- <td>{{ comunicado.idComunicado }}</td> -->
         <td>{{ comunicado.descripcion}}</td>
         <td>{{ comunicado.fecha }}</td>
 
@@ -50,7 +50,7 @@
           pButton
           icon="pi pi-trash"
           class="p-button-rounded p-button-warning"
-          (click)="deleteComunicado(comunicado)"
+          (click)="eliminarComunicado(comunicado)"
         ></button>
 
       </td>

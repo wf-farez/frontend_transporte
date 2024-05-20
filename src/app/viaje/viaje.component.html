@@ -4,8 +4,15 @@
         <div class="flex justify-content-between">
             <div class="flex justify-content-between">
             <select [(ngModel)]="selectedFilter">
-                <option value="codigoViaje">Codigo de viaje</option>
-                <option value="fecha">Fecha</option>
+              <option value="codigoViaje">Código de Viaje</option>
+              <option value="ruta">Ruta</option>
+              <option value="fecha">Fecha</option>
+              <option value="horaInicio">Hora de Inicio</option>
+              <option value="horaFin">Hora de Fin</option>
+              <option value="placaUnidad">Placa de Unidad</option>
+              <option value="conductor">Conductor</option>
+              <option value="ayudante">Ayudante</option>
+          
 
             </select>
 
@@ -31,17 +38,17 @@
 
       <tr>
         <!-- <th>idViaje</th> -->
-        <th>codigoViaje</th>
-        <th>Ruta</th> 
-        <th>fecha</th>
-        <th>horaInicio</th>
-        <th>horaFin</th>
-        <th>precioNormal</th>
-        <th>precioDiferenciado</th>
-        <th>UnidadPlaca</th>
-        <th>Conductor</th>  
-        <th>Ayudante</th>  
-         <th>Estado</th> 
+        <th>CODIGO VIAJE</th>
+        <th>RUTA</th> 
+        <th>FECHA</th>
+        <th>HORA INICIO</th>
+        <th>HORA FIN</th>
+        <!-- <th>PRECIO NORMAL</th>
+        <th>PRECIO DIFERENCIADO</th> -->
+        <th>UNIDAD</th>
+        <th>CONDUCTOR</th>  
+        <th>AYUDANTE</th>  
+        <th>ESTADO</th> 
         
       </tr>
 
@@ -51,14 +58,11 @@
         <!-- <td>{{ viaje.idViaje }}</td> -->
         <td>{{ viaje.codigoViaje }}</td>
         <td>{{ viaje.ruta?.nombreRuta }}</td> 
-        <!-- <td>{{ viaje.fecha }}</td>
-        <td>{{ viaje.horaInicio }}</td>
-        <td>{{ viaje.horaFin }}</td> -->
         <td>{{ viaje.fecha | date: 'dd/MM/yyyy' }}</td> <!-- Muestra solo la fecha -->
         <td>{{ viaje.horaInicio | date: 'HH:mm:ss' }}</td> <!-- Muestra solo la hora de inicio -->
         <td>{{ viaje.horaFin | date: 'HH:mm:ss' }}</td> 
-        <td>{{ viaje.precioNormal }}</td>
-        <td>{{ viaje.precioDiferenciado }}</td>
+        <!-- <td>{{ viaje.precioNormal }}</td>
+        <td>{{ viaje.precioDiferenciado }}</td> -->
         <td>{{ viaje.unidad?.placa }}</td>
         <td>{{ viaje.conductor?.nombre +' ' +viaje.conductor?.apellido}}</td> 
         <td>{{ viaje.ayudante?.nombre +' '+ viaje.ayudante?.apellido}}</td> 
@@ -76,7 +80,7 @@
           pButton
           icon="pi pi-trash"
           class="p-button-rounded p-button-warning"
-          (click)="deleteViaje(viaje)"
+          (click)="eliminarViaje(viaje)"
         ></button>
 
       </td>

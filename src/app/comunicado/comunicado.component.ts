@@ -18,13 +18,9 @@ export class ComunicadoComponent implements OnInit, OnDestroy {
 
   displayAddEditModal = false;
   selectedComunicado: any = null;
-  selectedEstado: string = '';
   subscriptions: Subscription[] = [];
-  pdtSubscription: Subscription = new Subscription();
+  selectedFilter: string = 'descripcion';
 
-
-  selectedFilter: string = '';
-  filterValue: string = '';
 
   constructor(
     private comunicadoService: ComunicadoService,
@@ -32,11 +28,16 @@ export class ComunicadoComponent implements OnInit, OnDestroy {
     private messageService: MessageService) { }
 
   ngOnInit(): void {
-    this.getComunicadosList();
+    this.obtenerComunicadosList();
+    this.applyDefaultFilter();
+  }
+  // Aplicar filtro por defecto
+   applyDefaultFilter(){
+    this.filterBy({ target: { value: '' } });
   }
 
-  getComunicadosList() {
-    this.comunicadoService.getComunicados().subscribe(
+  obtenerComunicadosList() {
+    this.comunicadoService.obtenerComunicados().subscribe(
       response => {
         this.comunicados = response;
         this.filteredComunicadoes = [...this.comunicados]; // Copia las Comunicados al array filtrado inicialmente
@@ -68,7 +69,7 @@ export class ComunicadoComponent implements OnInit, OnDestroy {
       this.comunicados.unshift(newData);
       this.filteredComunicadoes.unshift(newData); // Agrega la nueva Comunicado también al array filtrado
     }
-    this.getComunicadosList();
+    this.obtenerComunicadosList();
   }
 
   showEditModal(Comunicado: Comunicado) {
@@ -76,11 +77,11 @@ export class ComunicadoComponent implements OnInit, OnDestroy {
     this.selectedComunicado = Comunicado;
   }
 
-  deleteComunicado(Comunicado: Comunicado) {
+  eliminarComunicado(Comunicado: Comunicado) {
     this.confirmationService.confirm({
       message: 'Are you sure that you want to delete this Comunicado?',
       accept: () => {
-        this.comunicadoService.deleteComunicado(Comunicado.idComunicado).subscribe(
+        this.comunicadoService.eliminarComunicado(Comunicado.idComunicado).subscribe(
           response => {
             this.comunicados = this.comunicados.filter(data => data.idComunicado !== Comunicado.idComunicado);
             this.filteredComunicadoes = this.filteredComunicadoes.filter(data => data.idComunicado !== Comunicado.idComunicado);
@@ -111,7 +112,7 @@ if (value) {
   }
 }else {
       // Si no se ha ingresado nada en el input, muestra todas las Comunicados nuevamente
-      this.getComunicadosList();
+      this.obtenerComunicadosList();
     }
 }
 

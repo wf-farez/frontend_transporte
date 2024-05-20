@@ -3,10 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Comunicado } from '../interface/comunicado';
 
-
-
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -19,21 +15,15 @@ export class ComunicadoService {
   ) { }
 
 
-  public getComunicados(): Observable<Comunicado[]>{
-    
+  public obtenerComunicados(): Observable<Comunicado[]>{
     return this.httpClient.get<Comunicado[]>(this.API_SERVER);
   }
 
-  // saveUnidad(postData: any) {
-  //   return this.httpClient.post("http://localhost:8080/api/unidades", postData);
-  // }
 
-  addEditComunicado(postData: any, selectedPdt: any) {
+  registrarComunicado(postData: any, selectedPdt: any) {
     if (!selectedPdt) {
       return this.httpClient.post('http://localhost:8080/api/comunicados', postData);
     } else {
-
-      //return this.httpClient.put(`http://localhost:8080/api/unidades/${selectedPdt.id_unidad}`, postData);
 
       postData.idComunicado = selectedPdt.idComunicado;
       return this.httpClient.put('http://localhost:8080/api/comunicados', postData);
@@ -43,8 +33,7 @@ export class ComunicadoService {
     
   }
 
-
-  deleteComunicado(idComunicado: number) {
+  eliminarComunicado(idComunicado: number) {
     return this.httpClient.delete(`http://localhost:8080/api/comunicados/${idComunicado}`);
   }
 }

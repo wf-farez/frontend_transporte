@@ -15,7 +15,7 @@ export class AddEditUnidadComponent implements OnInit {
   @Input() selectedUnidad: any = null;
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() clickregistrar: EventEmitter<any> = new EventEmitter<any>();
-  modalType = "Add";
+  modalType = "Crear";
   
   unidadForm = this.fb.group({
     idUnidad: [""],
@@ -36,7 +36,7 @@ export class AddEditUnidadComponent implements OnInit {
 
   ngOnChanges(): void {
     if (this.selectedUnidad) {
-      this.modalType = 'Edit';
+      this.modalType = 'Editar';
       this.unidadForm.patchValue({
         idUnidad: this.selectedUnidad.idUnidad,
         codigoUnidad: this.selectedUnidad.codigoUnidad,
@@ -46,7 +46,7 @@ export class AddEditUnidadComponent implements OnInit {
       });
     } else {
       this.unidadForm.reset();
-      this.modalType = 'Add';
+      this.modalType = 'Crear';
     }
   }
 
@@ -56,7 +56,7 @@ export class AddEditUnidadComponent implements OnInit {
   }
 
   registrarUnidad() {
-    if (this.modalType === 'Add') {
+    if (this.modalType === 'Crear') {
       // Si es una nueva unidad, eliminamos el campo id_unidad del formulario
       const { idUnidad, ...newUnidad } = this.unidadForm.value;
       this.unidadService.registrarUnidad(newUnidad, this.selectedUnidad).subscribe(
@@ -70,7 +70,7 @@ export class AddEditUnidadComponent implements OnInit {
           console.log('Error occurred');
         }
       );
-    } else if (this.modalType === 'Edit') {
+    } else if (this.modalType === 'Editar') {
       // Si es una unidad existente, enviamos el formulario completo
       this.unidadService.registrarUnidad(this.unidadForm.value, this.selectedUnidad).subscribe(
         response => {
@@ -86,6 +86,4 @@ export class AddEditUnidadComponent implements OnInit {
     }
 
   }
-
-  
 }

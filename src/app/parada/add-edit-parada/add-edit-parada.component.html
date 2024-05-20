@@ -62,41 +62,7 @@
           >Field is required</small
         >
       </div>
-
-
-  <!-- <div class="field">
-    <label class="block" for="latitud">Latitud</label>
-    <p-inputNumber
-      id="price"
-      formControlName="latitud"
-      class="block"
-    ></p-inputNumber>
-    <small
-      class="p-error block"
-      *ngIf="
-        paradaForm.controls['latitud'].invalid &&
-        paradaForm.controls['latitud'].dirty
-      "
-      >Field is required</small
-    >
-  </div> -->
-
-  <!-- <div class="field">
-    <label class="block" for="longitud">Longitud</label>
-    <p-inputNumber
-      id="price"
-      formControlName="longitud"
-      class="block"
-    ></p-inputNumber>
-    <small
-      class="p-error block"
-      *ngIf="
-        paradaForm.controls['longitud'].invalid &&
-        paradaForm.controls['longitud'].dirty
-      "
-      >Field is required</small
-    >
-  </div> -->
+ 
 
   </form>
 
@@ -107,7 +73,7 @@
           styleClass="p-button-text"
         ></p-button>
         <p-button
-          (click)="addEditParada()"
+          (click)="registrarParada()"
           label="{{ modalType }}"
           [disabled]="paradaForm.invalid"
         ></p-button>

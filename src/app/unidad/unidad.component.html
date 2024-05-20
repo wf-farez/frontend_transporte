@@ -19,12 +19,9 @@
  [paginator]="true" 
 [rows]="4" 
 >  
-
-
-
     <ng-template pTemplate="header">
       <tr>
-        <th>ID_UNIDAD</th>
+        <!-- <th>ID_UNIDAD</th> -->
         <th>CODIGO_UNIDAD</th>
         <th>PLACA</th>
         <th>CANTIDAD ASIENTOS</th>
@@ -34,7 +31,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-unidad >
       <tr >
-        <td>{{ unidad.idUnidad }}</td>
+        <!-- <td>{{ unidad.idUnidad }}</td> -->
         <td>{{ unidad.codigoUnidad}}</td>
         <td>{{ unidad.placa }}</td>
         <td>{{ unidad.cantidadAsientos }}</td>

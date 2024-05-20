@@ -19,34 +19,27 @@ export class ParadaService {
   ) { }
 
 
-  public getParadas(): Observable<Parada[]>{
-    
+  public obtenerParadas(): Observable<Parada[]>{
     return this.httpClient.get<Parada[]>(this.API_SERVER);
   }
 
-  // saveUnidad(postData: any) {
-  //   return this.httpClient.post("http://localhost:8080/api/unidades", postData);
-  // }
-
-  addEditParada(postData: any, selectedPdt: any) {
+  //registrar paradas en parada
+  registrarParada(postData: any, selectedPdt: any) {
     if (!selectedPdt) {
       return this.httpClient.post('http://localhost:8080/api/paradas', postData);
     } else {
-
-      //return this.httpClient.put(`http://localhost:8080/api/unidades/${selectedPdt.id_unidad}`, postData);
-
       postData.idParada= selectedPdt.idParada;
       return this.httpClient.put('http://localhost:8080/api/paradas', postData);
     }
   }
 
-
-  addParada(postData: any) {
+  //registar parada en ruta
+  agregarParada(postData: any) {
     return this.httpClient.post('http://localhost:8080/api/paradas', postData);
   }
 
 
-  deleteParada(idParada: number) {
+  eliminarParada(idParada: number) {
     return this.httpClient.delete(`http://localhost:8080/api/paradas/${idParada}`);
   }
 }
