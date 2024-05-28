@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Parada } from '../interface/parada';
+import { environment } from '../../environments/environment';
   
 
 
@@ -12,7 +13,6 @@ import { Parada } from '../interface/parada';
 })
 export class ParadaService {
 
-  private API_SERVER = "http://localhost:8080/api/paradas";
 
   constructor(
     private httpClient: HttpClient
@@ -20,26 +20,28 @@ export class ParadaService {
 
 
   public obtenerParadas(): Observable<Parada[]>{
-    return this.httpClient.get<Parada[]>(this.API_SERVER);
+    return this.httpClient.get<Parada[]>(environment.urlApi+"paradas");
   }
 
   //registrar paradas en parada
   registrarParada(postData: any, selectedPdt: any) {
     if (!selectedPdt) {
-      return this.httpClient.post('http://localhost:8080/api/paradas', postData);
+      return this.httpClient.post(environment.urlApi+"paradas", postData);
     } else {
       postData.idParada= selectedPdt.idParada;
-      return this.httpClient.put('http://localhost:8080/api/paradas', postData);
+      return this.httpClient.put(environment.urlApi+"paradas", postData);
     }
   }
 
   //registar parada en ruta
   agregarParada(postData: any) {
-    return this.httpClient.post('http://localhost:8080/api/paradas', postData);
+    return this.httpClient.post(environment.urlApi+"paradas", postData);
   }
 
 
   eliminarParada(idParada: number) {
-    return this.httpClient.delete(`http://localhost:8080/api/paradas/${idParada}`);
+    return this.httpClient.delete(`${environment.urlApi}paradas/${idParada}`);
   }
 }
+
+

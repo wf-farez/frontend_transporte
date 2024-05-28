@@ -1,0 +1,29 @@
+/* Añade tus estilos aquí */
+
+.ruta-info {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan */
+}
+
+.left-container, .right-container {
+  width: 40%;
+}
+
+
+p-button {
+  margin-right: 5px;
+}
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 768px) {
+  .left-container, .right-container {
+    width: 100%;
+  }
+}
+

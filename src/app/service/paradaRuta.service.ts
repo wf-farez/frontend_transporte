@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Parada } from '../interface/parada';
 import { ParadaRuta } from '../interface/paradaruta';
+import { environment } from '../../environments/environment';
   
 
 
@@ -13,53 +14,123 @@ import { ParadaRuta } from '../interface/paradaruta';
 })
 export class ParadaRutaService {
 
-  private API_SERVER = "http://localhost:8080/api/paradasruta";
+  private API_SERVER = "http://localhost:8080/api/v1/paradasruta";
 
   constructor(
     private httpClient: HttpClient
   ) { }
 
 
-  public obtenerParadasRuta(): Observable<ParadaRuta[]>{
+  obtenerParadasRuta(): Observable<ParadaRuta[]>{
     return this.httpClient.get<ParadaRuta[]>(this.API_SERVER);
   }
 
-  public obtenerParadasRutaByRutaId(idRuta: number): Observable<ParadaRuta[]> {
+ obtenerParadasRutaByRutaId(idRuta: number): Observable<ParadaRuta[]> {
     const url = `${this.API_SERVER}?idRuta=${idRuta}`;
     console.log(url)
     return this.httpClient.get<ParadaRuta[]>(url);
   }
 
-  // saveUnidad(postData: any) {
-  //   return this.httpClient.post("http://localhost:8080/api/unidades", postData);
-  // }
-
   registrarParadaRuta(postData: any, selectedPdt: any) {
     if (!selectedPdt) {
-      return this.httpClient.post('http://localhost:8080/api/paradasruta', postData);
+      return this.httpClient.post('http://localhost:8080/api/v1/paradasruta', postData);
     } else {
-      //return this.httpClient.put(`http://localhost:8080/api/unidades/${selectedPdt.id_unidad}`, postData);
       postData.idParadaRuta= selectedPdt.idParadaRuta;
-      return this.httpClient.put('http://localhost:8080/api/paradasruta', postData);
+      return this.httpClient.put('http://localhost:8080/api/v1/paradasruta', postData);
     }    
   }
 
   addParadaRuta(postData: any) {
-    return this.httpClient.post('http://localhost:8080/api/paradasruta', postData);
+    return this.httpClient.post('http://localhost:8080/api/v1/paradasruta', postData);
       
   }
 
-
-
   eliminarParadaRuta(idParadaRuta: number) {
-    return this.httpClient.delete(`http://localhost:8080/api/paradasruta/${idParadaRuta}`);
+    return this.httpClient.delete(`http://localhost:8080/api/v1/paradasruta/${idParadaRuta}`);
   }
 
-  
-
   eliminarParadaRutaByRutaId(idRuta: number): Observable<any> {
-    return this.httpClient.delete(`http://localhost:8080/api/paradasruta?idRuta=${idRuta}`);
+    return this.httpClient.delete(`http://localhost:8080/api/v1/paradasruta?idRuta=${idRuta}`);
   }
 
 
 }
+
+
+// constructor(
+//   private httpClient: HttpClient
+// ) { }
+
+
+// public obtenerParadas(): Observable<Parada[]>{
+//   return this.httpClient.get<Parada[]>(environment.urlApi+"paradas");
+// }
+
+// //registrar paradas en parada
+// registrarParada(postData: any, selectedPdt: any) {
+//   if (!selectedPdt) {
+//     return this.httpClient.post(environment.urlApi+"paradas", postData);
+//   } else {
+//     postData.idParada= selectedPdt.idParada;
+//     return this.httpClient.put(environment.urlApi+"paradas", postData);
+//   }
+// }
+
+// //registar parada en ruta
+// agregarParada(postData: any) {
+//   return this.httpClient.post(environment.urlApi+"paradas", postData);
+// }
+
+
+// eliminarParada(idParada: number) {
+//   return this.httpClient.delete(`${environment.urlApi}paradas/${idParada}`);
+// }
+
+
+
+// @Injectable({
+//   providedIn: 'root'
+// })
+// export class ParadaRutaService {
+
+//   private API_SERVER = "http://localhost:8080/api/v1/paradasruta";
+
+//   constructor(
+//     private httpClient: HttpClient
+//   ) { }
+
+
+//   obtenerParadasRuta(): Observable<ParadaRuta[]>{
+//     return this.httpClient.get<ParadaRuta[]>(environment.urlApi+"paradasruta");
+//   }
+
+//  obtenerParadasRutaByRutaId(idRuta: number): Observable<ParadaRuta[]> {
+//     const url = `${this.API_SERVER}?idRuta=${idRuta}`;
+//     console.log(url)
+//     return this.httpClient.get<ParadaRuta[]>(url);
+//   }
+
+//   registrarParadaRuta(postData: any, selectedPdt: any) {
+//     if (!selectedPdt) {
+//       return this.httpClient.post('http://localhost:8080/api/v1/paradasruta', postData);
+//     } else {
+//       postData.idParadaRuta= selectedPdt.idParadaRuta;
+//       return this.httpClient.put('http://localhost:8080/api/v1/paradasruta', postData);
+//     }    
+//   }
+
+//   addParadaRuta(postData: any) {
+//     return this.httpClient.post('http://localhost:8080/api/v1/paradasruta', postData);
+      
+//   }
+
+//   eliminarParadaRuta(idParadaRuta: number) {
+//     return this.httpClient.delete(`http://localhost:8080/api/v1/paradasruta/${idParadaRuta}`);
+//   }
+
+//   eliminarParadaRutaByRutaId(idRuta: number): Observable<any> {
+//     return this.httpClient.delete(`http://localhost:8080/api/v1/paradasruta?idRuta=${idRuta}`);
+//   }
+
+
+// }

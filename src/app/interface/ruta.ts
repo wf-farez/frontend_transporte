@@ -1,6 +1,8 @@
+import { Compania } from "./compania";
+
 export interface Ruta {
     idRuta: number,
-    nombreCompania: String,
+    compania: Compania,
     nombreRuta: String,
     origenRuta: String,
     destinoRuta: String

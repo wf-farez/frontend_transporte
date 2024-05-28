@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Empleado } from '../interface/empleado';
+import { environment } from '../../environments/environment';
   
 
 
@@ -12,30 +13,28 @@ import { Empleado } from '../interface/empleado';
 })
 export class EmpleadoService {
 
-  private API_SERVER = "http://localhost:8080/api/empleados";
-
   constructor(
     private httpClient: HttpClient
   ) { }
 
 
-  public obtenerEmpleados(): Observable<Empleado[]>{
+obtenerEmpleados(): Observable<Empleado[]>{
     
-    return this.httpClient.get<Empleado[]>(this.API_SERVER);
+    return this.httpClient.get<Empleado[]>(environment.urlApi+"empleados");
   }
 
   registrarEmpleado(postData: any, selectedPdt: any) {
     
     if (!selectedPdt) {
-      return this.httpClient.post('http://localhost:8080/api/empleados', postData);
+      return this.httpClient.post(environment.urlApi+"empleados", postData);
     } else {
       postData.idEmpleado = selectedPdt.idEmpleado;
-      return this.httpClient.put('http://localhost:8080/api/empleados', postData);
+      return this.httpClient.put(environment.urlApi+"empleados", postData);
     }
   }
 
   eliminarEmpleado(idEmpleado: number) {
-    return this.httpClient.delete(`http://localhost:8080/api/empleados/${idEmpleado}`);
+    return this.httpClient.delete(`${environment.urlApi}empleados/${idEmpleado}`);
   }
 
 }

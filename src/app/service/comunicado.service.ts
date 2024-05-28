@@ -1,39 +1,33 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, catchError, throwError } from 'rxjs';
 import { Comunicado } from '../interface/comunicado';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ComunicadoService {
 
-  private API_SERVER = "http://localhost:8080/api/comunicados";
-
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+  
   ) { }
 
-
-  public obtenerComunicados(): Observable<Comunicado[]>{
-    return this.httpClient.get<Comunicado[]>(this.API_SERVER);
+  obtenerComunicados(): Observable<Comunicado[]>{
+    return this.httpClient.get<Comunicado[]>(environment.urlApi+"comunicados")
   }
-
 
   registrarComunicado(postData: any, selectedPdt: any) {
     if (!selectedPdt) {
-      return this.httpClient.post('http://localhost:8080/api/comunicados', postData);
+      return this.httpClient.post(environment.urlApi+"comunicados", postData);
     } else {
-
       postData.idComunicado = selectedPdt.idComunicado;
-      return this.httpClient.put('http://localhost:8080/api/comunicados', postData);
+      return this.httpClient.put(environment.urlApi+"comunicados", postData);
     }
-
-
-    
   }
 
   eliminarComunicado(idComunicado: number) {
-    return this.httpClient.delete(`http://localhost:8080/api/comunicados/${idComunicado}`);
+    return this.httpClient.delete(`${environment.urlApi}comunicados/${idComunicado}`);
   }
 }

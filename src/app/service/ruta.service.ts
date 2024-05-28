@@ -12,7 +12,7 @@ import { Ruta } from '../interface/ruta';
 })
 export class RutaService {
 
-  private API_SERVER = "http://localhost:8080/api/rutas";
+  private API_SERVER = "http://localhost:8080/api/v1/rutas";
 
   constructor(
     private httpClient: HttpClient
@@ -25,15 +25,23 @@ export class RutaService {
 
   registrarRuta(postData: any, selectedPdt: any) {
     if (!selectedPdt) {
-      return this.httpClient.post('http://localhost:8080/api/rutas', postData);
+      return this.httpClient.post('http://localhost:8080/api/v1/rutas', postData);
     } else {
       postData.id_ruta = selectedPdt.id_ruta;
-      return this.httpClient.put('http://localhost:8080/api/rutas', postData);
+      return this.httpClient.put('http://localhost:8080/api/v1/rutas', postData);
     }
   }
 
 
   eliminarRuta(idRuta: number) {
-    return this.httpClient.delete(`http://localhost:8080/api/rutas/${idRuta}`);
+    return this.httpClient.delete(`http://localhost:8080/api/v1/rutas/${idRuta}`);
   }
+
+  public obtenerRutaporId(idRuta: number): Observable<Ruta> {
+    // const url = `${this.API_SERVER}?idRuta=${idRuta}`;
+    console.log(idRuta)
+    return this.httpClient.get<Ruta>(`http://localhost:8080/api/v1/rutas?idRuta=${idRuta}`);
+  }
+
+
 }

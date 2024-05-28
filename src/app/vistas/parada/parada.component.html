@@ -1,0 +1,83 @@
+<h2>Gestion de Paradas</h2>
+        <div class="flex justify-content-between">
+            <div class="flex justify-content-between">
+            <select [(ngModel)]="selectedFilter">
+                <option value="nombreParada">Nombre de Parada</option>
+                <option value="direccion">Direccion</option>
+                <option value="latitud">Latitud</option>
+                <option value="longitud">Longitud</option>
+               
+            </select>
+            <input type="text" pInputText placeholder="Search " (input)="filterBy($event)" />
+          
+        </div>
+        <div class="flex justify-content-between">
+            <p-button label="Agregar parada" (click)="showAddModal()"></p-button>
+        </div>
+    </div>
+
+
+ <p-table [value]="paradas" 
+ styleClass="custom-table p-datatable-gridlines"
+ [paginator]="true" 
+ [rows]="4" 
+ >  
+    <ng-template pTemplate="header">
+      <tr>
+        <!-- <th>IDPARADA</th> -->
+        <th>NOMBRE DE PARADA</th>
+        <th>DIRECCION</th>
+        <th>LATITUD</th>
+        <th>LONGITUD</th>
+        <th>OPCIONES</th>
+      </tr>
+
+    </ng-template>
+    <ng-template pTemplate="body" let-parada >
+      <tr >
+        <!-- <td>{{ parada.idParada }}</td> -->
+        <td>{{ parada.nombreParada}}</td>
+        <td>{{ parada.direccion }}</td>
+        <td>{{ parada.latitud}}</td>
+        <td>{{ parada.longitud }}</td>
+
+        <!-- <button
+          pButton
+          icon="pi pi-pencil"
+          class="p-button-rounded p-button-success mr-2"
+          (click)="showEditModal(parada)"
+        ></button>
+
+        <button
+          pButton
+          icon="pi pi-trash"
+          class="p-button-rounded p-button-warning"
+          
+        ></button> -->
+
+
+        <td>
+          <i class="pi pi-pencil" style="font-size: 1rem ; margin-right: 30px; "  (click)="showEditModal(parada)"></i>
+          <i class="pi pi-trash" style="font-size: 1rem; "  (click)="eliminarParada(parada)"></i>
+        </td>
+
+
+
+    </tr>
+
+    </ng-template>
+
+  </p-table>
+
+<app-add-edit-parada
+
+[displayAddEditModal]="displayAddEditModal"
+[selectedParada]="selectedParada"
+(clickClose)="hideAddModal($event)"
+(clickAddEdit)="saveorUpdateParadaList($event)"
+></app-add-edit-parada>
+
+<p-confirmDialog header="Delete"></p-confirmDialog>
+
+<p-toast position="bottom-right"></p-toast>  
+
