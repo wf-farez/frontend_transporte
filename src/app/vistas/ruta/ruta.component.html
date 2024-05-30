@@ -38,13 +38,14 @@
     <ng-template pTemplate="body" let-ruta >
       <tr >
         <!-- <td>{{ ruta.idRuta }}</td> -->
-        <td>{{ ruta.compania.nombreCompania}}</td>
+        <td>{{ ruta.compania?.nombreCompania}}</td>
         <td>{{ ruta.nombreRuta}}</td>
         <td>{{ ruta.origenRuta }}</td>
         <td>{{ ruta.destinoRuta}}</td>
         <td>
           <i class="pi pi-pencil" style="font-size: 1rem ; margin-right: 30px; "  (click)="showEditModal(ruta)"></i>
           <i class="pi pi-trash" style="font-size: 1rem; "  (click)="eliminarRuta(ruta)"></i>
+       
         </td>
 
       <!-- <td>

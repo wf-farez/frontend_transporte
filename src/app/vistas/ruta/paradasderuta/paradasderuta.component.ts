@@ -23,7 +23,7 @@ export class ParadasDeRutaComponent implements OnInit{
 //@Input() selectedRuta: any = null;
 //@Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
 //@Output() clickAdd: EventEmitter<any> = new EventEmitter<any>();
- modalType = "Asignar";
+ modalType = "Registrar";
   
  
 displayAddModal = false;
@@ -242,6 +242,11 @@ closeModal() {
   
     }
 
+    cancelar() {
+    this.paradaForm.reset();
+        }
+
+
     ngOnDestroy(): void {
       this.subscriptions.forEach(sub => sub.unsubscribe());
     }
@@ -349,9 +354,13 @@ asignarParadaCreada(): void {
   };
 
   this.paradasrutamostrar.push(nuevaParada);
-  console.log('lista paadas creadas',this.paradascreadas)
+  console.log('lista paradas creadas',this.paradascreadas)
+  this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Parada creada' });
   // Limpia el formulario después de agregar la parada
   this.paradaForm.reset();
+
+  
+
 }
 
 
@@ -488,7 +497,7 @@ agregarNuevosRegistrosParadasRuta() {
         // Manejar la respuesta si es necesario
         console.log('ParadaRuta guardada:', response);
         // Opcionalmente, puedes enviar un mensaje de éxito
-        //this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'ParadaRuta asignada correctamente.' });
+        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'ParadaRuta asignada correctamente.' });
         
        
        // this.router.navigate(['/dashboard/rutas']);

@@ -4,6 +4,7 @@ import { LoginRequest } from './loginRequest';
 import  {  Observable, throwError, catchError, BehaviorSubject , tap, map} from 'rxjs';
 import { User } from './user';
 import { environment } from '../../../environments/environment';
+import { RegisterRequest } from './registerRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -56,5 +57,22 @@ export class LoginService {
   get userToken():String{
     return this.currentUserData.value;
   }
+
+
+  registrarse(credentials:RegisterRequest):Observable<any>{
+    return this.http.post<any>(environment.urlHost+"auth/register",credentials).pipe(
+      tap( (userData) => {
+        // sessionStorage.setItem("token", userData.token);
+        // this.currentUserData.next(userData.token);
+        // this.currentUserLoginOn.next(true);
+      }),
+      // map((userData)=> userData.token),
+      catchError(this.handleError)
+    );
+  }
+//   registrarse(postData: any){
+//     return this.http.post(environment.urlApi+"auth/register", postData);
+// }
+
 
 }

@@ -22,6 +22,7 @@ import { ErrorInterceptorService } from './service/auth/error-interceptor.servic
 import { ParadasDeRutaModule } from './vistas/ruta/paradasderuta/paradasderuta.module';
 import { CompaniaComponent } from './vistas/compania/compania.component';
 import { CompaniaModule } from './vistas/compania/compania.module';
+import { RegisterModule } from './vistas/register/register.module';
 
 
 
@@ -44,7 +45,9 @@ import { CompaniaModule } from './vistas/compania/compania.module';
     ComunicadoModule,
     EventoModule,
     ParadasDeRutaModule,
-    CompaniaModule
+    CompaniaModule,
+    RegisterModule,
+
     
   ],
   providers: [provideClientHydration()  ,  

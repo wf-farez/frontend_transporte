@@ -15,7 +15,7 @@ export class AddEditEmpleadoComponent implements OnInit {
   @Input() selectedEmpleado: any = null;
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() clickAddEdit: EventEmitter<any> = new EventEmitter<any>();
-  modalType = "Crear";
+  modalType = "Registrar";
   
   empleadoForm = this.fb.group({
     idEmpleado: [""],
@@ -55,7 +55,7 @@ export class AddEditEmpleadoComponent implements OnInit {
       });
     } else {
       this.empleadoForm.reset();
-      this.modalType = 'Crear';
+      this.modalType = 'Registrar';
     }
   }
 
@@ -67,14 +67,14 @@ export class AddEditEmpleadoComponent implements OnInit {
   }
 
   registrarEmpleado() {
-    if (this.modalType === 'Crear') {
+    if (this.modalType === 'Registrar') {
       // Si es una nueva empleado, eliminamos el campo idEmpleado del formulario
       const { idEmpleado, ...newempleado } = this.empleadoForm.value;
       this.empleadoService.registrarEmpleado(newempleado, this.selectedEmpleado).subscribe(
         response => {
           this.clickAddEdit.emit(response);
           this.closeModal();
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'empleado added' });
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Empleado registrado' });
         },
         error => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: error });
@@ -87,7 +87,7 @@ export class AddEditEmpleadoComponent implements OnInit {
         response => {
           this.clickAddEdit.emit(response);
           this.closeModal();
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'empleado updated' });
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Empleado actualizado' });
         },
         error => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: error });

@@ -18,7 +18,7 @@ export class CompaniaComponent implements OnInit, OnDestroy {
   selectedCompania: any = null;
   selectedEstado: string = '';
   subscriptions: Subscription[] = [];
-  selectedFilter: string = 'cedula'; // Preselección del filtro
+  selectedFilter: string = 'nombreCompania'; // Preselección del filtro
   filterValue: string = '';
 
   constructor(
@@ -85,13 +85,13 @@ export class CompaniaComponent implements OnInit, OnDestroy {
   // Eliminar compania
   eliminarCompania(compania: Compania) {
     this.confirmationService.confirm({
-      message: 'Are you sure that you want to eliminar this compania?',
+      message: 'Desea eliminar esta compania?',
       accept: () => {
         this.companiaService.eliminarCompania(compania.idCompania).subscribe(
           response => {
             this.companias = this.companias.filter(data => data.idCompania !== compania.idCompania);
             this.filteredCompanias = this.filteredCompanias.filter(data => data.idCompania !== compania.idCompania);
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'eliminado Successfully' });
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Eliminado correctamente' });
           },
           error => {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: error });

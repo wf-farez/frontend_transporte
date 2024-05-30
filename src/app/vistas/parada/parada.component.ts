@@ -87,13 +87,13 @@ export class ParadaComponent implements OnInit, OnDestroy {
 
   eliminarParada(parada: Parada) {
     this.confirmationService.confirm({
-      message: 'Are you sure that you want to delete this parada?',
+      message: 'Desea eliminar esta parada?',
       accept: () => {
         this.paradaService.eliminarParada(parada.idParada).subscribe(
           response => {
             this.paradas = this.paradas.filter(data => data.idParada !== parada.idParada);
             this.filteredParadas = this.filteredParadas.filter(data => data.idParada !== parada.idParada);
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Deleted Successfully' });
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Eliminado correctamente' });
           },
           error => {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: error });
@@ -102,8 +102,6 @@ export class ParadaComponent implements OnInit, OnDestroy {
       }
     });
   }
-
- 
    
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());

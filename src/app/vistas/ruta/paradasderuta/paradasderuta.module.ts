@@ -13,6 +13,7 @@ import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { TableModule } from 'primeng/table';
 import { ParadasDeRutaComponent } from './paradasderuta.component';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ParadasDeRutaComponent } from './paradasderuta.component';
     CardModule,
     TableModule,
     FormsModule,
+    ToastModule
   ]
   , exports:[
     ParadasDeRutaComponent

@@ -80,13 +80,13 @@ export class ComunicadoComponent implements OnInit, OnDestroy {
 
   eliminarComunicado(Comunicado: Comunicado) {
     this.confirmationService.confirm({
-      message: 'Are you sure that you want to delete this Comunicado?',
+      message: 'Desea eliminar este Comunicado?',
       accept: () => {
         this.comunicadoService.eliminarComunicado(Comunicado.idComunicado).subscribe(
           response => {
             this.comunicados = this.comunicados.filter(data => data.idComunicado !== Comunicado.idComunicado);
             this.filteredComunicadoes = this.filteredComunicadoes.filter(data => data.idComunicado !== Comunicado.idComunicado);
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Deleted Successfully' });
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Eliminado correctamente' });
           },
           error => {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: error });

@@ -12,7 +12,7 @@
           
         </div>
         <div class="flex justify-content-between">
-            <p-button label="Agregar parada" (click)="showAddModal()"></p-button>
+            <p-button label="Registrar parada" (click)="showAddModal()"></p-button>
         </div>
     </div>
 
@@ -40,21 +40,6 @@
         <td>{{ parada.direccion }}</td>
         <td>{{ parada.latitud}}</td>
         <td>{{ parada.longitud }}</td>
-
-        <!-- <button
-          pButton
-          icon="pi pi-pencil"
-          class="p-button-rounded p-button-success mr-2"
-          (click)="showEditModal(parada)"
-        ></button>
-
-        <button
-          pButton
-          icon="pi pi-trash"
-          class="p-button-rounded p-button-warning"
-          
-        ></button> -->
-
 
         <td>
           <i class="pi pi-pencil" style="font-size: 1rem ; margin-right: 30px; "  (click)="showEditModal(parada)"></i>

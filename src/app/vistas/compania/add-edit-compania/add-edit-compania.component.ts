@@ -15,7 +15,7 @@ export class AddEditCompaniaComponent implements OnInit {
   @Input() selectedCompania: any = null;
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() clickAddEdit: EventEmitter<any> = new EventEmitter<any>();
-  modalType = "Crear";
+  modalType = "Registrar";
   
   companiaForm = this.fb.group({
     idCompania: [""],
@@ -40,7 +40,7 @@ export class AddEditCompaniaComponent implements OnInit {
       });
     } else {
       this.companiaForm.reset();
-      this.modalType = 'Crear';
+      this.modalType = 'Registrar';
     }
   }
 
@@ -52,14 +52,14 @@ export class AddEditCompaniaComponent implements OnInit {
   }
 
   registrarCompania() {
-    if (this.modalType === 'Crear') {
+    if (this.modalType === 'Registrar') {
       // Si es una nueva compania, eliminamos el campo idcompania del formulario
       const { idCompania, ...newCompania } = this.companiaForm.value;
       this.companiaService.registrarCompania(newCompania, this.selectedCompania).subscribe(
         response => {
           this.clickAddEdit.emit(response);
           this.closeModal();
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'compania added' });
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Compania Registrada' });
         },
         error => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: error });
@@ -72,7 +72,7 @@ export class AddEditCompaniaComponent implements OnInit {
         response => {
           this.clickAddEdit.emit(response);
           this.closeModal();
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'compania updated' });
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Compania actualizada' });
         },
         error => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: error });

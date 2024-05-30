@@ -14,7 +14,7 @@ import { TreeSelectModule } from 'primeng/treeselect';
 
 import { EmpleadoModule } from '../empleado/empleado.module';
 import { UnidadModule } from '../unidad/unidad.module';
-import { AddEditViajeModule } from './add-edit-viaje/add-edit-viaje.module';
+
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -33,8 +33,6 @@ import { InputNumberModule } from 'primeng/inputnumber';
     HttpClientModule,
  
     ButtonModule,
-    AddEditViajeModule,
- 
     CardModule,
     TreeSelectModule, 
     EmpleadoModule,

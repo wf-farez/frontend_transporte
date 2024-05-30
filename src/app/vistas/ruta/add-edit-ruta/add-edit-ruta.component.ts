@@ -18,7 +18,7 @@ export class AddEditRutaComponent implements OnInit {
   @Input() selectedRuta: any = null;
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() clickAddEdit: EventEmitter<any> = new EventEmitter<any>();
-  modalType = "Crear";
+  modalType = "Registrar";
   
   rutaForm = this.fb.group({
     idRuta: [""],
@@ -65,7 +65,7 @@ export class AddEditRutaComponent implements OnInit {
       });
     } else {
       this.rutaForm.reset();
-      this.modalType = 'Crear';
+      this.modalType = 'Registrar';
     }
   }
 
@@ -75,7 +75,7 @@ export class AddEditRutaComponent implements OnInit {
   }
 
   registrarRuta() {
-    if (this.modalType === 'Crear') {
+    if (this.modalType === 'Registrar') {
 
       this.rutaForm.patchValue({
         compania:this.companiaV

@@ -61,14 +61,14 @@ export class AddEditParadaComponent implements OnInit {
   }
 
   registrarParada() {
-    if (this.modalType === 'Crar') {
+    if (this.modalType === 'Crear') {
       // Si es una nueva parada, eliminamos el campo idParada del formulario
       const { idParada, ...newparada } = this.paradaForm.value;
       this.paradaService.registrarParada(newparada, this.selectedParada).subscribe(
         response => {
           this.clickAddEdit.emit(response);
           this.closeModal();
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'parada added' });
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Parada Registrada' });
         },
         error => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: error });
@@ -81,7 +81,7 @@ export class AddEditParadaComponent implements OnInit {
         response => {
           this.clickAddEdit.emit(response);
           this.closeModal();
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'parada updated' });
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Parada actualizada' });
         },
         error => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: error });

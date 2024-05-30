@@ -90,12 +90,12 @@
 <ng-template pTemplate="footer">
         <p-button
           (click)="closeModal()"
-          label="Cancel"
+          label="Cancelar"
           styleClass="p-button-text"
         ></p-button>
         <p-button
           (click)="registrarEmpleado()"
-          label="{{ modalType }}"
+          label="Guardar"
           [disabled]="empleadoForm.invalid"
         ></p-button>
 </ng-template>

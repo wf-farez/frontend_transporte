@@ -1,0 +1,15 @@
+
+  .flex-container {
+    display: flex;
+  
+    gap: 0.5rem;
+  }
+
+  .field {
+    flex:1;
+  }
+
+  .short-input {
+    width: 50px;
+  }
+  

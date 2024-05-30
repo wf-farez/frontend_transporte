@@ -67,12 +67,12 @@
 <ng-template pTemplate="footer">
         <p-button
           (click)="closeModal()"
-          label="Cancel"
+          label="Cancelar"
           styleClass="p-button-text"
         ></p-button>
         <p-button
           (click)="registrarRuta()"
-          label="{{ modalType }}"
+          label="Guardar"
           [disabled]="rutaForm.invalid"
         ></p-button>
 </ng-template>

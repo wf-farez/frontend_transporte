@@ -6,7 +6,7 @@
       <h2 class="header-text">Login</h2>
     <form [formGroup]="loginForm" class="login-form">
         <div class="field">
-          <label class="block" for="username">username:(root)</label>
+          <label class="block" for="username">Usuario</label>
           <input type="text" pInputText id="username" formControlName="username" />
           <small
             class="p-error block"
@@ -19,7 +19,7 @@
         </div>
 
         <div class="field">
-          <label class="block" for="password">password:(root)</label>
+          <label class="block" for="password">Contraseña</label>
           <input type="text" pInputText id="password" formControlName="password" />
           <small
             class="p-error block"
@@ -41,6 +41,11 @@
 
           <p-button label="Ingresar" (click)="login()"></p-button>
 
+        </div>
+
+        <hr>
+        <div class="flex justify-content-center">
+          <a (click)="registrarse()" style="text-decoration: underline; margin-top: 10px;" >Registrarse</a>
         </div>
 
     </ng-template>

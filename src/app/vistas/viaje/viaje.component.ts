@@ -10,6 +10,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Empleado } from '../../interface/empleado';
 import { Unidad } from '../../interface/unidad';
 import { Ruta } from '../../interface/ruta';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-viaje',
@@ -108,6 +109,7 @@ selectedFilterU: string = '';
       private empleadoService: EmpleadoService,
       private rutaService: RutaService,
       private fb: FormBuilder, 
+      private router:Router
      
   ) { }
 
@@ -147,6 +149,7 @@ selectedFilterU: string = '';
     this.displayAddModal = !isClosed;
     this.obtenerViajesList();
   }
+
   closeModalAdd() {
     this.viajeForm.reset();
     //this.clickClose.emit(true);
@@ -198,9 +201,8 @@ selectedFilterU: string = '';
     this.obtenerViajesList();
   }
   closeModalV() {
-    // this.viajeForm.reset();
-    // this.clickClose.emit(true);
-    //this.obtenerViajesList()
+    this.displayEditModalV = false;
+
   }
    // Mostrar modal para agregar viaje
    showAddModal2() {
@@ -400,21 +402,6 @@ selectedFilterU: string = '';
 
 registrarViaje() {
   
-  // // Actualizar el formulario
-  // this.viajeForm.patchValue({
-  //   idViaje: this.selectedViaje.idViaje,
-  //   codigoViaje: this.selectedViaje.codigoViaje,
-  //   fecha: new Date(this.selectedViaje.fecha),
-  //   horaInicio: new Date(this.selectedViaje.horaInicio),
-  //   horaFin: new Date(this.selectedViaje.horaFin),
-  //   precioNormal: this.selectedViaje.precioNormal,
-  //   precioDiferenciado: this.selectedViaje.precioDiferenciado,
-  //   ruta: this.rutaV,
-  //   estado: false,
-  // });
-
-
-
     // Asigna los valores seleccionados al formulario
     const codigoViaje = this.generarCodigoViaje();
 
@@ -430,8 +417,7 @@ registrarViaje() {
     this.viajeService.registrarViaje(newViaje , this.selectedViaje).subscribe(
         
         response => {
-        //this.clickAddEdit.emit(response);
-        //this.closeModal();
+
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Viaje added' });
       },
       error => {
@@ -441,54 +427,6 @@ registrarViaje() {
     );
   } 
 
-
-
-
-
-// editarViaje() {
-
-  
-//   console.log(   this.selectedViaje.idViaje,
-//     this.selectedViaje.codigoViaje,
-//     new Date(this.selectedViaje.fecha),
-//     new Date(this.selectedViaje.horaInicio),
-//     new Date(this.selectedViaje.horaFin),
-//     this.selectedViaje.precioNormal,
-//     this.selectedViaje.precioDiferenciado,
-//     this.selectedViaje.ruta,
-//    this.selectedViaje.estado     )
-
-//   this.viajeForm2.patchValue({
-//     idViaje: this.selectedViaje.idViaje,
-//     codigoViaje: this.selectedViaje.codigoViaje,
-//     fecha: new Date(this.selectedViaje.fecha),
-//     horaInicio: new Date(this.selectedViaje.horaInicio),
-//     horaFin: new Date(this.selectedViaje.horaFin),
-//     precioNormal: this.selectedViaje.precioNormal,
-//     precioDiferenciado: this.selectedViaje.precioDiferenciado,
-//     ruta: this.selectedViaje.ruta,
-//     estado:this.selectedViaje.estado
-// });
-
-
-//       console.log("ingresaaaaaaaa", this.viajeForm2)
-//       console.log(this.selectedViaje.idViaje)
-//       const { idViaje, ...editedViaje } = this.viajeForm2.value;
-
-      
-//       this.viajeService.registrarViaje(editedViaje , this.selectedViaje).subscribe(
-
-//         response => {
-//         //this.clickAddEdit.emit(response);
-//         //this.closeModal();
-//         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Viaje updated' });
-//       },
-//       error => {
-//         this.messageService.add({ severity: 'error', summary: 'Error', detail: error });
-//         console.log('Error occurred');
-//       }
-//     );
-//   }
 
 editarViaje() {
   if (!this.selectedViaje) {
@@ -751,11 +689,6 @@ seleccionarRuta(ruta: any){
     ruta:this.rutaV
   });
 
-// console.log('Objeto adadaa?');
-
-  // Opcionalmente, puedes enviar un mensaje de éxito
-  //this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Ruta asignada correctamente.' });
-
 } catch (error) {
   console.error('Error:', error);
 }
@@ -767,8 +700,5 @@ generarCodigoViaje(): string {
         const fechaActual = new Date();
         const codigoAleatorio = Math.floor(Math.random() * 1000); // Número aleatorio entre 0 y 999
         return `${fechaActual.getFullYear()}${fechaActual.getMonth() + 1}${fechaActual.getDate()}-${codigoAleatorio}`;
-      }
-
-
-      
+      }  
 }

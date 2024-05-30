@@ -85,24 +85,13 @@ export class UnidadComponent implements OnInit, OnDestroy {
 
   // Elimina una unidad después de confirmar la acción
   eliminarUnidad(unidad: Unidad) {
+
+    const idUnidadEnviar=unidad.idUnidad;
+    this.limpiarRegistrosDeAsientos(idUnidadEnviar);
+
     this.confirmationService.confirm({
       message: 'Desea eliminar esta unidad?',
       accept: () => {
-
-
-        // this.unidadService.eliminarUnidad(unidad.idUnidad).subscribe(
-        //   response => {
-        //     this.unidades = this.unidades.filter(data => data.idUnidad !== unidad.idUnidad);
-        //     this.filteredUnidades = this.filteredUnidades.filter(data => data.idUnidad !== unidad.idUnidad);
-        //     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Eliminado correctamente' });
-        //   },
-        //   error => {
-        //     this.messageService.add({ severity: 'error', summary: 'Error', detail: error });
-        //   }
-        // );
-
-
-
 
         this.unidadService.eliminarUnidad(unidad.idUnidad).subscribe(
           response => {
@@ -145,4 +134,28 @@ export class UnidadComponent implements OnInit, OnDestroy {
       this.obtenerUnidadesList();
     }
   }
+
+
+  limpiarRegistrosDeAsientos(idUnidadEnviar: number) {
+
+    console.log(idUnidadEnviar)
+
+    return new Promise<void>((resolve, reject) => {
+      // Llamar al servicio para eliminar registros de paradas de ruta por ID de ruta
+      this.unidadService.eliminarAsientoUnidadByUnidadId(idUnidadEnviar).subscribe(
+        () => {
+          // Éxito al eliminar registros
+          console.log('Registros de asientos de unidad eliminados correctamente.');
+          resolve();
+        },
+        error => {
+          // Error al eliminar registros
+          console.error('Error al eliminar registros de asientos de unidad:', error);
+          reject(error);
+        }
+      );
+    });
+  }
+
+
 }

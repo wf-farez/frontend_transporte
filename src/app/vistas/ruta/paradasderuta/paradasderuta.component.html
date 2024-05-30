@@ -65,7 +65,7 @@
 
   </p-card>
   
-
+<p-toast position="bottom-right"></p-toast>  
 
 
 <!-- Crear -->
@@ -135,8 +135,8 @@
 
 <ng-template pTemplate="footer">
         <p-button
-          (click)="closeModal()"
-          label="Cancel"
+          (click)="cancelar()"
+          label="Cancelar"
           styleClass="p-button-text"
         ></p-button>
 
@@ -150,7 +150,15 @@
 </ng-template>
 
 
+
+
+
+
 </p-dialog>
+
+
+
+
 
 
 <!-- buscar -->

@@ -1,0 +1,18 @@
+.p-field {
+    margin-bottom: 1rem;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Establece la altura del contenedor al 100% del viewport */
+  }
+  
+  .card-wrapper {
+    width: 300px; /* Ancho deseado del card */
+  }
+
+  .header-text {
+    text-align: center;
+  }

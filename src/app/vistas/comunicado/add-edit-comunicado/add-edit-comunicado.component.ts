@@ -15,7 +15,7 @@ export class AddEditComunicadoComponent implements OnInit {
   @Input() selectedComunicado: any = null;
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() clickAddEdit: EventEmitter<any> = new EventEmitter<any>();
-  modalType = "Crear";
+  modalType = "Registrar";
   
   comunicadoForm = this.fb.group({
     idComunicado: [""],
@@ -39,7 +39,7 @@ export class AddEditComunicadoComponent implements OnInit {
       });
     } else {
       this.comunicadoForm.reset();
-      this.modalType = 'Crear';
+      this.modalType = 'Registrar';
     }
   }
 
@@ -49,7 +49,7 @@ export class AddEditComunicadoComponent implements OnInit {
   }
 
   registrarComunicado() {
-    if (this.modalType === 'Crear') {
+    if (this.modalType === 'Registrar') {
       // Si es una nueva Comunicado, eliminamos el campo idComunicado del formulario
       const { idComunicado, ...newComunicado } = this.comunicadoForm.value;
       // Obtener la fecha actual y formatearla como una cadena
@@ -58,7 +58,7 @@ export class AddEditComunicadoComponent implements OnInit {
         response => {
           this.clickAddEdit.emit(response);
           this.closeModal();
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Comunicado added' });
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Comunicado registrado' });
         },
         error => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: error });
@@ -71,7 +71,7 @@ export class AddEditComunicadoComponent implements OnInit {
         response => {
           this.clickAddEdit.emit(response);
           this.closeModal();
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Comunicado updated' });
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Comunicado actualizado' });
         },
         error => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: error });

@@ -1,0 +1,78 @@
+  
+ <div class="card-container">
+  <div class="card-wrapper">
+   
+    <p-card >
+      <h2 class="header-text">Registro</h2>
+    <form [formGroup]="registerForm" class="register-form">
+       
+      <div class="field">
+        <label class="block" for="name">Nombre:</label>
+        <input type="text" pInputText id="name" formControlName="name" />
+        <small
+          class="p-error block"
+          *ngIf="
+            registerForm.controls['name'].invalid &&
+            registerForm.controls['name'].dirty
+          "
+          >Field is required</small
+        >
+      </div>
+
+      <div class="field">
+        <label class="block" for="username">Usuario:</label>
+        <input type="text" pInputText id="username" formControlName="username" />
+        <small
+          class="p-error block"
+          *ngIf="
+            registerForm.controls['username'].invalid &&
+            registerForm.controls['username'].dirty
+          "
+          >Field is required</small
+        >
+      </div>
+
+      <div class="field">
+        <label class="block" for="password">Contraseña:</label>
+        <input type="text" pInputText id="password" formControlName="password" />
+        <small
+          class="p-error block"
+          *ngIf="
+            registerForm.controls['password'].invalid &&
+            registerForm.controls['password'].dirty
+          "
+          >Field is required</small
+        >
+      </div>
+
+      </form>
+    
+    <ng-template pTemplate="footer">
+
+        <div class="flex justify-content-center">
+
+          <p-button label="Cancelar" severity="secondary"  (click)="cancelar()"></p-button>   
+
+          <p-button label="Registrar" (click)="register()"></p-button>
+
+        </div>
+
+        <hr>
+        <div class="flex justify-content-center">
+          <a (click)="regresarlogin()" style="text-decoration: underline; margin-top: 10px;" >Login</a>
+        </div>
+
+    </ng-template>
+
+  
+
+</p-card> 
+
+<p-confirmDialog header="Credeciales"></p-confirmDialog>
+<p-toast position="bottom-right"></p-toast>  
+
+
+
+  
+
+  

@@ -54,6 +54,12 @@ export class LoginComponent implements OnInit {
    cancelar(){
     this.loginForm.reset();
   }
+
+ registrarse(){
+  this.router.navigateByUrl('/register');
+ }
+
+
 }
 
 

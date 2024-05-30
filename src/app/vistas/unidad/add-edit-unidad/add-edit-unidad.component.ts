@@ -16,7 +16,7 @@ export class AddEditUnidadComponent implements OnInit {
   @Input() selectedUnidad: any = null;
   @Output() clickClose: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() clickregistrar: EventEmitter<any> = new EventEmitter<any>();
-  modalType = "Crear";
+  modalType = "Registrar";
   
   unidadForm = this.fb.group({
     idUnidad: [""],
@@ -47,7 +47,7 @@ export class AddEditUnidadComponent implements OnInit {
       });
     } else {
       this.unidadForm.reset();
-      this.modalType = 'Crear';
+      this.modalType = 'Registrar';
     }
   }
 
@@ -57,7 +57,7 @@ export class AddEditUnidadComponent implements OnInit {
   }
 
   registrarUnidad() {
-    if (this.modalType === 'Crear') {
+    if (this.modalType === 'Registrar') {
 
       this.unidadForm.patchValue({
         estado: false

@@ -15,6 +15,7 @@ export class UserService {
       catchError(this.handleError)
     )
   }
+
   private handleError(error:HttpErrorResponse){
     if(error.status===0){
       console.error('Se ha producio un error ', error.error);
@@ -24,4 +25,8 @@ export class UserService {
     }
     return throwError(()=> new Error('Error. Por favor intente nuevamente.'));
   }
+
+
+
+
 }

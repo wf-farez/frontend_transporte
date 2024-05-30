@@ -84,13 +84,13 @@ export class EmpleadoComponent implements OnInit, OnDestroy {
   // Eliminar empleado
   eliminarEmpleado(empleado: Empleado) {
     this.confirmationService.confirm({
-      message: 'Are you sure that you want to eliminar this Empleado?',
+      message: 'Desea eliminar este Empleado?',
       accept: () => {
         this.empleadoService.eliminarEmpleado(empleado.idEmpleado).subscribe(
           response => {
             this.empleados = this.empleados.filter(data => data.idEmpleado !== empleado.idEmpleado);
             this.filteredEmpleados = this.filteredEmpleados.filter(data => data.idEmpleado !== empleado.idEmpleado);
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'eliminado Successfully' });
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Empleado eliminado' });
           },
           error => {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: error });
