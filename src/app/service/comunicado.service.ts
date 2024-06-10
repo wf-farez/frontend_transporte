@@ -20,10 +20,10 @@ export class ComunicadoService {
 
   registrarComunicado(postData: any, selectedPdt: any) {
     if (!selectedPdt) {
-      return this.httpClient.post(environment.urlApi+"comunicados", postData);
+      return this.httpClient.put(`${environment.urlApi}comunicados`, postData);
     } else {
       postData.idComunicado = selectedPdt.idComunicado;
-      return this.httpClient.put(environment.urlApi+"comunicados", postData);
+      return this.httpClient.put(`${environment.urlApi}comunicados`, postData);
     }
   }
 

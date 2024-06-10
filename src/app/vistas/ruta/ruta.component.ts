@@ -87,13 +87,13 @@ export class RutaComponent implements OnInit, OnDestroy {
 
   eliminarRuta(ruta: Ruta) {
     this.confirmationService.confirm({
-      message: 'Are you sure that you want to eliminar this ruta?',
+      message: 'Desea eliminar esta ruta?',
       accept: () => {
         this.rutaService.eliminarRuta(ruta.idRuta).subscribe(
           response => {
             this.rutas = this.rutas.filter(data => data.idRuta !== ruta.idRuta);
             this.filteredRutas = this.filteredRutas.filter(data => data.idRuta !== ruta.idRuta);
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'eliminard Successfully' });
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Eliminacion correcta' });
           },
           error => {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: error });

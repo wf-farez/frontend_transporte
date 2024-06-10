@@ -26,16 +26,17 @@ export class ParadaService {
   //registrar paradas en parada
   registrarParada(postData: any, selectedPdt: any) {
     if (!selectedPdt) {
-      return this.httpClient.post(environment.urlApi+"paradas", postData);
+      return this.httpClient.post(`${environment.urlApi}paradas`, postData);
     } else {
       postData.idParada= selectedPdt.idParada;
-      return this.httpClient.put(environment.urlApi+"paradas", postData);
+      return this.httpClient.post(`${environment.urlApi}paradas`, postData);
     }
   }
 
   //registar parada en ruta
   agregarParada(postData: any) {
     return this.httpClient.post(environment.urlApi+"paradas", postData);
+    //return this.httpClient.post(`${environment.urlApi}paradas`, postData);
   }
 
 

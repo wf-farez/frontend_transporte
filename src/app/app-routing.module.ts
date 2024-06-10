@@ -22,7 +22,7 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     children: [
-      { path: '', redirectTo: 'viajes', pathMatch: 'full' }, // Ruta inicial dentro del dashboard
+      { path: '', redirectTo: 'unidades', pathMatch: 'full' }, // Ruta inicial dentro del dashboard
       { path: 'unidades', component: UnidadComponent },
       { path: 'empleados', component: EmpleadoComponent },
       { path: 'paradas', component: ParadaComponent },

@@ -17,10 +17,10 @@ obtenerCompanias(): Observable<Compania[]>{
 
 registrarCompania(postData: any, selectedPdt: any) {
     if (!selectedPdt) {
-      return this.httpClient.post(environment.urlApi+"companias", postData);
+      return this.httpClient.post(`${environment.urlApi}companias`, postData);
     } else {
       postData.idCompania = selectedPdt.idCompania;
-      return this.httpClient.put(environment.urlApi+"companias", postData);
+      return this.httpClient.post(`${environment.urlApi}companias`, postData);
     }
   }
   

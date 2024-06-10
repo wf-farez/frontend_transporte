@@ -374,7 +374,7 @@ eliminarParada(index: number): void {
       parada.orden = newIndex + 1; // Sumamos 1 para que la primera parada tenga orden 1
     });
     // Opcionalmente, puedes enviar un mensaje de éxito
-    this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Parada eliminada correctamente.' });
+    //this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Parada eliminada correctamente.' });
   } else {
     console.error('Índice fuera de rango.');
   }
@@ -420,6 +420,7 @@ actualizarOrdenParadasRuta() {
 
 guardarParadasRuta() {
 
+  console.log(this.paradasrutamostrar)
     // Iterar sobre la lista paradasrutamostrar
     this.paradasrutamostrar.forEach(parada => {
       // Verificar si hay un idParada
@@ -438,13 +439,35 @@ guardarParadasRuta() {
           latitud: parada.latitud,
           longitud: parada.longitud
         };
-
+        // console.log("innnggreessa: ", nuevaParada)
+        // this.paradaService.agregarParada(nuevaParada).subscribe(
+        //   (respuesta: any) => {
+        //     // Una vez que se guarda la parada, agregarla a paradasRuta con su orden
+        //     this.paradasRuta.push({
+        //       ruta: this.selectedRuta!,
+        //       parada: respuesta, // Respuesta contiene la parada con el ID generado automáticamente
+        //       orden: parada.orden
+        //     });
+        //   },
+        //   (error: any) => {
+        //     console.error('Error al guardar la parada:', error);
+        //   }
+        // );
+        console.log("innnggreessa: ", nuevaParada)
         this.paradaService.agregarParada(nuevaParada).subscribe(
           (respuesta: any) => {
+            // Seleccionar solo las propiedades necesarias de respuesta.data
+            const { idParada, nombreParada, direccion, latitud, longitud } = respuesta.data;
             // Una vez que se guarda la parada, agregarla a paradasRuta con su orden
             this.paradasRuta.push({
               ruta: this.selectedRuta!,
-              parada: respuesta, // Respuesta contiene la parada con el ID generado automáticamente
+              parada: {
+                idParada,
+                nombreParada,
+                direccion,
+                latitud,
+                longitud
+              },
               orden: parada.orden
             });
           },
@@ -452,6 +475,9 @@ guardarParadasRuta() {
             console.error('Error al guardar la parada:', error);
           }
         );
+        
+
+
       }
     }
   );
@@ -490,6 +516,8 @@ limpiarRegistrosParadasRuta() {
 }
 
 agregarNuevosRegistrosParadasRuta() {
+
+  console.log("cccc: ", this.paradasRuta)
   // Iterar sobre la lista de paradasRuta y guardar cada registro
   this.paradasRuta.forEach(paradaRuta => {
     this.paradaRutaService.addParadaRuta(paradaRuta).subscribe(

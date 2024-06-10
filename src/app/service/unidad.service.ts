@@ -15,7 +15,7 @@ export class UnidadService {
   ) { }
 
   public obtenerUnidades(): Observable<Unidad[]>{
-    return this.httpClient.get<Unidad[]>(environment.urlApi+"unidades");
+    return this.httpClient.get<Unidad[]>(`${environment.urlApi}unidades`);
   }
 
   registrarUnidad(postData: any, selectedPdt: any): Observable<any> {
@@ -35,8 +35,13 @@ export class UnidadService {
   }
 
 
+  // eliminarAsientoUnidadByUnidadId(idUnidad: number): Observable<any> {
+  //   return this.httpClient.delete(`http://localhost:8080/api/v1/asientos?idUnidad=${idUnidad}`);
+  // }
+
   eliminarAsientoUnidadByUnidadId(idUnidad: number): Observable<any> {
-    return this.httpClient.delete(`http://localhost:8080/api/v1/asientos?idUnidad=${idUnidad}`);
+    //return this.httpClient.delete(`http://localhost:8080/api/v1/asientos?idUnidad=${idUnidad}`);
+    return this.httpClient.delete(`${environment.urlApi}asientos?idUnidad=${idUnidad}`);
   }
 
 

@@ -90,7 +90,7 @@ export class AddEditRutaComponent implements OnInit {
         response => {
           this.clickAddEdit.emit(response);
           this.closeModal();
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Ruta added' });
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Ruta registrada' });
         },
         error => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: error });
@@ -103,7 +103,7 @@ export class AddEditRutaComponent implements OnInit {
         response => {
           this.clickAddEdit.emit(response);
           this.closeModal();
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Ruta updated' });
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Ruta actualizada' });
         },
         error => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: error });

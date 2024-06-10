@@ -26,10 +26,10 @@ obtenerEmpleados(): Observable<Empleado[]>{
   registrarEmpleado(postData: any, selectedPdt: any) {
     
     if (!selectedPdt) {
-      return this.httpClient.post(environment.urlApi+"empleados", postData);
+      return this.httpClient.post(`${environment.urlApi}empleados`, postData);
     } else {
       postData.idEmpleado = selectedPdt.idEmpleado;
-      return this.httpClient.put(environment.urlApi+"empleados", postData);
+      return this.httpClient.post(`${environment.urlApi}empleados`, postData);
     }
   }
 
