@@ -54,9 +54,7 @@ export class AddEditCompaniaComponent implements OnInit {
   registrarCompania() {
     if (this.modalType === 'Registrar') {
       // Si es una nueva compania, eliminamos el campo idcompania del formulario
-
       const { idCompania, ...newCompania } = this.companiaForm.value;
-      
       this.companiaService.registrarCompania(newCompania, this.selectedCompania).subscribe(
         response => {
           this.clickAddEdit.emit(response);

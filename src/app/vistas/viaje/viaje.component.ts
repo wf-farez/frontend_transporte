@@ -28,11 +28,9 @@ export class ViajeComponent implements OnInit, OnDestroy {
   displayAddEditModal = false;
   displayEditModalV = false;
   selectedViaje: any = null;
-
   displayAddModal = false;
   displayAddModalRuta = false;
 
-  displayDetallesModal = false;
   displayDetallesModalConductor=false;
   displayDetallesModalAyudante=false;
   displayDetallesModalUnidad=false;
@@ -42,30 +40,27 @@ export class ViajeComponent implements OnInit, OnDestroy {
   selectedFilter: string = 'codigoViaje';
   filterValue: string = '';
 
-  //
+  conductorV:Empleado | any;
+  ayudanteV:Empleado | any;
+  unidadV:Unidad | any;
+  rutaV:Ruta| any;
 
-conductorV:Empleado | any;
-ayudanteV:Empleado | any;
-unidadV:Unidad | any;
-rutaV:Ruta| any;
+  horaInicio: Date | null = null;
+  horaFin: Date | null = null;
+  fecha: Date | null = null;
+  //empleados
+  empleados: Empleado[] = [];
+  filteredEmpleados: Empleado[] = [];
+  selectedEmpleadoC: any = null;
+  selectedEmpleadoA: any = null;
 
-horaInicio: Date | null = null;
-horaFin: Date | null = null;
-fecha: Date | null = null;
-//empleados
-empleados: Empleado[] = [];
-filteredEmpleados: Empleado[] = [];
-
-selectedEmpleadoC: any = null;
-selectedEmpleadoA: any = null;
-selectedUnidad: any = null;
-selectedRuta: any = null;
-
-//unidades
-unidades: Unidad[] = [];
-filteredUnidades: Unidad[] = [];
-searchTermU: string = '';
-selectedFilterU: string = '';
+  //unidades
+  unidades: Unidad[] = [];
+  filteredUnidades: Unidad[] = [];
+  searchTermU: string = '';
+  selectedFilterU: string = '';
+  selectedUnidad: any = null;
+  selectedRuta: any = null;
 
   //rutas
   rutas: Ruta[] = [];
@@ -104,13 +99,11 @@ selectedFilterU: string = '';
     private viajeService: ViajeService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    
-      private unidadService: UnidadService,
-      private empleadoService: EmpleadoService,
-      private rutaService: RutaService,
-      private fb: FormBuilder, 
-      private router:Router
-     
+    private unidadService: UnidadService,
+    private empleadoService: EmpleadoService,
+    private rutaService: RutaService,
+    private fb: FormBuilder, 
+    private router:Router
   ) { }
 
   ngOnInit(): void {
@@ -121,186 +114,69 @@ selectedFilterU: string = '';
     this.obtenerRutasList();
   }
 
-  //.......................................................
   
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  //.......................................................
   // Aplicar filtro por defecto
   applyDefaultFilter() {
     this.filterBy({ target: { value: '' } });
   }
-
   // Obtener lista de viajes
   obtenerViajesList() {
     this.viajeService.obtenerViajes().subscribe(response => {
       this.viajes = response;
-      this.filteredViajes = [...this.viajes]; // Copia los viajes al array filtrado inicialmente
+      this.filteredViajes = [...this.viajes]; 
     });
   }
 
-//---------------------------------------------------------------
-  //crear
 
+//---------------------------------------------------------------
   // Mostrar modal para agregar viaje
   showAddModal() {
     this.displayAddModal = true;
     this.selectedViaje = null;
   }
-  // Ocultar modal de agregar/editar viaje
+  // Ocultar modal de agregar viaje
   hideAddModal(isClosed: boolean) {
     this.displayAddModal = !isClosed;
     this.obtenerViajesList();
   }
-
   closeModalAdd() {
     this.viajeForm.reset();
-    //this.clickClose.emit(true);
   }
-
-
-    // Mostrar modal para agregar viaje
-    showAddModalRuta() {
-      this.displayAddModalRuta = true;
-      this.selectedViaje = null;
+    // Mostrar modal para agregar ruta
+  showAddModalRuta() {
+    this.displayAddModalRuta = true;
+    this.selectedViaje = null;
     }
-    // Ocultar modal de agregar/editar viaje
+
     hideAddModalRuta(isClosed: boolean) {
       this.displayAddModalRuta = !isClosed;
-      //this.obtenerViajesList();
-    }
+      }
   
-
-
-
-
-  closeModal() {
-    this.viajeForm.reset();
-    //this.clickClose.emit(true);
+   closeModalAddRuta(){
+    this.displayAddModalRuta= false;
   }
 
    // Mostrar modal para editar viaje
    showEditModalV(viaje: Viaje) {
-
     this.displayEditModalV = true;
     this.selectedViaje = viaje;
     this.selectedEmpleadoC=viaje.conductor
     this.selectedEmpleadoA=viaje.ayudante
     this.selectedUnidad=viaje.unidad
-
-    console.log(   this.selectedViaje.idViaje,
-       this.selectedViaje.codigoViaje,
-       new Date(this.selectedViaje.fecha),
-       new Date(this.selectedViaje.horaInicio),
-      new Date(this.selectedViaje.horaFin),
-       this.selectedViaje.precioNormal,
-       this.selectedViaje.precioDiferenciado,
-       this.selectedViaje.ruta,
-      this.selectedViaje.estado     )
   }
-  // Ocultar modal de agregar/editar viaje
+
   hideEditModalV(isClosed: boolean) {
     this.displayEditModalV = !isClosed;
     this.obtenerViajesList();
   }
-  closeModalV() {
-    this.displayEditModalV = false;
 
-  }
-   // Mostrar modal para agregar viaje
-   showAddModal2() {
-    this.displayDetallesModal = true;
-    this.selectedViaje = null;
-  }
-  // Ocultar modal de agregar/editar viaje
-  hideAddModal2(isClosed: boolean) {
-    this.displayDetallesModal= !isClosed;
-    this.obtenerViajesList();
-  }
-
-  closeModal2() {
-    // this.viajeForm.reset();
-    // this.clickClose.emit(true);
-  }
-
-  // Mostrar modal para agregar viaje
-  showAddModalConductor(viaje: Viaje) {
-    this.displayDetallesModalConductor = true;
-    this.selectedViaje = viaje;
-  }
-
-  // Ocultar modal de agregar/editar viaje
-  hideAddModalConductor(isClosed: boolean) {
-    this.displayDetallesModalConductor= !isClosed;
-    //this.obtenerViajesList();
-  }
-
-  closeModalConductor() {
-    this.displayDetallesModalConductor= false;
-    // this.viajeForm.reset();
-    // this.clickClose.emit(true);
-  }
-
-
-  // Mostrar modal para agregar viaje
-  showAddModalAyudante(viaje: Viaje) {
-    this.displayDetallesModalAyudante = true;
-    this.selectedViaje = viaje;
-  }
-
-  // Ocultar modal de agregar/editar viaje
-  hideAddModalAyudante(isClosed: boolean) {
-    //this.displayDetallesModalAyudante= !isClosed;
-    //this.obtenerViajesList();
-  }
-
-  closeModalAyudante() {
-    //this.viajeForm.reset();
-    // this.clickClose.emit(true);
-    this.displayDetallesModalAyudante= false;
-  }
-
-
-  // Mostrar modal para agregar viaje
-  showAddModalUnidad(viaje: Viaje) {
-    this.displayDetallesModalUnidad = true;
-    this.selectedViaje = viaje;
-  }
-
-  // Ocultar modal de agregar/editar viaje
-  hideAddModalUnidad(isClosed: boolean) {
-    this.displayDetallesModalUnidad= !isClosed;
-    //this.obtenerViajesList();
-  }
-
-  closeModalUnidad() {
-    // this.viajeForm.reset();
-    // this.clickClose.emit(true);
-    this.displayDetallesModalUnidad= false;
-  }
-
-  closeModalAddRuta(){
-
-    this.displayAddModalRuta= false;
-  }
-
-  // Guardar nuevo viaje en la lista
-  saveViajeToList(newData: any) {
-    this.viajes.unshift(newData);
-    this.filteredViajes.unshift(newData); // Agrega el nuevo viaje también al array filtrado
-  }
-
-  // Guardar o actualizar viaje en la lista
-  saveorUpdateViajeList(newData: any) {
-    const index = this.viajes.findIndex(data => data.idViaje === newData.id_Viaje);
-    if (index !== -1) {
-      this.viajes[index] = newData;
-      this.filteredViajes = [...this.viajes]; // Actualiza el array filtrado con los viajes actualizados
-    } else {
-      this.viajes.unshift(newData);
-      this.filteredViajes.unshift(newData); // Agrega el nuevo viaje también al array filtrado
-    }
-    this.obtenerViajesList();
-  }
-
-  // Mostrar modal para editar viaje
+ 
+  // Mostrar modal para editar detalles de viaje
   showEditModal(viaje: Viaje) {
     this.displayAddEditModal = true;
     this.selectedViaje = viaje;
@@ -312,6 +188,166 @@ selectedFilterU: string = '';
     this.selectedViaje.unidad=this.selectedViaje.unidad;
 
   }
+  
+  closeModalEdit() {
+    this.displayEditModalV = false;
+  }
+
+
+  // Mostrar modal para agregar conductor
+  showAddModalConductor(viaje: Viaje) {
+    this.displayDetallesModalConductor = true;
+    this.selectedViaje = viaje;
+  }
+  hideAddModalConductor(isClosed: boolean) {
+    this.displayDetallesModalConductor= !isClosed;
+  }
+  closeModalConductor() {
+    this.displayDetallesModalConductor= false;
+  }
+
+
+  // Mostrar modal para agregar ayudante
+  showAddModalAyudante(viaje: Viaje) {
+    this.displayDetallesModalAyudante = true;
+    this.selectedViaje = viaje;
+  }
+  hideAddModalAyudante(isClosed: boolean) {
+    this.displayDetallesModalAyudante= !isClosed;
+  }
+  closeModalAyudante() {
+    this.displayDetallesModalAyudante= false;
+  }
+
+
+  // Mostrar modal para agregar unidad
+  showAddModalUnidad(viaje: Viaje) {
+    this.displayDetallesModalUnidad = true;
+    this.selectedViaje = viaje;
+  }
+  hideAddModalUnidad(isClosed: boolean) {
+    this.displayDetallesModalUnidad= !isClosed;
+  }
+  closeModalUnidad() {
+    this.displayDetallesModalUnidad= false;
+  }
+
+
+
+
+
+
+ //obtener unidades
+  obtenerUnidadesList() {
+    this.unidadService.obtenerUnidades().subscribe(
+      response => {
+        this.unidades = response;
+        this.filteredUnidades = [...this.unidades]; // Copia las unidades al array filtrado inicialmente
+      }
+    )
+  }
+ //obtener empleados
+  obtenerEmpleadosList() {
+    this.empleadoService.obtenerEmpleados().subscribe(
+      response => {
+        this.empleados = response;
+        this.filteredEmpleados = [...this.empleados]; // Copia las empleados al array filtrado inicialmente
+      }
+    )
+  }
+
+  //obtener rutas
+  obtenerRutasList() {
+    this.rutaService.obtenerRutas().subscribe(
+      response => {
+        this.rutas = response;
+        this.filteredRutas = [...this.rutas]; // Copia las empleados al array filtrado inicialmente
+      }
+    )
+  }
+
+
+//registro de viajes
+
+registrarViaje() {
+  
+    // Asigna los valores seleccionados al formulario
+    const codigoViaje = this.generarCodigoViaje();
+    const { idViaje, ...newViaje } = this.viajeForm.value;
+    newViaje.ruta=this.rutaV
+    newViaje.codigoViaje = codigoViaje;
+    this.viajeService.registrarViaje(newViaje , this.selectedViaje).subscribe(
+        response => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Viaje added' });
+      },
+      error => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error });
+        console.log('Error occurred');
+      }
+    );
+  } 
+
+  
+  
+  // Guardar nuevo viaje en la lista
+  saveViajeToList(newData: any) {
+    this.viajes.unshift(newData);
+    this.filteredViajes.unshift(newData);
+  }
+
+  // Guardar o actualizar viaje en la lista
+  saveorUpdateViajeList(newData: any) {
+    const index = this.viajes.findIndex(data => data.idViaje === newData.id_Viaje);
+    if (index !== -1) {
+      this.viajes[index] = newData;
+      this.filteredViajes = [...this.viajes]; 
+    } else {
+      this.viajes.unshift(newData);
+      this.filteredViajes.unshift(newData); 
+    }
+    this.obtenerViajesList();
+  }
+
+
+
+
+
+//editar detalles de viaje
+
+editarViaje() {
+  if (!this.selectedViaje) {
+    console.error("No hay viaje seleccionado");
+    return;
+  }
+
+  this.viajeForm2.patchValue({
+    idViaje: this.selectedViaje.idViaje,
+    codigoViaje: this.selectedViaje.codigoViaje,
+    fecha: new Date(this.selectedViaje.fecha),
+    horaInicio: new Date(this.selectedViaje.horaInicio),
+    horaFin: new Date(this.selectedViaje.horaFin),
+    precioNormal: this.selectedViaje.precioNormal,
+    precioDiferenciado: this.selectedViaje.precioDiferenciado,
+    ruta: this.selectedViaje.ruta,
+    estado: this.selectedViaje.estado,
+    conductor: this.selectedViaje.conductor,
+    ayudante: this.selectedViaje.ayudante,
+    unidad: this.selectedViaje.unidad
+  });
+
+  const { idViaje, ...editedViaje } = this.viajeForm2.value;
+  this.viajeService.registrarViaje(editedViaje, this.selectedViaje).subscribe(
+    response => {
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Viaje updated' });
+      this.obtenerViajesList()
+    },
+    error => {
+      // Manejo de errores
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error });
+    }
+  );
+}
+
 
   // Eliminar viaje
   eliminarViaje(viaje: Viaje) {
@@ -332,11 +368,8 @@ selectedFilterU: string = '';
     });
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
-  }
 
-  // Filtrar viajes según el criterio seleccionado
+  // Filtrar viajes
   filterBy(event: any) {
     const value = event?.target?.value.toLowerCase();
     if (value) {
@@ -359,133 +392,14 @@ selectedFilterU: string = '';
       } else if (this.selectedFilter === 'estado') {
         const estado = value.toLowerCase() === 'progreso' ? true : (value.toLowerCase() === 'inactivo' ? false : null);
         this.viajes = this.viajes.filter(viaje => viaje.estado === estado);
-        
       }
-    
       } else {
-      // Si no se ha ingresado nada en el input, muestra todas los viajes nuevamente
       this.obtenerViajesList();
     }
   }
 
 
-
-
-
-  obtenerUnidadesList() {
-    this.unidadService.obtenerUnidades().subscribe(
-      response => {
-        this.unidades = response;
-        this.filteredUnidades = [...this.unidades]; // Copia las unidades al array filtrado inicialmente
-      }
-    )
-  }
-
-  obtenerEmpleadosList() {
-    this.empleadoService.obtenerEmpleados().subscribe(
-      response => {
-        this.empleados = response;
-        this.filteredEmpleados = [...this.empleados]; // Copia las empleados al array filtrado inicialmente
-      }
-    )
-  }
-
-  obtenerRutasList() {
-    this.rutaService.obtenerRutas().subscribe(
-      response => {
-        this.rutas = response;
-        this.filteredRutas = [...this.rutas]; // Copia las empleados al array filtrado inicialmente
-      }
-    )
-  }
-
-
-registrarViaje() {
-  
-    // Asigna los valores seleccionados al formulario
-    const codigoViaje = this.generarCodigoViaje();
-
-    console.log(this.viajeForm.value)
-    const { idViaje, ...newViaje } = this.viajeForm.value;
-
-    newViaje.ruta=this.rutaV
-
-    console.log(newViaje.ruta)
-    // Resto del código para registrar el viaje
-    newViaje.codigoViaje = codigoViaje; // Asignar el código de viaje generado
-
-    this.viajeService.registrarViaje(newViaje , this.selectedViaje).subscribe(
-        
-        response => {
-
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Viaje added' });
-      },
-      error => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error });
-        console.log('Error occurred');
-      }
-    );
-  } 
-
-
-editarViaje() {
-  if (!this.selectedViaje) {
-    console.error("No hay viaje seleccionado");
-    return;
-  }
-
-  // Imprimir valores actuales de selectedViaje para verificación
-  console.log("Valores de selectedViaje:", {
-   
-    conductor: this.selectedViaje.conductor,
-    ayudante: this.selectedViaje.ayudante,
-    unidad: this.selectedViaje.unidad
-
-  });
-
-  // Actualizar el formulario
-  this.viajeForm2.patchValue({
-    idViaje: this.selectedViaje.idViaje,
-    codigoViaje: this.selectedViaje.codigoViaje,
-    fecha: new Date(this.selectedViaje.fecha),
-    horaInicio: new Date(this.selectedViaje.horaInicio),
-    horaFin: new Date(this.selectedViaje.horaFin),
-    precioNormal: this.selectedViaje.precioNormal,
-    precioDiferenciado: this.selectedViaje.precioDiferenciado,
-    ruta: this.selectedViaje.ruta,
-    estado: this.selectedViaje.estado,
-    conductor: this.selectedViaje.conductor,
-    ayudante: this.selectedViaje.ayudante,
-    unidad: this.selectedViaje.unidad
-  });
-
-  // Verificar que el formulario se haya actualizado correctamente
-  console.log("Formulario después de patchValue:", this.viajeForm2.value);
-
-  // Crear el objeto para la actualización
-  const { idViaje, ...editedViaje } = this.viajeForm2.value;
-
-  // Llamar al servicio para registrar el viaje
-  this.viajeService.registrarViaje(editedViaje, this.selectedViaje).subscribe(
-    response => {
-      // Aquí puedes manejar la respuesta
-      console.log("Respuesta del servidor:", response);
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Viaje updated' });
-      this.obtenerViajesList()
-    },
-    error => {
-      // Manejo de errores
-      console.error("Error al registrar el viaje:", error);
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: error });
-    }
-  );
-
-  
-}
-
-
-
-
+//filtro de empleados
 filterByE(event: any) {
   const value = event?.target?.value;
   if (value) {
@@ -503,11 +417,11 @@ filterByE(event: any) {
       this.empleados = this.empleados.filter(Empleado => Empleado.codigoAcceso.toLowerCase().includes(value.toLowerCase()));
     }
   }else {
-        // Si no se ha ingresado nada en el input, muestra todas las empleados nuevamente
         this.obtenerEmpleadosList();
       }
   }
 
+//filtro de unidad
 filterByU(event: any) {
     const value = event?.target?.value;
     if (value) {
@@ -523,13 +437,12 @@ filterByU(event: any) {
         this.unidades = this.unidades.filter(unidad => unidad.estado.toString().toLowerCase().includes(value.toLowerCase()));
       }
     }else {
-          // Si no se ha ingresado nada en el input, muestra todas las unidades nuevamente
           this.obtenerUnidadesList();
         }
     
       }
 
-
+//filtro de ruta
 filterByR(event: any) {
         const value = event?.target?.value;
         if (value) {
@@ -549,15 +462,13 @@ filterByR(event: any) {
         }
         
 
+//seleccionar conductor
 seleccionarConductor(empleado: any){
 try {
   this.selectedEmpleadoC = empleado;
   if (!this.selectedEmpleadoC) {
     throw new Error('No se ha seleccionado ninguna fila.');
   }
-
-  console.log('Objeto empleado', this.selectedEmpleadoC);
-  // Agrega condcutor  seleccionada a la objeto conductor      
   this.conductorV = {
     idEmpleado: this.selectedEmpleadoC.idEmpleado, 
     cedula: this.selectedEmpleadoC?.cedula, 
@@ -569,12 +480,9 @@ try {
   };
 
     this.selectedViaje.conductor=this.conductorV;
-   // Asignar los valores guardados en conductorV, ayudanteV y unidadV al formulario
    this.viajeForm2.patchValue({
     conductor: this.conductorV
   });
-
-  // Opcionalmente, puedes enviar un mensaje de éxito
   this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Conductor asignada correctamente.' });
   this.closeModalAyudante();
 
@@ -583,20 +491,15 @@ try {
 }
       }
 
-
-
+//seleccionar ayudante
 seleccionarAyudante(empleado: any){
+
 try {
   this.selectedEmpleadoA = empleado;
-
   if (!this.selectedEmpleadoA) {
     throw new Error('No se ha seleccionado ninguna fila.');
   }
 
-  console.log('Objeto empleado', this.selectedEmpleadoA);
-
-  // Agrega condcutor  seleccionada a la objeto conductor      
-  
   this.ayudanteV= {
     idEmpleado: this.selectedEmpleadoA.idEmpleado, 
     cedula: this.selectedEmpleadoA?.cedula, 
@@ -605,33 +508,25 @@ try {
     direccion: this.selectedEmpleadoA.direccion,
     tipo: this.selectedEmpleadoA.tipo,
     codigoAcceso: this.selectedEmpleadoA.codigoAcceso,
-
   }
   this.selectedViaje.ayudante=this.ayudanteV;
-
-  //Asignar los valores guardados en conductorV, ayudanteV y unidadV al formulario
   this.viajeForm2.patchValue({
     ayudante:this.ayudanteV
   });
-  // Opcionalmente, puedes enviar un mensaje de éxito
   this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Ayudante asignada correctamente.' });
-
 } catch (error) {
   console.error('Error:', error);
 }
 
       }
 
-
+//seleccionar unidad
 seleccionarUnidad(unidad: any){
-
 try {
   this.selectedUnidad = unidad;
   if (!this.selectedUnidad) {
     throw new Error('No se ha seleccionado ninguna fila.');
   }
-  console.log('Objeto unidad', this.selectedUnidad);
-  // Agrega condcutor  seleccionada a la objeto conductor      
   this.unidadV = {
     idUnidad: this.selectedUnidad.idUnidad, 
     codigoUnidad: this.selectedUnidad.codigoUnidad, 
@@ -639,38 +534,24 @@ try {
     cantidadAsientos: this.selectedUnidad.cantidadAsientos,
     estado: this.selectedUnidad.estado,
   };
-
   this.selectedViaje.unidad=this.unidadV;
-
   this.viajeForm2.patchValue({
     unidad:this.unidadV
   });
-
-  // Opcionalmente, puedes enviar un mensaje de éxito
   this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Unidad asignada correctamente.' });
-
 } catch (error) {
   console.error('Error:', error);
 }
 
       }
 
-
-
-
-      
+//seleccionar ruta   
 seleccionarRuta(ruta: any){
-
   try {
   this.selectedRuta= ruta;
-
   if (!this.selectedRuta) {
     throw new Error('No se ha seleccionado ninguna fila.');
   }
-
-
-  console.log('Objeto ruta', this.selectedRuta);
-  // Agrega condcutor  seleccionada a la objeto conductor      
   this.rutaV = {
     idRuta: this.selectedRuta.idRuta, 
     nombreCompania: this.selectedRuta.nombreCompania, 
@@ -678,27 +559,18 @@ seleccionarRuta(ruta: any){
     origenRuta: this.selectedRuta.origenRuta,
     destinoRuta: this.selectedRuta.destinoRuta,
   };
-
-  console.log('Objeto adadaa?');
-
-  //this.selectedViaje.ruta=this.rutaV;
-
-
-
   this.viajeForm.patchValue({
     ruta:this.rutaV
   });
-
 } catch (error) {
   console.error('Error:', error);
 }
       }
-
-
-      
-generarCodigoViaje(): string {
-        const fechaActual = new Date();
-        const codigoAleatorio = Math.floor(Math.random() * 1000); // Número aleatorio entre 0 y 999
-        return `${fechaActual.getFullYear()}${fechaActual.getMonth() + 1}${fechaActual.getDate()}-${codigoAleatorio}`;
-      }  
+    
+  //genera un codigo de viaje
+  generarCodigoViaje(): string {
+          const fechaActual = new Date();
+          const codigoAleatorio = Math.floor(Math.random() * 1000); // Número aleatorio entre 0 y 999
+          return `${fechaActual.getFullYear()}${fechaActual.getMonth() + 1}${fechaActual.getDate()}-${codigoAleatorio}`;
+        }  
 }

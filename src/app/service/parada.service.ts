@@ -35,10 +35,8 @@ export class ParadaService {
 
   //registar parada en ruta
   agregarParada(postData: any) {
-    return this.httpClient.post(environment.urlApi+"paradas", postData);
-    //return this.httpClient.post(`${environment.urlApi}paradas`, postData);
+    return this.httpClient.post(`${environment.urlApi}paradas`, postData);
   }
-
 
   eliminarParada(idParada: number) {
     return this.httpClient.delete(`${environment.urlApi}paradas/${idParada}`);

@@ -8,9 +8,7 @@
   [resizable]="false"
   (onHide)="closeModal()"
 >
-
   <form [formGroup]="unidadForm" class="unidad-form full-height">
-
     <div class="field">
       <label class="block" for="codigoUnidad">Codigo Unidad</label>
       <input type="text" pInputText id="codigoUnidad" formControlName="codigoUnidad" />
@@ -23,13 +21,6 @@
         >Field is required</small
       >
     </div>
-
-    
-    <!-- <div class="field">
-        <label class="block" for="estado">Estado</label>
-        <p-dropdown [options]="opcionesEstado" formControlName="estado"></p-dropdown>
-      </div> -->
-
     <div class="field">
         <label class="block" for="placa">Placa</label>
         <input type="text" pInputText id="placa" formControlName="placa" />
@@ -42,7 +33,6 @@
           >Field is required</small
         >
       </div>
-
     <div class="field">
       <label class="block" for="cantidadAsientos">Cantidad de Asientos</label>
       <p-inputNumber
@@ -59,9 +49,6 @@
         >Field is required</small
       >
     </div>
-
-
-
   </form>
 
  <ng-template pTemplate="footer">
@@ -79,6 +66,4 @@
         ></p-button>
 
 </ng-template> 
-
-
 </p-dialog>

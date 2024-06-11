@@ -20,9 +20,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptorService } from './service/auth/jwt-interceptor.service';
 import { ErrorInterceptorService } from './service/auth/error-interceptor.service';
 import { ParadasDeRutaModule } from './vistas/ruta/paradasderuta/paradasderuta.module';
-import { CompaniaComponent } from './vistas/compania/compania.component';
 import { CompaniaModule } from './vistas/compania/compania.module';
 import { RegisterModule } from './vistas/register/register.module';
+import { BoleteriaModule } from './vistas/boleteria/boleteria.module';
 
 
 
@@ -47,6 +47,7 @@ import { RegisterModule } from './vistas/register/register.module';
     ParadasDeRutaModule,
     CompaniaModule,
     RegisterModule,
+    BoleteriaModule
 
     
   ],

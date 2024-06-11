@@ -8,14 +8,11 @@
                 <option value="origenRuta">Origen de Ruta</option>
                 <option value="destinoRuta">Destino de Ruta</option>
             </select>
-
             <input type="text" pInputText placeholder="Search " (input)="filterBy($event)" />
-          
         </div>
         <div class="flex justify-content-between">
             <p-button label="Agregar ruta" (click)="showAddModal()"></p-button>
         </div>
-
     </div>
 
  <p-table [value]="rutas" 
@@ -44,28 +41,14 @@
         <td>{{ ruta.destinoRuta}}</td>
 
         <td>
-        
           <i class="pi pi-file-plus"  style="font-size: 1rem; "(click)="llamarparadas(ruta)">Paradas</i>
-  
         </td>
-
         <td>
           <i class="pi pi-pencil" style="font-size: 1rem ; margin-right: 30px; "  (click)="showEditModal(ruta)"></i>
           <i class="pi pi-trash" style="font-size: 1rem; "  (click)="eliminarRuta(ruta)"></i>
-       
         </td>
-
-      <!-- <td>
-        
-        <i class="pi pi-file-plus" style="font-size: 1rem; "(click)="showAsignarModal(ruta)"></i>
-
-      </td> -->
-     
-
     </tr>
-
     </ng-template>
-
   </p-table>
 
 <app-add-edit-ruta
@@ -75,16 +58,7 @@
 (clickAddEdit)="saveorUpdaterutaList($event)"
 ></app-add-edit-ruta>
 
-<!-- <app-paradasruta
-  [displayAsignarModal]="displayAsignarModal"
-  [selectedRuta]="selectedRuta"
-  (clickClose)="hideAsignarModal($event)"
-  ></app-paradasruta> -->
-
-  <!-- (clickAsignar)="saveorUpdaterutaList2($event)" -->
-
 <p-confirmDialog header="Delete"></p-confirmDialog>
-
 <p-toast position="bottom-right"></p-toast>  
 
 

@@ -40,5 +40,10 @@ export const navbarData: INavbarData[]=[
     {routeLink:'paradas',
     icon:'fal fa-box-open',
     label:'Paradas'
+    },
+    
+    {routeLink:'boletos',
+    icon:'fal fa-box-open',
+    label:'Boletos'
     }
 ]

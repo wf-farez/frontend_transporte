@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Parada } from '../interface/parada';
 import { ParadaRuta } from '../interface/paradaruta';
 import { environment } from '../../environments/environment';
+import { Asiento } from '../interface/asiento';
   
 
 
@@ -12,7 +13,7 @@ import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class ParadaRutaService {
+export class BoletoService {
 
 
   constructor(
@@ -20,41 +21,42 @@ export class ParadaRutaService {
   ) { }
 
 
-  obtenerParadasRuta(): Observable<ParadaRuta[]>{
-    return this.httpClient.get<ParadaRuta[]>(environment.urlApi+"paradasruta");
-  }
+  // obtenerParadasRuta(): Observable<ParadaRuta[]>{
+  //   return this.httpClient.get<ParadaRuta[]>(environment.urlApi+"paradasruta");
+  // }
 
- obtenerParadasRutaByRutaId(idRuta: number): Observable<ParadaRuta[]> {
-    const url= `${environment.urlApi}paradasruta?idRuta=${idRuta}`;
+ obtenerAsientosByUnidadId(idAsiento: number): Observable<Asiento[]> {
+    const url= `${environment.urlApi}asientos?idAsiento=${idAsiento}`;
     console.log(url)
-    return this.httpClient.get<ParadaRuta[]>(url);
+    return this.httpClient.get<Asiento[]>(url);
   }
 
-  registrarParadaRuta(postData: any, selectedPdt: any) {
-    if (!selectedPdt) {
-      return this.httpClient.post(`${environment.urlApi}paradasruta`, postData);
-    
-    } else {
-      postData.idParadaRuta= selectedPdt.idParadaRuta;
-      return this.httpClient.post(`${environment.urlApi}paradasruta`, postData);
-    }    
-  }
 
-  addParadaRuta(postData: any) {
-    return this.httpClient.post(`${environment.urlApi}paradasruta`, postData);
+  registrarBoleto(postData: any) {
+    console.log("iii")
+      return this.httpClient.post(`${environment.urlApi}boletos`, postData);
+    }
+    // else {
+  //     postData.idParadaRuta= selectedPdt.idParadaRuta;
+  //     return this.httpClient.post(`${environment.urlApi}paradasruta`, postData);
+  //   }    
+  // }
+
+  // addParadaRuta(postData: any) {
+  //   return this.httpClient.post(`${environment.urlApi}paradasruta`, postData);
       
-  }
+  // }
 
-  eliminarParadaRuta(idParadaRuta: number) {
-    return this.httpClient.delete(`${environment.urlApi}paradasruta/${idParadaRuta}`);
+  // eliminarParadaRuta(idParadaRuta: number) {
+  //   return this.httpClient.delete(`${environment.urlApi}paradasruta/${idParadaRuta}`);
    
-  }
+  // }
 
 
-  eliminarParadaRutaByRutaId(idRuta: number): Observable<any> {
-    return this.httpClient.delete(`${environment.urlApi}paradasruta?idRuta=${idRuta}`);
+  // eliminarParadaRutaByRutaId(idRuta: number): Observable<any> {
+  //   return this.httpClient.delete(`${environment.urlApi}paradasruta?idRuta=${idRuta}`);
 
-  }
+  // }
 
 }
 

@@ -12,6 +12,7 @@ import { LoginComponent } from './vistas/login/login.component';
 import { ParadasDeRutaComponent } from './vistas/ruta/paradasderuta/paradasderuta.component';
 import { CompaniaComponent } from './vistas/compania/compania.component';
 import { RegisterComponent } from './vistas/register/register.component';
+import { BoleteriaComponent } from './vistas/boleteria/boleteria.component';
 
 
 const routes: Routes = [
@@ -32,7 +33,8 @@ const routes: Routes = [
       { path: 'eventos', component: EventoComponent },
       { path: 'paradasderutas', component: ParadasDeRutaComponent},
       { path: 'paradasderutas/:idRuta', component: ParadasDeRutaComponent },
-      { path: 'companias', component: CompaniaComponent }
+      { path: 'companias', component: CompaniaComponent },
+      { path: 'boletos', component: BoleteriaComponent }
       
     ]
   },
