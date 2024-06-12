@@ -10,7 +10,6 @@ import { ConfirmationService } from 'primeng/api';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Importa FormsModule desde '@angular/forms'
 import { CardModule } from 'primeng/card';
 import { TreeSelectModule } from 'primeng/treeselect';
-import { AddEditCompaniaModule } from './add-edit-compania/add-edit-compania.module';
 import { BoleteriaComponent } from './boleteria.component';
 import { DialogModule } from 'primeng/dialog';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -27,7 +26,7 @@ import { DropdownModule } from 'primeng/dropdown';
     HttpClientModule,
     TableModule,
     ButtonModule,
-    AddEditCompaniaModule,
+
     ToastModule,
     ConfirmDialogModule,
     FormsModule, 

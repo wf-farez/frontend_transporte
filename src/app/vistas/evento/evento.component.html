@@ -17,13 +17,10 @@
 
   </div>
 
-
-
-
 <p-table [value]="eventos" 
 styleClass="custom-table p-datatable-gridlines"
 [paginator]="true" 
-[rows]="4" 
+[rows]="10" 
 >  
   <ng-template pTemplate="header">
     <tr>
@@ -35,15 +32,9 @@ styleClass="custom-table p-datatable-gridlines"
   </ng-template>
   <ng-template pTemplate="body" let-evento>
     <tr >
-
-      <!-- <td>{{ evento.idEvento }}</td> -->
         <td>{{ evento.tipoEvento }}</td>
         <td>{{ evento.descripcion}}</td>
         <td>{{ evento.fecha}}</td>
-
-    <td>
-
-    </td>
   </tr>
 
   </ng-template>

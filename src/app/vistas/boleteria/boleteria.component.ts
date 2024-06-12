@@ -8,6 +8,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { BoletoService } from '../../service/boletos.service';
 import { Asiento } from '../../interface/asiento';
 import { Boleto } from '../../interface/boleto';
+import { AsientoService } from '../../service/asientos.service';
 
 @Component({
   selector: 'app-boleteria',
@@ -23,8 +24,10 @@ export class BoleteriaComponent implements OnInit, OnDestroy {
 
   displayDetallesModalAsiento=false;
   displayDetallesModalViaje=false;
+  displayDetallesModalBoletos=false;
 
   viajes: Viaje[] = [];
+
   filteredViajes: Viaje[] = [];
   searchTerm: string = '';
   selectedViaje: any = null;
@@ -34,7 +37,11 @@ export class BoleteriaComponent implements OnInit, OnDestroy {
 
   viajeB: Viaje|any;
   selectedAsientos: Asiento[] = [];
-
+  
+  boletos: Boleto[]=[];
+  selectedFilterB: string = ''; // Preselección del filtro de boleto
+  filteredBoletos: Boleto[] = [];
+  
   boletoForm = this.fb.group({
     idBoleto: [""],
     numeroCedula: ["", Validators.required],
@@ -50,7 +57,7 @@ export class BoleteriaComponent implements OnInit, OnDestroy {
     private viajeService: ViajeService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private asientoService: BoletoService,
+    private asientoService: AsientoService,
     private boletoService: BoletoService
   ) { }
 
@@ -86,6 +93,17 @@ showAddModalAsientos() {
 
 closeModalAsientos() {
   this.displayDetallesModalAsiento= false;
+}
+
+
+showAddModalBoleto() {
+  console.log("asasasas")
+  this.displayDetallesModalBoletos = true;
+  this.obtenerBoletosList();
+}
+
+closeModalBoleto() {
+  this.displayDetallesModalBoletos= false;
 }
 
 
@@ -233,13 +251,12 @@ this.selectedAsientos.forEach(asiento => {
   console.log(nuevoBoleto)
 
       this.boletoService.registrarBoleto(nuevoBoleto).subscribe(
-
         response => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Boleto Registrada' }); 
         
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Boleto Registrada' });
-        
-        
-        },
+      this.actualizarEstadoAsiento(asiento);
+      
+      },
         error => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: error });
           console.log('Error occurred');
@@ -260,17 +277,65 @@ this.selectedAsientos.forEach(asiento => {
 //   );
  }
 
-
 );
 
-this.boletoForm.reset();
-this.selectedViaje=null;
-this.asientos=[];
+//this.boletoForm.reset();
+//this.selectedViaje=[];
+//this.asientos=[];
 
 }
   
 
+actualizarEstadoAsiento(asiento: Asiento){
+// Cambiar el estado del asiento a true
+asiento.estado = true;
+
+// Llamar al servicio para actualizar el asiento en la base de datos
+this.asientoService.actualizarAsiento(asiento).subscribe(
+  response => {
+    console.log("Asiento actualizado:", response);
+    // Puedes agregar lógica adicional aquí si es necesario, como mostrar un mensaje de éxito
+  },
+  error => {
+    console.error("Error al actualizar el asiento:", error);
+    // Puedes manejar el error aquí, como mostrar un mensaje de error
+  }
+);
+
+}
+
   cancelarBoleto(){
     console.log("ingresaaacancelar")
   }
+
+  
+
+ // Filtrar boletos
+ filterByBoleto(event: any) {
+  const value = event?.target?.value.toLowerCase();
+  if (value) {
+    if (this.selectedFilterB === 'numeroCedula') {
+      this.boletos = this.boletos.filter(boleto => boleto.numeroCedula.toLowerCase().includes(value));
+    } else if (this.selectedFilterB === 'asiento') {
+
+      const intValue = parseInt(value, 10); // Convertir el valor a número entero
+      this.boletos = this.boletos.filter(boleto => boleto.asiento?.numeroAsiento.toString().includes(intValue.toString()));
+
+    } else if (this.selectedFilterB === 'viaje') {
+      this.boletos = this.boletos.filter(boleto => boleto.viaje?.codigoViaje.toLowerCase().includes(value));
+
+    } 
+    } else {
+    this.obtenerBoletosList();
+  }
+}
+
+obtenerBoletosList() {
+  this.boletoService.obtenerBoletos().subscribe(response => {
+    this.boletos = response;
+    this.filteredBoletos = [...this.boletos]; 
+  });
+}
+
+
 }

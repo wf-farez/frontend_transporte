@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { Asiento } from '../interface/asiento';
-import { Boleto } from '../interface/boleto';
+
   
 
 
@@ -12,7 +12,7 @@ import { Boleto } from '../interface/boleto';
 @Injectable({
   providedIn: 'root'
 })
-export class BoletoService {
+export class AsientoService {
 
 
   constructor(
@@ -20,15 +20,6 @@ export class BoletoService {
   ) { }
 
 
-  // obtenerParadasRuta(): Observable<ParadaRuta[]>{
-  //   return this.httpClient.get<ParadaRuta[]>(environment.urlApi+"paradasruta");
-  // }
-
-  obtenerBoletos(): Observable<Boleto[]>{
-
-    console.log("xxxx")
-    return this.httpClient.get<Boleto[]>(environment.urlApi+"boletos");
-  }
 
  obtenerAsientosByUnidadId(idAsiento: number): Observable<Asiento[]> {
     const url= `${environment.urlApi}asientos?idAsiento=${idAsiento}`;
@@ -36,13 +27,6 @@ export class BoletoService {
     return this.httpClient.get<Asiento[]>(url);
   }
 
-
-  registrarBoleto(postData: any) {
-      return this.httpClient.post(`${environment.urlApi}boletos`, postData);
-    }
-
-
-  
     actualizarAsiento(postData: any) {
         return this.httpClient.post(`${environment.urlApi}asientos`, postData);
       }

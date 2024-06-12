@@ -13,7 +13,7 @@
     ></p-button> 
 
       <p-button 
-      label="Crear parada" 
+      label="Registrar parada" 
       (click)="showAddModal()"
       ></p-button>
     
@@ -154,7 +154,7 @@
   header="Seleccionar parada"
   [(visible)]="displayBuscarModal"
   [modal]="true"
-  [style]="{ width: '50vw' }"
+  [style]="{ width: '60vw' }"
   [draggable]="false"
   [resizable]="false"
   (onHide)="closeModalBuscar()"
@@ -162,15 +162,16 @@
 
   <div class="flex justify-content-between">
 
-     
     <select [(ngModel)]="selectedFilter">
       <option value="nombreParada">Nombre de Parada</option>
       <option value="direccion">Dirección</option>
     </select>
-    <input type="text" pInputText placeholder="Buscar" (input)="filterBy($event)" />
-    <p-button label="crear parada" (click)="showAddModal()"></p-button>
 
+    <input type="text" pInputText placeholder="Buscar" (input)="filterBy($event)" />
+    <p-button label="Crear parada" (click)="showAddModal()"></p-button>
   </div>
+
+
 
   <p-table [value]="paradas" 
   [paginator]="true" 

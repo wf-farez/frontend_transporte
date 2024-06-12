@@ -11,6 +11,7 @@ export class CompaniaService {
   constructor(
     private httpClient: HttpClient
   ) { }
+  
 obtenerCompanias(): Observable<Compania[]>{
     return this.httpClient.get<Compania[]>(environment.urlApi+"companias");
   }

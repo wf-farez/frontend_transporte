@@ -22,7 +22,7 @@
  <p-table [value]="viajes" 
  styleClass="custom-table p-datatable-gridlines"
  [paginator]="true" 
- [rows]="5" 
+ [rows]="10" 
  >  
     <ng-template pTemplate="header">
       <tr>
@@ -42,7 +42,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-viaje >
-      <tr >
+      <tr [ngClass]="{'progreso-row': viaje.estado, 'inactivo-row': !viaje.estado}">
         <!-- <td>{{ viaje.idViaje }}</td> -->
         <td>{{ viaje.codigoViaje }}</td>
         <td>{{ viaje.ruta?.nombreRuta }}</td> 
@@ -54,7 +54,10 @@
         <td>{{ viaje.unidad?.placa }}</td>
         <td>{{ viaje.conductor ? (viaje.conductor?.nombre + ' ' + viaje.conductor?.apellido) : '' }}</td> 
         <td>{{ viaje.ayudante ? (viaje.ayudante?.nombre + ' ' + viaje.ayudante?.apellido) : '' }}</td> 
-        <td>{{ viaje.estado ? 'Progreso' : 'Inactivo' }}</td>
+        <td [ngClass]="{'progreso-cell': viaje.estado, 'inactivo-cell': !viaje.estado}"
+        
+        >{{ viaje.estado ? 'Progreso' : 'Inactivo' }}</td>
+        
       
         <td>
           <i class="pi pi-pencil" style="font-size: 1rem ; margin-right: 30px; "  (click)="showEditModalV(viaje)"></i>
@@ -80,17 +83,16 @@
   [resizable]="false"
   (onHide)="closeModalAdd()"
 >
-<div class="flex-container">
 
-  <div class="field">
-    <p>Seleccione Ruta:</p>
-    <p-button icon="pi pi-search" label="Buscar" (click)="showAddModalRuta()"  severity="secondary"></p-button>
-  </div>
 
-  <div class="field">
-    <h4>Ruta: {{ selectedRuta?.nombreRuta }}</h4>
-  </div>
-</div>
+
+  <h4>Seleccionar Ruta: <i class="pi pi-search"  severity="info" style="font-size: 1rem; margin-left: 20px;" (click)="showAddModalRuta()">Buscar</i></h4>
+  <p>Ruta: {{ selectedRuta?.nombreRuta }}</p>
+
+
+
+<hr>
+
   <form [formGroup]="viajeForm" class="viaje-form" style="margin-top: 20px">
 
     <div class="flex-container">
@@ -177,6 +179,8 @@
 </div>
       </div>
     </div>
+
+    
   </form>
 
 
@@ -206,15 +210,15 @@
   [resizable]="false"
   (onHide)="closeModalAddRuta()"
 >
-<p> Seleccione Ruta </p>
+
       <div class="flex-container">
 
         <div class="field">
-          <h5>Ruta Seleccionada:</h5>
-          <h5>{{ selectedRuta?.nombreRuta }}</h5>
+          <p>Ruta Seleccionada:
+          {{ selectedRuta?.nombreRuta }}</p>
         </div>
       
-        <div class="field" >
+        <div class="field" style="margin-top: 20px" >
           <p-button
           (click)="closeModalAddRuta()"
           label="Aceptar"
@@ -223,6 +227,7 @@
           ></p-button>
           </div>
       </div>
+
       <div class="flex justify-content-between">
           <div class="flex justify-content-between">
             <select [(ngModel)]="selectedFilter">
@@ -240,7 +245,9 @@
   </div>
 
   <p-table [value]="rutas" 
-  styleClass="custom-table p-datatable-gridlines"
+  styleClass="custom-table"
+  [paginator]="true" 
+  [rows]="5" 
   >  
     <ng-template pTemplate="header">
     <tr>
@@ -249,7 +256,7 @@
       <th>RUTA</th>
       <th>ORIGEN</th>
       <th>DESTINO</th>
-      <!-- <th>OPCIONES</th> -->
+      <th>Seleccion</th>
       <!-- <th>PARADAS</th> -->
     </tr>
   </ng-template>
@@ -261,10 +268,9 @@
     <td>{{ ruta.origenRuta }}</td>
     <td>{{ ruta.destinoRuta}}</td>
   <td>
-      <p-button
-          (click)="seleccionarRuta(ruta)"
-          icon="pi pi-check"
-        ></p-button>
+     
+        <i class="pi pi-check" style="font-size: 1rem ; margin-right: 50px; " (click)="seleccionarRuta(ruta)" ></i>
+
     </td>
   </tr>
   </ng-template>
@@ -285,48 +291,28 @@
   (onHide)="closeModalEdit()"
 >
 
-<h5 *ngIf="selectedViaje">Código de viaje: {{ selectedViaje.codigoViaje }}</h5>
-<h5 *ngIf="selectedViaje">Fecha: {{ selectedViaje.fecha  | date: 'yyyy-MM-dd'}}      
+<p *ngIf="selectedViaje">Código de viaje: {{ selectedViaje.codigoViaje }} <br>
+<p *ngIf="selectedViaje">Fecha: {{ selectedViaje.fecha  | date: 'yyyy-MM-dd'}}      
  Hora Inicio: {{ selectedViaje.horaInicio | date: 'HH:mm' }} 
-Hora Fin: {{ selectedViaje.horaFin | date: 'HH:mm'}}</h5>
+Hora Fin: {{ selectedViaje.horaFin | date: 'HH:mm'}}</p>
 
 <hr>
 
-<h3>Seleccione Conductor:</h3>
-<div class="flex-container">
-  <div class="field">
-    <p-button icon="pi pi-search" label="Buscar" (click)="showAddModalConductor(selectedViaje)"  severity="secondary"></p-button>
-  </div>
-  <div class="field">
-    <h5>Cedula: {{ selectedEmpleadoC?.cedula }}</h5>
-    <h5> Nombre: {{ selectedEmpleadoC?.nombre }} {{ selectedEmpleadoC?.apellido }}</h5>
-  </div>
-</div>
+<h4>Seleccionar Conductor: <i class="pi pi-search"  severity="info" style="font-size: 1rem; margin-left: 20px;" (click)="showAddModalConductor(selectedViaje)" >Buscar</i></h4>
+  <p>Cedula: {{ selectedEmpleadoC?.cedula }} <br>
+     Nombre: {{ selectedEmpleadoC?.nombre }} {{ selectedEmpleadoC?.apellido }}</p>
+   
+<h4>Seleccionar Ayudante <i class="pi pi-search"  severity="info" style="font-size: 1rem; margin-left: 20px;" (click)="showAddModalAyudante(selectedViaje)" >Buscar</i></h4>
+     <p>Cedula: {{ selectedEmpleadoA?.cedula }} <br>
+        Nombre: {{ selectedEmpleadoA?.nombre }} {{ selectedEmpleadoA?.apellido }}</p>
+    
 
 
+  <h4>Seleccionar Unidad <i class="pi pi-search"  severity="info" style="font-size: 1rem; margin-left: 20px;" (click)="showAddModalUnidad(selectedViaje)" >Buscar</i></h4>
+    <p>Codigo Unidad: {{ selectedUnidad?.codigoUnidad}} <br>
+     Placa:         {{ selectedUnidad?.placa }} <br>
+    Cantidad Asientos:         {{ selectedUnidad?.cantidadAsientos }}</p>
 
-<h3>Seleccione Ayudante:</h3>
-<div class="flex-container">
-  <div class="field">
-    <p-button icon="pi pi-search" label="Buscar" (click)="showAddModalAyudante(selectedViaje)"  severity="secondary"></p-button>
-  </div>
-  <div class="field">
-    <h5>Cedula: {{ selectedEmpleadoA?.cedula }}</h5>
-    <h5> Nombre: {{ selectedEmpleadoA?.nombre }} {{ selectedEmpleadoA?.apellido }}</h5>
-  </div>
-</div>
-
-<h3>Seleccione Unidad:</h3>
-<div class="flex-container">
-  <div class="field">
-    <p-button icon="pi pi-search" label="Buscar" (click)="showAddModalUnidad(selectedViaje)"  severity="secondary"></p-button>
-  </div>
-  <div class="field">
-    <h5>Codigo Unidad: {{ selectedUnidad?.codigoUnidad}}</h5>
-    <h5> Placa:         {{ selectedUnidad?.placa }}</h5>
-    <h5>Cantidad Asientos:         {{ selectedUnidad?.cantidadAsientos }}</h5>
-  </div>
-</div>
  
 
 <ng-template pTemplate="footer">
@@ -356,11 +342,11 @@ Hora Fin: {{ selectedViaje.horaFin | date: 'HH:mm'}}</h5>
 > 
 <div class="flex-container">
   <div class="field">
-    <h5>Cedula: {{ selectedEmpleadoC?.cedula}}</h5>
-    <h5>Nombre: {{ selectedEmpleadoC?.nombre }} {{ selectedEmpleadoC?.apellido }}</h5>
+    <p>Cedula: {{ selectedEmpleadoC?.cedula}} <br>
+    Nombre: {{ selectedEmpleadoC?.nombre }} {{ selectedEmpleadoC?.apellido }}</p>
   </div>
 
-  <div class="field" >
+  <div class="field" style="margin-top: 20px">
     <p-button
     (click)="closeModalConductor()"
     label="Aceptar"
@@ -370,7 +356,7 @@ Hora Fin: {{ selectedViaje.horaFin | date: 'HH:mm'}}</h5>
     </div>
 </div>
 
-<p style=" margin-top: 50px"  > Seleccione Conductor </p>
+<p style=" margin-top: 20px"  > Seleccione Conductor </p>
       <div class="flex justify-content-between">
           <div class="flex justify-content-between">
           <select [(ngModel)]="selectedFilter">
@@ -392,7 +378,8 @@ Hora Fin: {{ selectedViaje.horaFin | date: 'HH:mm'}}</h5>
       <th>CEDULA</th>
       <th>NOMBRES</th>
       <th>APELLIDOS</th>
-      <!-- <th>TIPO</th> -->
+      <th>TIPO</th> 
+      <th>Seleccion</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-empleado >
@@ -403,10 +390,9 @@ Hora Fin: {{ selectedViaje.horaFin | date: 'HH:mm'}}</h5>
       <td>{{ empleado.apellido }}</td>
       <td>{{ empleado.tipo}}</td> 
     <td>
-      <p-button
-          (click)="seleccionarConductor(empleado)"
-          icon="pi pi-check"
-        ></p-button>
+  
+        <i class="pi pi-check" style="font-size: 1rem ; margin-right: 50px; " (click)="seleccionarConductor(empleado)" ></i>
+
     </td>
   </tr>
   </ng-template>
@@ -425,12 +411,12 @@ Hora Fin: {{ selectedViaje.horaFin | date: 'HH:mm'}}</h5>
 >
 <div class="flex-container">
   <div class="field">
-    <h5>Cedula: {{ selectedEmpleadoA?.cedula}}</h5>
-    <h5>Nombre: {{ selectedEmpleadoA?.nombre }}{{ selectedEmpleadoA?.apellido }}
-    </h5>
+    <p>Cedula: {{ selectedEmpleadoA?.cedula}} <br>
+   Nombre: {{ selectedEmpleadoA?.nombre }}{{ selectedEmpleadoA?.apellido }}
+    </p>
   </div>
 
-  <div class="field" >
+  <div class="field"style="margin-top: 20px" >
     <p-button
     (click)="closeModalAyudante()"
     label="Aceptar"
@@ -440,7 +426,7 @@ Hora Fin: {{ selectedViaje.horaFin | date: 'HH:mm'}}</h5>
     </div>
 </div>
 
-<p style=" margin-top: 10px"  > Seleccione Ayudante </p>
+<p style=" margin-top: 20px"  > Seleccione Ayudante </p>
   <div class="flex justify-content-between">
       <div class="flex justify-content-between">
       <select [(ngModel)]="selectedFilter">
@@ -463,7 +449,8 @@ styleClass="custom-table p-datatable-gridlines"
   <th>CEDULA</th>
   <th>NOMBRES</th>
   <th>APELLIDOS</th>
-  <!-- <th>TIPO</th> -->
+  <th>TIPO</th> 
+  <th>Seleccion</th>
 </tr>
 </ng-template>
 <ng-template pTemplate="body" let-empleado >
@@ -474,10 +461,9 @@ styleClass="custom-table p-datatable-gridlines"
   <td>{{ empleado.apellido }}</td>
    <td>{{ empleado.tipo}}</td> 
 <td>
-  <p-button
-      (click)="seleccionarAyudante(empleado)"
-      icon="pi pi-check"
-    ></p-button>
+
+    <i class="pi pi-check" style="font-size: 1rem ; margin-right: 50px; " (click)="seleccionarAyudante(empleado)" ></i>
+
 </td>
 </tr>
 </ng-template>
@@ -500,12 +486,12 @@ styleClass="custom-table p-datatable-gridlines"
   <div class="flex-container">
 
     <div class="field">
-      <h5 >Codigo Unidad: {{ selectedUnidad?.codigoUnidad}}</h5>
-      <h5> Placa:         {{ selectedUnidad?.placa }}</h5>
-      <h5>Cantidad Asientos:{{ selectedUnidad?.cantidadAsientos }}</h5>
+      <p >Codigo Unidad: {{ selectedUnidad?.codigoUnidad}} <br>
+      Placa:         {{ selectedUnidad?.placa }} <br>
+      Cantidad Asientos:{{ selectedUnidad?.cantidadAsientos }}</p>
     </div>
 
-    <div class="field" >
+    <div class="field" style="margin-top: 20px">
       <p-button 
       (click)="closeModalUnidad()"
       label="Aceptar"
@@ -516,7 +502,7 @@ styleClass="custom-table p-datatable-gridlines"
       </div>
   </div>
 
-<p style=" margin-top: 10px"  > Seleccione Unidad </p>
+<p style=" margin-top: 20px"  > Seleccione Unidad </p>
 
       <div class="flex justify-content-between">
           <div class="flex justify-content-between">
@@ -539,6 +525,7 @@ styleClass="custom-table p-datatable-gridlines"
       <th>PLACA</th>
       <th>CANTIDAD ASIENTOS</th>
       <th>ESTADO</th>
+      <th>Seleccion</th>
     </tr>
 
   </ng-template>
@@ -550,10 +537,9 @@ styleClass="custom-table p-datatable-gridlines"
       <td>{{ unidad.cantidadAsientos }}</td>
       <td>{{ unidad.estado}}</td>
       <td>
-        <p-button
-            (click)="seleccionarUnidad(unidad)"
-            icon="pi pi-check"
-          ></p-button>
+    
+          <i class="pi pi-check" style="font-size: 1rem ; margin-right: 50px; " (click)="seleccionarUnidad(unidad)"></i>
+
       </td>
   </tr>
 

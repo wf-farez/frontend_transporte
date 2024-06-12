@@ -9,13 +9,15 @@
   (onHide)="closeModal()"
 >
   <form [formGroup]="rutaForm" class="ruta-form">
-    <p>Seleccionar Compania</p>
+    <!-- <p>Seleccionar Compania</p>
     <div>
       <p-button icon="pi pi-search" label="Buscar Compania" (click)="showAddModalCompania()" severity="info"></p-button>
-    </div>
+    </div> -->
 
-    <p>Nombre: {{ selectedCompania?.nombreCompania}} </p>
-    <p> Direccion: {{ selectedCompania?.direccion }}</p>
+    <h4>Seleccionar Compania: <i class="pi pi-search"  severity="info" style="font-size: 1rem; margin-left: 20px;" (click)="showAddModalCompania()">Buscar</i></h4>
+        
+    <p>Nombre: {{ selectedCompania?.nombreCompania}} <br>
+    Direccion: {{ selectedCompania?.direccion }}</p>
 <hr>
     <div class="field">
       <label class="block" for="nombreRuta">Nombre de ruta</label>
@@ -86,22 +88,32 @@
   [resizable]="false"
   (onHide)="closeModalCompania()"
 >
-<div>
-  <p>
-    Nombre: {{ selectedCompania?.nombreCompania}}
-  </p>
-  <p>
-    Direccion: {{ selectedCompania?.direccion }}
-  </p>
-  <p-button
-  (click)="closeModalCompania()"
-  label="Aceptar"
-  class="p-button-success"
-  severity="success"
-  ></p-button>
-  </div>
+
+
+
+  <div class="flex-container">
+
+    <div   class="field">
+    
+      <p>
+        Nombre: {{ selectedCompania?.nombreCompania}} <br>
+        Direccion: {{ selectedCompania?.direccion }}
+      </p>
+    
+        </div>
+     <div class="field"  style=" margin-top:20px">
+      <p-button
+      (click)="closeModalCompania()"
+      label="Aceptar"
+      class="p-button-success"
+      severity="success"
+      ></p-button>
+      </div>
+    
+    </div>
+
   <hr>
-<p style=" margin-top: 90px"  > Seleccione Compania </p>
+<p style=" margin-top: 20px"  > Seleccione Compania </p>
       <div class="flex justify-content-between">
           <div class="flex justify-content-between">
           <select [(ngModel)]="selectedFilter">
@@ -120,6 +132,7 @@
        <tr>
          <th>NOMBRE</th>
          <th>DIRECCION</th>
+         <th>Seleccion</th>
        </tr>
      </ng-template>
      <ng-template pTemplate="body" let-compania >
@@ -127,10 +140,9 @@
          <td>{{ compania.nombreCompania }}</td>
          <td>{{ compania.direccion}}</td>
          <td>
-          <p-button
-              (click)="seleccionarCompania(compania)"
-              icon="pi pi-check"
-            ></p-button>
+
+        
+            <i class="pi pi-check" style="font-size: 1rem ; margin-right: 50px; " (click)="seleccionarCompania(compania)" ></i>
         </td>
      </tr>
      </ng-template>

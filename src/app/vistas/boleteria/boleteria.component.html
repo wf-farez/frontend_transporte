@@ -1,76 +1,16 @@
-<!-- <h2>Gestion de Companias</h2>
-        <div class="flex justify-content-between">
-          
-            <div class="flex justify-content-between">
-
-            <select [(ngModel)]="selectedFilter">
-                <option value="nombreCompania">Nombre</option>
-                <option value="direccion">Direccion</option>
-            </select>
-
-            <input type="text" pInputText placeholder="Search " (input)="filterBy($event)" />
-          
-        </div>
-        
-        <div class="flex justify-content-between">
-            <p-button label="Registrar Compania" (click)="showAddModal()"></p-button>
-        </div>
-
-    </div>
 
 
- <p-table [value]="companias"
- styleClass="custom-table p-datatable-gridlines"
- [paginator]="true" 
- [rows]="4" 
-  >  
-    <ng-template pTemplate="header">
-      <tr>
+  
+  <h2>Venta de Boletos</h2>
 
-        <th>NOMBRE</th>
-        <th>DIRECCION</th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-compania >
-      <tr >
-        <td>{{ compania.nombreCompania }}</td>
-        <td>{{ compania.direccion}}</td>
-      <td>
-        <i class="pi pi-pencil" style="font-size: 1rem ; margin-right: 30px; "  (click)="showEditModal(compania)"></i>
-        <i class="pi pi-trash" style="font-size: 1rem; "  (click)="eliminarCompania(compania)"></i>
-      </td>
-    </tr>
-
-    </ng-template>
-
-  </p-table>
-
-<app-add-edit-compania
-[displayAddEditModal]="displayAddEditModal"
-[selectedCompania]="selectedCompania"
-(clickClose)="hideAddModal($event)"
-(clickAddEdit)="saveorUpdateCompaniaList($event)"
-></app-add-edit-compania>
-
-<p-confirmDialog header="Delete"></p-confirmDialog>
-
-<p-toast position="bottom-right"></p-toast>  
- -->
-
-
-
-
- <p-card> Venta de Boletos
+ 
+ <p-card>
 
   <div class="button-container">
-   
-    <p-button label="Gestion de boletos" ></p-button>
+    <p-button label="Consulta de boletos"(click)="showAddModalBoleto()" severity="info" ></p-button>
   </div>
 
- </p-card>
 
-
- <p-card>
     <form [formGroup]="boletoForm" class="boleto-form">
 
       <div class="flex-container">
@@ -239,26 +179,34 @@ severity="success"
   [resizable]="false"
   (onHide)="closeModalViaje()"
 >
-<div>
-  <p class="inline-info">
-    Ruta: {{ selectedViaje?.ruta.nombreRuta }}<br>
-    Fecha: {{ selectedViaje?.fecha | date: 'dd/MM/yyyy'}}<br>
-    Hora de inicio: {{ selectedViaje?.horaInicio| date: 'HH:mm:ss' }}<br>
-    Hora de fin: {{ selectedViaje?.horaFin | date: 'HH:mm:ss'}}<br>
-    Unidad : {{ selectedViaje?.unidad.codigoUnidad}}
-  </p>
 
-  <p-button
-  (click)="closeModalViaje()"
-  label="Aceptar"
-  class="p-button-success"
-  severity="success"
-  ></p-button>
+<div class="flex-container">
+
+<div   class="field">
+
+      <p class="inline-info">
+        Ruta: {{ selectedViaje?.ruta.nombreRuta }}<br>
+        Fecha: {{ selectedViaje?.fecha | date: 'dd/MM/yyyy'}}<br>
+        Hora de inicio: {{ selectedViaje?.horaInicio| date: 'HH:mm:ss' }}<br>
+        Hora de fin: {{ selectedViaje?.horaFin | date: 'HH:mm:ss'}}<br>
+        Unidad : {{ selectedViaje?.unidad.codigoUnidad}}
+      </p>
+    </div>
+ <div class="field"  style=" margin-top: 50px">
+      <p-button
+      (click)="closeModalViaje()"
+      label="Aceptar"
+      class="p-button-success"
+      severity="success"
+      ></p-button>
   </div>
+
+</div>
+
   <hr>
 
 
-<p style=" margin-top: 90px"  > Seleccione Viaje </p>
+<p style=" margin-top: 10px"  > Seleccione Viaje </p>
       <div class="flex justify-content-between">
           <div class="flex justify-content-between">
           <select [(ngModel)]="selectedFilter">
@@ -290,6 +238,7 @@ severity="success"
           <th>HORA INICIO</th>
           <th>HORA FIN</th>
           <th>Unidad</th>
+          <th>Seleccion</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-viaje >
@@ -300,12 +249,8 @@ severity="success"
           <td>{{ viaje.horaInicio | date: 'HH:mm:ss' }}</td>  
           <td>{{ viaje.horaFin | date: 'HH:mm:ss' }}</td> 
           <td>{{ viaje.unidad?.codigoUnidad }}</td> 
-
           <td>
-            <p-button
-                (click)="seleccionarViaje(viaje)"
-                icon="pi pi-check"
-              ></p-button>
+            <i class="pi pi-check" style="font-size: 1rem ; margin-right: 50px; " (click)="seleccionarViaje(viaje)" ></i>
           </td>
 
      
@@ -316,3 +261,73 @@ severity="success"
     </p-table>
 
 </p-dialog> 
+
+
+
+
+
+
+
+
+<!-- //consulta de boletos -->
+
+<p-dialog
+  header="Buscar Boletos"
+  [(visible)]="displayDetallesModalBoletos"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  (onHide)="closeModalBoleto()"
+>
+<div>
+
+        <div class="flex justify-content-between">
+          
+            <div class="flex justify-content-between">
+
+            <select [(ngModel)]="selectedFilterB">
+
+                <option value="numeroCedula">Numero de Cedula</option>
+                <option value="asiento">Asiento</option>
+                <option value="viaje">Viaje</option>
+                <option value="unidad">Unidad</option>
+              </select>
+
+            <input type="text" pInputText placeholder="Search " (input)="filterByBoleto($event)" />
+          
+        </div>
+        
+    </div>
+
+
+ <p-table [value]="boletos"
+ styleClass="custom-table p-datatable-gridlines"
+ [paginator]="true" 
+ [rows]="4" 
+  >  
+    <ng-template pTemplate="header">
+      <tr>
+
+        <th>NUMERO DE CEDULA</th>
+        <th>ASIENTO</th>
+        <th>VIAJE</th>
+        <th>UNIDAD</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-boleto >
+      <tr >
+        <td>{{ boleto.numeroCedula }}</td>
+        <td>{{ boleto.asiento.numeroAsiento}}</td>
+        <td>{{ boleto.viaje.codigoViaje}}</td>
+        <td>{{ boleto.viaje.unidad.codigoUnidad}}</td>
+    </tr>
+
+    </ng-template>
+
+  </p-table>
+
+</div>
+</p-dialog> 
+
+

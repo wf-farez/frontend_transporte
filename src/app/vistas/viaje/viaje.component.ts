@@ -124,13 +124,21 @@ export class ViajeComponent implements OnInit, OnDestroy {
   applyDefaultFilter() {
     this.filterBy({ target: { value: '' } });
   }
+  // // Obtener lista de viajes
+  // obtenerViajesList() {
+  //   this.viajeService.obtenerViajes().subscribe(response => {
+  //     this.viajes = response;
+  //     this.filteredViajes = [...this.viajes]; 
+  //   });
+  // }
+
   // Obtener lista de viajes
-  obtenerViajesList() {
-    this.viajeService.obtenerViajes().subscribe(response => {
-      this.viajes = response;
-      this.filteredViajes = [...this.viajes]; 
-    });
-  }
+obtenerViajesList() {
+  this.viajeService.obtenerViajes().subscribe(response => {
+    this.viajes = response.sort((a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime());
+    this.filteredViajes = [...this.viajes];
+  });
+}
 
 
 //---------------------------------------------------------------
@@ -389,10 +397,32 @@ editarViaje() {
         this.viajes = this.viajes.filter(viaje => (viaje.conductor?.nombre.toLowerCase() + ' ' + viaje.conductor?.apellido.toLowerCase()).includes(value));
       } else if (this.selectedFilter === 'ayudante') {
         this.viajes = this.viajes.filter(viaje => (viaje.ayudante?.nombre.toLowerCase() + ' ' + viaje.ayudante?.apellido.toLowerCase()).includes(value));
-      } else if (this.selectedFilter === 'estado') {
-        const estado = value.toLowerCase() === 'progreso' ? true : (value.toLowerCase() === 'inactivo' ? false : null);
-        this.viajes = this.viajes.filter(viaje => viaje.estado === estado);
+      } 
+      // else if (this.selectedFilter === 'estado') {
+      //   const estado = value === "progreso" ? true : (value === "inactivo"? false : null);
+      //   console.log("ad1:",estado)
+      //   if (estado !== null) {
+      //     this.viajes = this.viajes.filter(viaje => viaje.estado === estado);
+      //   } else {
+      //     // Si el valor de estado no es 'progreso' o 'inactivo', no hacer ningún filtro adicional
+      //     //this.viajes = [];
+      //     console.log("adada")
+      //   }
+      
+      else if (this.selectedFilter === 'estado') {
+        if (value === 'progreso') {
+          this.viajes = this.viajes.filter(viaje => viaje.estado === true);
+        } else if (value === 'inactivo') {
+          this.viajes = this.viajes.filter(viaje => viaje.estado === false);
+        } else {
+          // Si no se ingresa ni "progreso" ni "inactivo", mostrar todos los viajes
+          this.obtenerViajesList();
+        }
+      // else if (this.selectedFilter === 'estado') {
+      //   const estado = value.toLowerCase() === 'progreso' ? true : (value.toLowerCase() === 'inactivo' ? false : null);
+      //   this.viajes = this.viajes.filter(viaje => viaje.estado === estado);
       }
+
       } else {
       this.obtenerViajesList();
     }

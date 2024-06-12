@@ -40,6 +40,8 @@ export class ComunicadoComponent implements OnInit, OnDestroy {
     this.comunicadoService.obtenerComunicados().subscribe(
       response => {
         this.comunicados = response;
+        
+
         this.filteredComunicadoes = [...this.comunicados]; // Copia las Comunicados al array filtrado inicialmente
       }
     )

@@ -1,3 +1,25 @@
 .ruta-form .field {
     width: 100%;
   }
+
+  
+.flex-container {
+  display: flex;
+
+  gap: 0.5rem;
+}
+
+.field {
+  flex:1;
+}
+
+.short-input {
+  width: 50px;
+}
+
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+

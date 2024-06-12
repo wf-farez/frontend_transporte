@@ -44,3 +44,10 @@
   margin: 0 !important;
 }
 
+.progreso-row {
+  background-color: #d4edda; /* Verde claro */
+}
+
+/* .inactivo-row {
+  background-color: #f8d7da; 
+} */
